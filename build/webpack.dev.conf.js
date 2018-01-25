@@ -1,11 +1,19 @@
 'use strict'
 const utils = require('./utils')
 const webpack = require('webpack')
-const config = require('../config')
-const merge = require('webpack-merge')
+const config = require('../config')//基本配置参数
+const merge = require('webpack-merge')//用于合并webpack的配置文件 ！1
 const path = require('path')
-const baseWebpackConfig = require('./webpack.base.conf')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const baseWebpackConfig = require('./webpack.base.conf') //webpack基本配置文件（开发时都用用的到）
+
+const CopyWebpackPlugin = require('copy-webpack-plugin') //
+
+/**
+ * [HtmlWebpackPlugin description]
+ * @type {[type]}
+ * 这个插件的作用是依据一个简单的模板，帮你生成最终的Html5文件，
+ * 这个文件中自动引用了你打包后的JS文件。每次编译都在文件名中插入一个不同的哈希值
+ */
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
