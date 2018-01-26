@@ -1,15 +1,16 @@
+//check-versions.js  完成对node和npm的版本检测
 'use strict'
-const chalk = require('chalk')
-const semver = require('semver')
-const packageConfig = require('../package.json')
-const shell = require('shelljs')
+const chalk = require('chalk')// chalk, 用于在控制台输出带颜色字体的插件
+const semver = require('semver')// semver, 语义化版本检查插件（The semantic version parser used by npm）
+const packageConfig = require('../package.json')// shelljs, 执行Unix命令行的插件
+const shell = require('shelljs')// shelljs, 执行Unix命令行的插件
 
-function exec (cmd) {
+function exec (cmd) {// 开辟子进程执行指令cmd并返回结果
   return require('child_process').execSync(cmd).toString().trim()
 }
 
-const versionRequirements = [
-  {
+const versionRequirements = [// node和npm版本需求
+  {    
     name: 'node',
     currentVersion: semver.clean(process.version),
     versionRequirement: packageConfig.engines.node
@@ -26,7 +27,7 @@ if (shell.which('npm')) {
 
 module.exports = function () {
   const warnings = []
-
+  // 依次判断版本是否符合要求
   for (let i = 0; i < versionRequirements.length; i++) {
     const mod = versionRequirements[i]
 
@@ -37,7 +38,7 @@ module.exports = function () {
       )
     }
   }
-
+  //如果有警告则将其输出到控制台
   if (warnings.length) {
     console.log('')
     console.log(chalk.yellow('To use this template, you must update following to modules:'))

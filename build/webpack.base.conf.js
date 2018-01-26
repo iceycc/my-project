@@ -1,3 +1,7 @@
+// 基础配置文件 webpack.base.conf.js  
+//1-定义了入口出口  
+//2-处理vue，babel等的模块，是最基础的部分
+//3-其他模式的配置文件以此为基础通过webpack-merge合并
 'use strict'
 //node核心模块path
 const path = require('path')
@@ -11,6 +15,7 @@ const vueLoaderConfig = require('./vue-loader.conf')
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
+
 //
 const createLintingRule = () => ({
   test: /\.(js|vue)$/,
@@ -22,22 +27,23 @@ const createLintingRule = () => ({
     emitWarning: !config.dev.showEslintErrorsInOverlay
   }
 })
+
 //
-module.exports = {
-  //基础目录
-  context: path.resolve(__dirname, '../'),
-  //入口文件
-  entry: {
-    app: './src/main.js'
+module.exports = {  
+  context: path.resolve(__dirname, '../'),//基础目录
+
+  entry: {//入口
+    app: './src/main.js' //入口文件
   },
-  // 出口
-  output: {
+  
+  output: {// 出口
     path: config.build.assetsRoot,//输出文件 默认‘../dist’
     filename: '[name].js',//输出文件名
     publicPath: process.env.NODE_ENV === 'production'
       ? config.build.assetsPublicPath//生产环境publicpath
       : config.dev.assetsPublicPath//开发模式 publicpath
   },
+
   resolve: {
     extensions: ['.js', '.vue', '.json'],//解析确定的拓展名
     alias: {//创建别名
@@ -45,6 +51,7 @@ module.exports = {
       '@': resolve('src'),//如 '@/components/HelloWorld'
     }
   },
+
   module: {//模块相关配置  包括loader,plugin 等
     rules: [
       ...(config.dev.useEslint ? [createLintingRule()] : []),
@@ -84,6 +91,7 @@ module.exports = {
       }
     ]
   },
+
   node: { // 是否 polyfill 或 mock   解决兼容性 和 接口测试
     // prevent webpack from injecting useless setImmediate polyfill because Vue
     // source contains it (although only uses it if it's native).
