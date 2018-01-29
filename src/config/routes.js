@@ -1,10 +1,10 @@
 // 路由配置
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/index.vue'
-import Login from '@/components/Main/Login'
 import Text from '@/components/Commons/header'
-import WriteBaseInfo from '@/components/ApplyJoin/WriteBaseInfo'
+import HelloWorld from '@/components/index.vue'
+import Login from '@/pages/Main/Login'
+import WriteBaseInfo from '@/pages/ApplyJoin/WriteBaseInfo'
 
 Vue.use(Router)
 

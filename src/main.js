@@ -34,9 +34,9 @@ Vue.component(BcLfBar.name, BcLfBar)
 Vue.prototype.$axios = Axios
 // 设置基础的URL请求路径
 Axios.defaults.baseURL = ''
-Axios.default.open({
-  
-})
+// Axios.default.open({
+
+// })
 
 /* eslint-disable no-new */
 new Vue({
