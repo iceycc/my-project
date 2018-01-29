@@ -16,17 +16,17 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-//
-const createLintingRule = () => ({
-  test: /\.(js|vue)$/,
-  loader: 'eslint-loader',
-  enforce: 'pre',
-  include: [resolve('src'), resolve('test')],
-  options: {
-    formatter: require('eslint-friendly-formatter'),
-    emitWarning: !config.dev.showEslintErrorsInOverlay
-  }
-})
+// eslint代码检测工具
+// const createLintingRule = () => ({
+//   test: /\.(js|vue)$/,
+//   loader: 'eslint-loader',
+//   enforce: 'pre',
+//   include: [resolve('src'), resolve('test')],
+//   options: {
+//     formatter: require('eslint-friendly-formatter'),
+//     emitWarning: !config.dev.showEslintErrorsInOverlay
+//   }
+// })
 
 //
 module.exports = {  
@@ -54,7 +54,7 @@ module.exports = {
 
   module: {//模块相关配置  包括loader,plugin 等
     rules: [
-      ...(config.dev.useEslint ? [createLintingRule()] : []),
+      // ...(config.dev.useEslint ? [createLintingRule()] : []),// TODO:eslint关闭
       {
         test: /\.vue$/,//vue要在bable之前 
         loader: 'vue-loader',//vue转普通的html
