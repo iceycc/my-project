@@ -6,11 +6,12 @@
           <i></i>
           欢迎加入优装美家，填写并添加资料，即可申请入住平台
         </div>
-          <h3></h3>
+          <h3>{{step}}</h3>
           <p>1、填写基础信息</p>
           <p>2、填写资质信息</p>
-          <el-button type="primary">申请入住</el-button>
+          <el-button type="primary" class="aj-top-btn">申请入住</el-button>
       </div>
+      <!-- TODO: -->
   </div>
   </div>
   
@@ -19,7 +20,9 @@
 export default {
   name: "apply-join",
   data() {
-    return {};
+    return {
+      step:"两步完成商户入驻"
+    };
   },
   methods: {}
 };
@@ -35,7 +38,27 @@ export default {
   background: #fff;
   text-align: center;
 }
+.aj-top h3{
+  font-weight: bold;
+  font-size:20px;
+  margin-bottom:30px;
+}
+.aj-top p{
+  height: 40px;
+  line-height:40px;
+}
+.aj-top .aj-top-btn{
+  width: 200px !important;
+  margin-top:20px;
+  margin-bottom:50px;  
+} 
 .aj-top-info{
   text-align: left;
+}
+.aj-top-info{
+  padding-top:30px;
+  padding-left:20px;
+  margin-bottom: 50px;
+  
 }
 </style>
