@@ -1,4 +1,4 @@
-// 配置API接口地址
+// 配置axios接口地址
 var root = ''
 // 引用axios
 var axios = require('axios')
