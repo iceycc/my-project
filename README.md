@@ -31,3 +31,38 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 
 ## src目录结构
+    assets 静态文件
+        img
+        css
+    components  vue组件
+    pages 项目页面
+        Main 主站
+             Login  申请
+        BusinessCenter
+            ApplyJoin  申请入驻
+                ApplyInfo 申请提示
+                BaseInfo 基础信息
+                Detailnfo 资质信息
+                ApplySuccess 申请成功
+            Index  首页（已/待审核状态）
+                OrderDetail 订单详情
+            Notice 通知 
+                NoticeDetail 通知详情
+            OrderManagement  订单管理
+                OrderDetail  订单详情
+            AccountCenter   账户中心
+                Account 账户
+                Recharge 充值
+                Bill  账单
+            Setting  设置
+                Undertake  承接管理
+                AlterUndertake 修改承接信息
+                AccountData 账户资料
+                Safe 安全中心
+                    BindingWx  绑定微信
+                    ScanCode  扫描二维码
+                    ModifyPassword  修改密码
+            Opinions 意见
+
+
+

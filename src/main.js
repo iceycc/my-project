@@ -2,16 +2,13 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'// 入口文件
-import router from './config/routes' // 引入路由配置文件  里面是index 默认可以省略
+import router from './router/routers' // 引入路由配置文件  里面是index 默认可以省略
 import Axios from 'axios' // 引入 axios 出来ajax
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import api from './config/api' // 引入api  用于封装自己的小函数
 import BcHeader from './components/Commons/Header.vue'
 import BcLfBar from './components/Commons/LeftBar.vue'
 import './assets/css/global.css'
-
-Vue.prototype.$api = api
 
 // 启用第三方插件
 Vue.use(ElementUI)
@@ -20,6 +17,7 @@ Vue.use(ElementUI)
 Vue.config.productionTip = false
 
 // 注册全局过滤器  开始
+
 // 注册全局过滤器 结束
 
 // 注册全局组件 开始
