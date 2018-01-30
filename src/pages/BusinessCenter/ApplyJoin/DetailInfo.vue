@@ -1,12 +1,12 @@
 <template>
-  <div>
-        <h1>申请成功</h1>
-  </div>
+    <div>
+        <h1>填写资质信息</h1>
+    </div>
 </template>
-
 <script>
+name;
 export default {
-  name: "apply-success",
+  name:'detail-info',
   data() {
     return {};
   }
