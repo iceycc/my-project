@@ -5,6 +5,7 @@ body,h1,h2,h3,h4,h5,h6,form,input,p,ul,ol,li,dl,dt,dd{
 body{
 	font: 14px 'microsoft yahei';
 	color: #333;
+	background: #eee;
 }
 html,body{
     height: 100%;

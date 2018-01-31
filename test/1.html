@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <p v-for='(data,key,index) in datas' v-on:click="addClassFun(index)" v-bind:class='{class1:index==qwerqwre}'>{{data.data}}</p>
+  </div>
+
+  <script>  
+    new Vue({
+      el: '#app',
+      data: {
+        datas: {
+          data1: {
+            data: "测试1",
+            ifAdd: 0
+          },
+          data2: {
+            data: "测试2",
+            ifAdd: 1
+          },
+          data3: {
+            data: "测试3",
+            ifAdd: 2
+          }
+        },
+        qwerqwre: "0"
+      },
+
+
+      methods: {
+        addClassFun: function (index) {
+          this.qwerqwre = index;
+        }
+      }
+    })  
+  </script>
+</body>
+
+</html>

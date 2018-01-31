@@ -20,7 +20,7 @@ export default new Router({
   routes: [
     {// 重定向
       path: '/',
-      redirect: {name: 'login'},
+      redirect: {name: 'apply.info'},
       mate:{}
     },
     {// 登陆
@@ -34,15 +34,20 @@ export default new Router({
     //   component: Text1
     // },
     {// 申请入住
-      name: 'applly',
-      path: '/applly',
+      name: 'apply',
+      path: '/apply',
       component: Apply,
       children:[
-        {name:'apply.baseinof',path:'baseinfo',component:ApplyInfo},
-        {name:'apply.baseinfo',path:'baseinfo',component:BaseInfo},
-        {name:'apply.success.',path:'success',component:ApplySuccess},   
+        // 入住申请 1 -
+        {name:'apply.join',path:'join',component:ApplyJoin},
+        // 申请提示
+        {name:'apply.info',path:'info',component:ApplyInfo},
+        // 填写基础信息 
+        {name:'apply.baseinfo',path:'baseinfo',component:BaseInfo},  
+        // 填写资质信息
         {name:'apply.detailinfo',path:'detailinfo',component:DetailInfo},
-        {name:'apply.join',path:'join',component:ApplyJoin}  
+        // 申请成功
+        {name:'apply.success.',path:'success',component:ApplySuccess},       
          
       ]
     }

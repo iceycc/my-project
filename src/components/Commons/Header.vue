@@ -1,5 +1,6 @@
 <template>
-  <div class="bc-header">
+<div>
+  <div class="bc-header1">
       <div class="bc-logo">
          <a href="javascript:;">优装美家</a>          
       </div>
@@ -9,6 +10,8 @@
           <a href="javascript:;">退出</a>
       </div>
   </div>
+</div>
+
 </template>
 <script>
 export default {
@@ -23,10 +26,11 @@ export default {
 };
 </script>
 <style scoped>
-    .bc-header{
+    .bc-header1{
         width: 1220px;
         height: 52px;
         margin:15px auto;
+        background: #fff;
     }
 
     .bc-logo{

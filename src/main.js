@@ -8,6 +8,9 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import BcHeader from './components/Commons/Header.vue'
 import BcLfBar from './components/Commons/LeftBar.vue'
+import Footer from './components/Commons/Footer.vue'
+
+import './assets/css/icon/iconfont.css'
 import './assets/css/global.css'
 
 // 启用第三方插件
@@ -24,6 +27,8 @@ Vue.config.productionTip = false
 
 Vue.component(BcHeader.name, BcHeader)
 Vue.component(BcLfBar.name, BcLfBar)
+Vue.component(Footer.name, Footer)
+
 // 注册全局组件 结束
 
 // 考虑未来可能样式覆盖 这里引入自己的css样式
