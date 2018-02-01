@@ -5,6 +5,8 @@
       <router-view class="bc-1220"></router-view>
        <bc-footer class="bc-footer"></bc-footer>
     </div>
+
+    
    
   </div>
 </template>
@@ -27,7 +29,9 @@ export default {
   background: #fff;
 }
 .bc-main{
-  /* height: 100%; */
+  position: relative;
+  padding-bottom:80px;
+  min-height: 87%;
 }
 .bc-1220 {
   background: #eee;
@@ -36,9 +40,9 @@ export default {
   margin: 0 auto;
 }
 .bc-footer {
-  /* position: absolute; */
-  /* left: 0px; */
-  /* bottom: 0px; */
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
   width: 100%;
   height: 52px;
   background: #fff;

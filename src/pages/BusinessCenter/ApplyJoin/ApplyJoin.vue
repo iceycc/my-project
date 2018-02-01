@@ -126,9 +126,9 @@ export default {
 
 /* 步骤盒子 1*/
 .aj-step {
+  // TODO:1-盒子公共样式
   position: relative;
-  top:0;
-  margin-top: 50px;
+  top:0; 
   width: 100%;
   border-radius: 3px;
   background: #fff;
@@ -143,6 +143,8 @@ export default {
     top:-5px;
     box-shadow: 5px 5px 5px #aaa;    
   }
+  // --
+   margin-top: 50px;
   .step-l {
     display: inline-block;
     width: 49%;

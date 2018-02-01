@@ -9,6 +9,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import BcHeader from './components/Commons/Header.vue'
 import BcLfBar from './components/Commons/LeftBar.vue'
 import Footer from './components/Commons/Footer.vue'
+import AreaSelect from './components/Commons/AreaSelect.vue'
 
 import './assets/css/icon/iconfont.css'
 import './assets/css/global.css'
@@ -28,6 +29,7 @@ Vue.config.productionTip = false
 Vue.component(BcHeader.name, BcHeader)
 Vue.component(BcLfBar.name, BcLfBar)
 Vue.component(Footer.name, Footer)
+Vue.component(AreaSelect.name,AreaSelect)
 
 // 注册全局组件 结束
 
