@@ -93,12 +93,12 @@ export default {
   background: #fff;
   text-align: center;
   width:100%;
-  border-radius: 10px;  
-  box-shadow: 10px 10px 5px #888;
+  border-radius: 3px;  
+  box-shadow: 1px 1px 5px #ccc;
   transition:all 0.2s;
   &:hover{
     top:-5px;
-    box-shadow: 13px 13px 6px #aaa;    
+    box-shadow: 5px 5px 5px #aaa;    
   }
   
   .icon-gonggao::before {
@@ -119,7 +119,7 @@ export default {
   }
   .aj-top-info {
     padding-top: 30px;
-    padding-left: 20px;
+    padding-left: 30px;
     margin-bottom: 50px;
   }
 }
@@ -130,17 +130,18 @@ export default {
   top:0;
   margin-top: 50px;
   width: 100%;
-  border-radius: 10px;
+  border-radius: 3px;
   background: #fff;
   padding-top: 30px;
-  padding-left: 20px;
-  padding-bottom: 20px;
+  padding-left: 30px;
+  padding-bottom: 30px;
+  padding-right: 30px;
   box-sizing: border-box;
-  box-shadow: 10px 10px 5px #888;
+  box-shadow: 1px 1px 5px #ccc;
   transition:all 0.2s;
   &:hover{
     top:-5px;
-    box-shadow: 13px 13px 6px #aaa;    
+    box-shadow: 5px 5px 5px #aaa;    
   }
   .step-l {
     display: inline-block;
@@ -162,7 +163,7 @@ export default {
     width: 49%;
     text-align: right;
     .aj-btn {
-      width:150px;
+      width:120px;      
     }
   }
 }

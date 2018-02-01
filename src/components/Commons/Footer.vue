@@ -6,7 +6,7 @@
     <a target="_blank" class="footer-menu-a" href="javascript:;">联系我们</a>&nbsp;|
     <!-- <a target="_blank" class="footer-menu-a" href="http://www.uzhuang.com/about/join-us">诚聘英才</a>&nbsp;| -->
     <a target="_blank" class="footer-menu-a" href="javascript:;">法律声明</a>&nbsp;|
-    <a target="_blank" class="footer-menu-a" href="javascript:;">优装美家 版权所有</a>
+    <a target="_blank" class="footer-menu-a" href="javascript:;" style="cursor:default">优装美家 版权所有</a>
   </p>
 </div>  
 </template>

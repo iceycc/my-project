@@ -50,7 +50,14 @@ export default new Router({
         {name:'apply.success.',path:'success',component:ApplySuccess},       
          
       ]
-    }
+    },
+    // 申请成功后的样式
+    // {
+    //   name:'setting',
+    //   path: '/setting',
+    //   component: Setting,
+      
+    // }
 
 
   ]
