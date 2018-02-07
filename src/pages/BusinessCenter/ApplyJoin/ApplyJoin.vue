@@ -80,7 +80,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="scss">
 // @import "../../../assets/icon/iconfont.css";
 .iconfont::before {
   font-size: 30px;

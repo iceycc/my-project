@@ -12,7 +12,7 @@ export default {
   }
 };
 </script>
-<style lang="less">
+<style lang="scss">
 .info-box {
   position: relative;
   top: 0;

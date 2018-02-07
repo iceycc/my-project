@@ -19,7 +19,7 @@ export default {
 };
 </script>
 
-<style lang='less'>
+<style lang='scss'>
 .bc-div {
   width: 1220px;
   color: #d6d6d6;

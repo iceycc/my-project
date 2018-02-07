@@ -37,33 +37,32 @@
 </template>
 <script>
 export default {
-  name: "my-checkbox",// setting alter 选项卡组件
+  name: "my-checkbox", // setting alter 选项卡组件
 
-  props:["options","houseList"],
+  props: ["options", "houseList"],
   data() {
     return {
-    // TODO: 怎么讲数据传回父组件  
-      detailCardList: [],      
+      // TODO: 怎么讲数据传回父组件
+      detailCardList: []
     };
   }
 };
 </script>
-<style lang="less">
-.flexbox{
+<style lang="scss">
+.flexbox {
   margin-bottom: 20px;
 }
-.flex1{
-  font-size:0;
-  color:#696969;
-  font-size:14px;
+.flex1 {
+  font-size: 0;
+  color: #696969;
+  font-size: 14px;
   vertical-align: middle;
   height: 28px;
   line-height: 28px;
   padding-right: 10px;
-  input{
+  input {
     display: inline-block;
-    vertical-align: middle;   
-    
+    vertical-align: middle;
   }
 }
 </style>

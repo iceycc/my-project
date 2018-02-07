@@ -13,23 +13,23 @@
 <script>
 export default {
   name: "left-bar",
-    // 需要从父组件接受包含 字体图标类名和标题的 对象
+  // 需要从父组件接受包含 字体图标类名和标题的 对象
   props: ["leftbar"],
   data() {
     return {
-        ai:0
+      ai: 0
     };
   },
-  methods:{
-    change(index){
-        // console.log(event.target)\
-        this.ai = index
+  methods: {
+    change(index) {
+      // console.log(event.target)\
+      this.ai = index;
     }
   }
 };
 </script>
 
-<style scoped>
+<style lang="scss">
 .bc-lfbar {
   width: 300px;
   height: 100%;
@@ -53,10 +53,9 @@ export default {
   border-bottom: 1px solid #ccc;
 }
 .bc-lf-list.active {
-    color:#0099FF;
-    
+  color: #0099ff;
 }
-.bc-lf-list.active a{
-    color:#0099FF;    
+.bc-lf-list.active a {
+  color: #0099ff;
 }
 </style>

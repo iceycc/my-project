@@ -20,7 +20,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style less="scss">
 .bf {
   position: relative;
   padding-bottom:30px;

@@ -85,7 +85,7 @@ export default {
   }
 };
 </script>
-<style lang='less'>
+<style lang='scss'>
 .ai-title {
   height: 50px;
   line-height: 50px;

@@ -222,7 +222,7 @@ export default {
   }
 };
 </script>
-<style lang="less">
+<style lang="scss">
 .ut-form {
   margin-top: 50px;
   font-size: 18px;

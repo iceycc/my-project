@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'// 入口文件
-import router from './router/routers' // 引入路由配置文件  里面是index 默认可以省略
+import router from './config/routers' // 引入路由配置文件  里面是index 默认可以省略
 import Axios from 'axios' // 引入 axios 出来ajax
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -16,8 +16,8 @@ import InfoBox from './components/Commons/InfoBox.vue'
 
 
 
-import './assets/css/icon/iconfont.css'
-import './assets/css/global.css'
+import './assets/iconfont/iconfont.css'
+import './assets/scss/main.scss'
 
 // 启用第三方插件
 Vue.use(ElementUI)

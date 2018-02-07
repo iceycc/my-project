@@ -65,6 +65,10 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
             Opinions 意见
 
 ## vue自动讲px转rem
+## 从less改到scss  安装
+
+### scss 目录构建
+·https://www.w3cplus.com/preprocessor/architecture-sass-project.html·
 ## 抽离的公共组件
 *   头部 Header.vue  bc-header 
 *   底部 footer.vue  bc-footer
