@@ -31,7 +31,6 @@ export default {
   height: 100%;
   box-sizing: border-box;
   padding-left: 20x;
-  padding-top: 32px;
 }
 .bf-left {
   position: absolute;

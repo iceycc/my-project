@@ -6,10 +6,15 @@ import router from './router/routers' // 引入路由配置文件  里面是inde
 import Axios from 'axios' // 引入 axios 出来ajax
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+
 import BcHeader from './components/Commons/Header.vue'
 import BcLfBar from './components/Commons/LeftBar.vue'
 import Footer from './components/Commons/Footer.vue'
 import AreaSelect from './components/Commons/AreaSelect.vue'
+import MyCheckBox from './components/Commons/MyCheckBox.vue'
+import InfoBox from './components/Commons/InfoBox.vue'
+
+
 
 import './assets/css/icon/iconfont.css'
 import './assets/css/global.css'
@@ -30,6 +35,10 @@ Vue.component(BcHeader.name, BcHeader)
 Vue.component(BcLfBar.name, BcLfBar)
 Vue.component(Footer.name, Footer)
 Vue.component(AreaSelect.name,AreaSelect)
+Vue.component(MyCheckBox.name,MyCheckBox)
+Vue.component(InfoBox.name,InfoBox)
+
+
 
 // 注册全局组件 结束
 

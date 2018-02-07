@@ -8,7 +8,7 @@
         <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
         <div style="margin: 15px 0;"></div>
         <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
-          <el-checkbox v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox>
+          <el-checkbox v-for="ways in cities" :label="ways" :key="ways">{{ways}}</el-checkbox>
         </el-checkbox-group>
       </div>
       <!-- 选择承接类型 -->
@@ -123,17 +123,21 @@
           <div class="cart-detail">
             <p>请设置以下承接选项</p>
             <div class="house-detail">
-              <div></div>
-              <div></div>
+              <!-- 承接详情选项卡 -->
+              <div class="house-left">
+                <my-checkbox :options="options" :houseList="houseList"></my-checkbox>
+              </div>
+              <!-- <div class="house-right"></div> -->
             </div>
           </div>
+          
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-const cityOptions = ["清包", "半包", "全包"];
+const waysOptions = ["清包", "半包", "全包"];
 export default {
   name: "under-take",
   data() {
@@ -141,9 +145,9 @@ export default {
       // 多选框
       checkAll: false,
       checkedCities: [],
-      cities: cityOptions,
+      cities: waysOptions,
       isIndeterminate: true,
-      // 下拉框 数据
+      // 公共 下拉框 数据
       options: [
         {
           value: "选项1",
@@ -176,12 +180,37 @@ export default {
       // 单选框
       radio1: "",
       radio2: "",
-      radio3: ""
+      radio3: "",
+      // 承接详情选项卡
+      detailCardList: [],
+      houseList: [
+        {
+          house: "普通住宅：一至六居室",
+          eara: "",
+          money:""
+        },
+        {
+          house: "公寓",
+          eara: "",
+          money:""
+        },
+        {
+          house: "复式：复式、跃层、叠加",
+          eara: "",
+          money:""
+        },
+        {
+          house: "别墅：别墅、loft、独联排、四合院、、庭院",
+          eara: "",
+          money:""
+        }
+      ]
     };
   },
   methods: {
+    // 选择方式方法
     handleCheckAllChange(val) {
-      this.checkedCities = val ? cityOptions : [];
+      this.checkedCities = val ? waysOptions : [];
       this.isIndeterminate = false;
     },
     handleCheckedCitiesChange(value) {
@@ -264,13 +293,14 @@ export default {
     display: flex;
     padding-right: 50px;
     font-size: 0;
-    
+
     h5 {
       flex: 1;
       text-align: left;
       height: 28px;
       line-height: 28px;
       vertical-align: middle;
+      color:#000;
     }
     & > div {
       flex: 2;
@@ -281,24 +311,41 @@ export default {
   // 承接详情
   .ut-detail {
     display: flex;
-    margin-top:50px;
+    margin-top: 50px;
     h5 {
       flex: 1;
       text-align: left;
       height: 28px;
       line-height: 28px;
       vertical-align: middle;
+      color:#000;
     }
-    &>ul {
+    & .ut-quian {
       flex: 1;
-      font-size:14px;
-      color:#666;
+      font-size: 14px;
+      color: #666;
+      li{
+        height: 28px;
+        line-height: 28px;
+      }
     }
-    &>div{
-      flex:5;
-      border:1px solid #ccc;
+    & > div {
+      flex: 5;
+      border: 1px solid #ccc;
       border-radius: 2px;
-      padding:10px;
+      padding: 10px;
+    }
+    .cart-detail {
+      font-size: 14px;
+      p {
+        color: #aaa;
+        margin-bottom: 20px;
+      }
+    }
+    .el-checkbox__label{
+      display: block;
+      word-wrap: break-all !important;
+      width: 120px;
     }
   }
 }

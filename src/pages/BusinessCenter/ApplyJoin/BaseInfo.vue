@@ -1,11 +1,13 @@
 <template>
     <div class="bf">
 			<h3>填写基础信息</h3>
+      <info-box>
+      </info-box>
     </div>
 </template>
 <script>
 export default {
-	// name: 'base-info',
+	// name: 'base-info'1,
 
   data() {
     return {
@@ -18,6 +20,6 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less">
 
 </style>

@@ -60,13 +60,6 @@ module.exports = {
         loader: 'vue-loader',//vue转普通的html
         options: vueLoaderConfig//可选项 vue-loader选择配置
       },
-      //less
-      {
-        test: /\.less$/,
-        
-        loader: "style-loader!css-loader!less-loader",
-        
-      },
       {
         test: /\.js$/,//bable
         loader: 'babel-loader',//es6转es5 loader

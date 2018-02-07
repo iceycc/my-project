@@ -64,5 +64,14 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
                     ModifyPassword  修改密码
             Opinions 意见
 
+## vue自动讲px转rem
+## 抽离的公共组件
+*   头部 Header.vue  bc-header 
+*   底部 footer.vue  bc-footer
+*   左侧 LeftBar.vue left-bar
+*   单选+下拉 MyCheckBox.vue   my-checkbox
+*   信息盒子InfoBox.vue   info-box
+
+
 
 
