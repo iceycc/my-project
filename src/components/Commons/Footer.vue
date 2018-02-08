@@ -20,20 +20,21 @@ export default {
 </script>
 
 <style lang='scss'>
+@import '../../assets/scss/main.scss';
 .bc-div {
-  width: 1220px;
-  color: #d6d6d6;
-  font-size: 12px;
+  width: $containerWith;
+  color: $footerFontColor;
+  font-size: $footerLineSize;
   margin: 0 auto;
   text-align: center;
   a {
-    color: #727272;
-    margin: 0 6px 0 5px;
+    color: $footerFontColor;
+    margin: $footerAMargin;
     display: inline-block;
-    height: 52px;
-    line-height: 52px;
-    font-size: 14px;
-    padding: 0 50px;
+    height: $footerHeight;
+    line-height: $footerHeight;
+    font-size: $footerFontSize;
+    padding: $footerAPadding;
   }
 }
 </style>

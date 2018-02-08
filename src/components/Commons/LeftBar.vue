@@ -30,20 +30,29 @@ export default {
 </script>
 
 <style lang="scss">
+@import "../../assets/scss/main.scss";
+
 .bc-lfbar {
   width: 300px;
   height: 100%;
+  ul {
+    height: 100%;
+    padding-left: 74px;
+    padding-top: 7px;
+  }
 }
-.bc-lfbar ul {
-  height: 100%;
-  padding-left: 74px;
-  padding-top: 7px;
-}
+
 .bc-lf-list {
   height: 68px;
   line-height: 68px;
   font-size: 18px;
-  color: #5a5a5a;
+  color: $listColor;
+  &.active {
+    color: $activeColor;
+    a {
+      color: $activeColor;
+    }
+  }
 }
 .bc-a {
   display: inline-block;
@@ -51,11 +60,5 @@ export default {
   height: 100%;
   margin-left: 10px;
   border-bottom: 1px solid #ccc;
-}
-.bc-lf-list.active {
-  color: #0099ff;
-}
-.bc-lf-list.active a {
-  color: #0099ff;
 }
 </style>

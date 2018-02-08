@@ -24,8 +24,8 @@ export default {
 }
 .bc-header {
   width: 100%;
-  padding-bottom:1px;
-  padding-top: 6px;
+  // padding-bottom:1px;
+  // padding-top: 6px;
   background: #fff;
 }
 .bc-main{

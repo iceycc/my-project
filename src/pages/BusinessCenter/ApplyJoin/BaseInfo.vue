@@ -1,6 +1,6 @@
 <template>
     <div class="bf">
-			<h3>填写基础信息</h3>
+      <div><span>填写基本信息</span><span>填写资质信息</span></div>
       <info-box>
       </info-box>
     </div>

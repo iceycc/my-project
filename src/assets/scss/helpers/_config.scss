@@ -1,21 +1,40 @@
 // 该文件 是用来声明配色方案的变量表
 // 1. 产品经理
 // 2. 设计 -- 根据原型图 要出配色方案 --- 只要配色方案一出,我们就可以开始写less的配色方案变量表
-// 3. 设计要出的设计图
+// 3. 设计要出的设计图1
 
 $white: #fff;
 $black: #000;
+$gray:#eee;
 $containerWith:1220px;
+$fontSize:14px;
+$fontColor: #333;
+$siezBig:18px;
+$sizeNomal:16px;
+$sizeSmall:14px;
 
-// header
+// header  组件
 $headerBgColor: #fff;
 $headerHeight: 13px;
+$headerFontSize: $fontSize; 
+$headerFontColor: #333;
+$headerHeight:81px;
 
+// footer 组件
+$footerFontColor: #d6d6d6;
+$footerLineSize: 12px;
+$footerFontSize: 14px;
+$footerFontColor:#727272;
+$footerHeight:52px;
+$footerAPadding: 0 50px;
+$footerAMargin: 0 6px 0 5px;
 
-// main
+// 左侧侧边栏
+$listColor:#5a5a5a;
+$activeColor:#0099ff;
+
+// main 
+$bgColor :$gray;
 $allTopColor: #888888;
-
 $allBottomBorderColor: #dedede;
-
 $allBottomAddColor: #aeaeae;
-
