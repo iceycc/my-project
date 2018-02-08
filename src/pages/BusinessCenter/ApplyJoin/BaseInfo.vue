@@ -1,6 +1,6 @@
 <template>
     <div class="bf">
-      <div><span>填写基本信息</span><span>填写资质信息</span></div>
+      <div class="bf-titile"><span>填写基本信息</span><span>填写资质信息</span></div>
       <info-box>
       </info-box>
     </div>
@@ -21,5 +21,6 @@ export default {
 </script>
 
 <style lang="scss">
+
 
 </style>

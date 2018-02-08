@@ -89,6 +89,7 @@ export default {
 /*头部介绍*/
 .aj-top {
   text-align: center;
+  margin-top: 0px !important;
 
   .icon-gonggao::before {
     color: red;

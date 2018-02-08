@@ -50,8 +50,8 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
                 NoticeDetail 通知详情
             OrderManagement  订单管理
                 OrderDetail  订单详情
-            AccountCenter   账户中心
-                Account 账户
+            Account   账户中心
+                AccountCenter 账户
                 Recharge 充值
                 Bill  账单
             Setting  设置

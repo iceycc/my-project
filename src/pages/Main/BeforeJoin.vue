@@ -11,8 +11,8 @@ export default {
   data() {
     return {
       lists: [
-        { icon: "icon-shouye", title: "首页" },
-        { icon: "icon-yijianfankui", title: "意见反馈" }
+        { icon: "icon-shouye", title: "首页", href: 'apply.join' },
+        { icon: "icon-yijianfankui", title: "意见反馈", href: 'apply.info' }
       ]
     };
   },
@@ -31,6 +31,7 @@ export default {
   height: 100%;
   box-sizing: border-box;
   padding-left: 20x;
+  padding-top:20px;
 }
 .bf-left {
   position: absolute;

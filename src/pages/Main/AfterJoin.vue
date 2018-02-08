@@ -11,12 +11,12 @@ export default {
   data() {
     return {
       lists: [
-        { icon: "icon-shouye", title: "首页" },
-        { icon: "icon-yijianfankui", title: "意见反馈" },
-        { icon: "icon-shouye", title: "首页" },
-        { icon: "icon-yijianfankui", title: "意见反馈" },
-        { icon: "icon-shouye", title: "首页" },
-        { icon: "icon-yijianfankui", title: "意见反馈" }
+        { icon: "icon-shouye", title: "首页", href: "1" },
+        { icon: "icon-yijianfankui", title: "订单管理", href: "2" },
+        { icon: "icon-shouye", title: "账户中心", href: "3" },
+        { icon: "icon-yijianfankui", title: "设置", href: "4" },
+        { icon: "icon-shouye", title: "意见反馈",href: '5' },
+        { icon: "icon-yijianfankui", title: "意见反馈", href: '6' }
       ]
     };
   },

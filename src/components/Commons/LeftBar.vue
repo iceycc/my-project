@@ -3,8 +3,8 @@
   <div class="bc-lfbar">
       <ul>
           <li class="bc-lf-list" :class='{active:index==ai}' v-for= "(value,index) in leftbar" :key="index" >              
-              <i :class='value.icon' class="iconfont"></i>
-              <a class="bc-a" href="javscript:;" @click="change(index)">{{value.title}}</a>
+              <i :class="value.icon" class="iconfont"></i>
+              <router-link class="bc-a" :to="{name:value.href}" @click.native="change(index)">{{value.title}}</router-link>
           </li>
       </ul>
   </div>
@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     change(index) {
-      // console.log(event.target)\
+      console.log(event.target)
       this.ai = index;
     }
   }
