@@ -11,8 +11,8 @@ export default {
   data() {
     return {
       lists: [
-        { icon: "icon-shouye", title: "首页", href: 'apply.join' },
-        { icon: "icon-yijianfankui", title: "意见反馈", href: 'apply.info' }
+        { icon: "icon-shouye", title: "首页", name: 'apply.join' },
+        { icon: "icon-yijianfankui", title: "意见反馈", name: 'apply.info' }
       ]
     };
   },

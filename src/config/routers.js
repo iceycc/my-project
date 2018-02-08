@@ -2,14 +2,14 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import "@/vendors.js"; //引入组件 字体图标 样式scss 什么的
+
+// 各个路由板块------B-----
 // 申请页面哎
 import Login from "@/pages/Main/Login";
-// Apply相关路由及组件=============
 // 未申请前的页面
 import BeforeJoin from "@/pages/Main/BeforeJoin";
 // 申请后的页面
 import AfterJoin from "@/pages/Main/AfterJoin";
-// 各个路由板块------B-----
 // apply板块
 import ApplyJoin from "@/pages/BusinessCenter/ApplyJoin/ApplyJoin";
 import ApplyInfo from "@/pages/BusinessCenter/ApplyJoin/ApplyInfo";
@@ -42,9 +42,6 @@ import ModifyPassword from "@/pages/BusinessCenter/Setting/Safe/ModifyPassword";
 // 意见反馈 
 import Options from "@/pages/BusinessCenter/Options/Options" ; // 修改密码
 
-
-
-
 // 各个路由板块------E-----
 
 //404提示
@@ -54,19 +51,7 @@ var NotFound = {
       您要查看的页面取旅行了
    </div>`
 };
-
 Vue.use(VueRouter);
-
-// export default new VueRouter({
-//   routes: [
-//     {// 重定向
-//       path: '/',
-//       redirect: {name: 'setting.alter'},
-//       mate:{}
-//     }
-//   ]
-// })
-
 var router = new VueRouter();
 router.addRoutes([
   // 重定向
@@ -140,7 +125,7 @@ router.addRoutes([
       { name: "options", path: "options", component: Options}
     ]
   },
-  // 通知详情 单独
+  // 通知详情1 单独
   {
     name: "notice.detail",
     path: "/joined/notice/detail",
