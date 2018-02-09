@@ -7,9 +7,7 @@
 <script>
 export default {
   // name: "apply-success",
-  data() {
-    return {};
-  }
+  
 };
 </script>
 
