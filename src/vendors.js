@@ -26,3 +26,4 @@ Vue.component(AreaSelect.name,AreaSelect)
 Vue.component(MyCheckBox.name,MyCheckBox)
 Vue.component(InfoBox.name,InfoBox)
 // 注册全局组件 结束
+

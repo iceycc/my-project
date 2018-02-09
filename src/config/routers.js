@@ -120,7 +120,7 @@ router.addRoutes([
       { name: "setting.alter", path: "setting\/alter", component: AlterUndertake },
       { name: "safe.addwx", path: "safe\/wx", component: BindingWx},
       { name: "safe.password", path: "safe.password", component: ModifyPassword},
-
+      { name: "setting.data", path: "setting\/data", component: AccountData},
       // 意见反馈
       { name: "options", path: "options", component: Options}
     ]

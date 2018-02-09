@@ -14,7 +14,11 @@ export default {
         { icon: "icon-shouye", title: "首页", name: "joined.index" },
         { icon: "icon-yijianfankui", title: "订单管理", name: "order" },
         { icon: "icon-shouye", title: "账户中心", name: "account.center" },
-        { icon: "icon-yijianfankui", title: "设置", name: "setting.take" },
+        { icon: "icon-yijianfankui", title: "设置", name: "setting.take", 
+          children: [
+            {title:"承接管理",name: "setting.take"}
+            ,{title:"账户资料",name: "setting.data"},
+            {title:"安全中心",name: "safe.addwx"}]},
         { icon: "icon-shouye", title: "意见反馈",name: 'options' }
       ]
     };
