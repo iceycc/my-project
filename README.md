@@ -76,6 +76,15 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 *   单选+下拉 MyCheckBox.vue   my-checkbox
 *   信息盒子InfoBox.vue   info-box
 
+### 计划
+ * 路由配置
+ * 组件抽离
+ * 静态页面完成
+ * request函数封装
+ * 前端校验
+ * 全局守卫
+ * 尝试重构
+
 
 
 

@@ -5,10 +5,7 @@
       <router-view class="bc-1220"></router-view>
        <bc-footer class="bc-footer"></bc-footer>
     </div>
-
-    
-   
-  </div>
+j  </div>
 </template>
 
 <script>
