@@ -4,10 +4,10 @@
         <img src="" alt="">
       <span><i>2</i>填写资质信息</span></div>
       <div class="ai-main">
-          <div ai-box>
+          <div class="ai-box">
               <div class="small-box">
                 <div class="flexbox">
-                  <h3 class="title">身份证照片</h3> 
+                  <h3 class="title">身份证照片</h3>
                   <div class="input-box">
                     <input type="text" placeholder="请于执照一致">
                   </div>
@@ -15,7 +15,7 @@
               </div>
               <div class="small-box">
                 <div class="flexbox">
-                  <h3 class="title">商铺负责人</h3> 
+                  <h3 class="title">商铺负责人</h3>
                   <div class="input-box">
                     <input type="text" placeholder="请于执照一致">
                     <input type="text" placeholder="请于执照一致">
@@ -25,19 +25,19 @@
               </div>
               <div class="small-box">
                 <div class="flexbox">
-                  <h3 class="title">公司开户银行</h3> 
+                  <h3 class="title">公司开户银行</h3>
                   <div class="input-box">
                     <input type="text" placeholder="请于执照一致">
                   </div>
                 </div>
                 <div class="flexbox">
-                  <h3 class="title">开户账号</h3> 
+                  <h3 class="title">开户账号</h3>
                   <div class="input-box">
                     <input type="text" placeholder="请于执照一致">
                   </div>
                 </div>
                 <div class="flexbox">
-                  <h3 class="title">开户地址</h3> 
+                  <h3 class="title">开户地址</h3>
                   <div class="input-box">
                     <input type="text" placeholder="请于执照一致">
                   </div>
@@ -45,7 +45,7 @@
               </div>
               <div class="small-box">
                 <div class="flexbox">
-                  <h3 class="title">公司地址</h3> 
+                  <h3 class="title">公司地址</h3>
                   <div class="input-box">
                     <input type="text" placeholder="请于执照一致">
                     <input type="text" placeholder="请于执照一致">
@@ -58,7 +58,7 @@
                     <input type="text" placeholder="请于执照一致">
                   </div>
               </div>
-          </div>         
+          </div>
       </div>
     </div>
 </template>
@@ -68,7 +68,7 @@ export default {
 
   data() {
     return {
-      
+
     };
   },
   methods: {
@@ -81,15 +81,15 @@ export default {
 @import '~@/assets/scss/main.scss';
 // 标题
 .bf-titile{
-    height: 22px;  
-    font-size: 0;    
+    height: 22px;
+    font-size: 0;
     font-size:$h3FontSize;
-  
+
   color:#999;
   .active{
     color:$activeColor;
     i{
-      background:$activeColor;      
+      background:$activeColor;
     }
   }
   span{
@@ -105,7 +105,7 @@ export default {
     line-height: 22px;
     color:#fff;
     background: #999;
-    margin-right:7px; 
+    margin-right:7px;
   }
 }
 .ai-main {
@@ -143,7 +143,7 @@ export default {
     }
 
 
-  
+
 }
 
 

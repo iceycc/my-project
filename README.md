@@ -85,6 +85,6 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
  * 全局守卫
  * 尝试重构
 
-
+### javascript
 
 
