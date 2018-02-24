@@ -56,7 +56,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../assets/scss/main.scss";
+@import "~@/assets/scss/main.scss";
 
 .bc-lfbar {
   width: 300px;

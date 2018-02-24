@@ -76,7 +76,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 *   单选+下拉 MyCheckBox.vue   my-checkbox
 *   信息盒子InfoBox.vue   info-box
 
-### 计划
+## 计划
  * 路由配置
  * 组件抽离
  * 静态页面完成
@@ -85,6 +85,29 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
  * 全局守卫
  * 尝试重构
 
-### javascript
+## phpstorm
+### php配置
+* 内置svn和git 超级强大  ctrl+k调出git提交窗口 
+###快捷键
+1. 项目名右键选择"Local History | Show History"可查看本地修改记录
+2. Ctrl + E 可查看最近打开文件或项目
+3. 打开File | Setting | Editor，选择Appearance下面的Show Method Separators。它会将你的代码按方法，用灰色线框进行智能分割。你还可以使用：alt+↑或↓，在方法之间进行跳转
+4. Ctrl + Shift + V，可选择要粘贴的最近内容
+5. Ctrl + D，复制粘贴选中的文本
+6. Ctrl + Y，删除当前行或选中行
+7. Ctrl + Alt + 左右方向键，定位到上一次编辑的位置
+8. Alt + 上下方向键，跳转到上/下函数
+9. Alt + 左右方向键，导航标签切换
+10. Ctrl + N，根据类名称查找
+11. Ctrl + Shift + N，根据文件名查找
+12. Ctrl + Shift + Alt + N，根据函数名查找
+13. Ctrl + Shift + F，Find in Path
+14. Ctrl + Shift + I，查看变量初始化的值
+15. Ctrl + F12，快速查看当前文件的所有方法
+16. Ctrl + /，单行注释
+17. Ctrl + Shift + /，多行注释
+18. 修改默认打开的文件模版："file" ---> "setting" ---> "file and code template"
+19. /** + Enter，自动生成注释
+20. Ctrl + Alt + L，格式化代码
 
 
