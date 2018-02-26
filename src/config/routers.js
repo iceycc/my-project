@@ -39,7 +39,7 @@ import BindingWx from "@/pages/BusinessCenter/Setting/Safe/BindingWx";  // 绑�
 import ScanCode from "@/pages/BusinessCenter/Setting/Safe/ScanCode"; // 扫描二维码
 import ModifyPassword from "@/pages/BusinessCenter/Setting/Safe/ModifyPassword";  // 修改密码
 
-// 意见反馈 
+// 意见反馈
 import Options from "@/pages/BusinessCenter/Options/Options" ; // 修改密码
 
 // 各个路由板块------E-----
@@ -57,7 +57,7 @@ router.addRoutes([
   // 重定向
   {
     path: "/",
-    redirect: { name: "apply.baseinfo" },
+    redirect: { name: "apply.success" },
     mate: {}
   },
   // 登陆
@@ -82,7 +82,7 @@ router.addRoutes([
       // 填写资质信息
       { name: "apply.detailinfo", path: "detailinfo", component: DetailInfo },
       // 申请成功
-      { name: "apply.success.", path: "success", component: ApplySuccess }
+      { name: "apply.success", path: "success", component: ApplySuccess }
     ]
   },
   // 登陆成功后侧边栏的
@@ -112,7 +112,7 @@ router.addRoutes([
       },
 
       // 账户中心=================
-      { name: "account.center", path: "account\/center", component: AccountCenter }, 
+      { name: "account.center", path: "account\/center", component: AccountCenter },
       { name: "account.bill", path: "account\/bill", component: Bill },
 
       // 设置板块的页面================
@@ -145,7 +145,7 @@ router.addRoutes([
   },
   // 扫描二维码绑定
   { name: "safe.code", path: "/joined/safe/code", component: ScanCode},
-  
+
   //  404页面
   {
     path: "*",

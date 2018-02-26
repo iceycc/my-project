@@ -1,41 +1,50 @@
 <template>
     <div class="bf">
-        <div class="bf-titile"><span class="active"><i>1</i>填写基本信息</span>
+        <div class="bf-titile">
+            <span class="active"><i>1</i>填写基本信息</span>
             <img src="" alt="">
-            <span><i>2</i>填写资质信息</span></div>
+            <span><i>2</i>填写资质信息</span>
+        </div>
         <div class="ai-main">
+            <!--form信息盒子-->
             <div class="ai-box">
+                <!--公司名称-->
                 <div class="small-box">
                     <div class="flexbox">
-                        <h3 class="title">身份证照片</h3>
+                        <h3 class="title">公司名称</h3>
                         <div class="input-box">
                             <input type="text" placeholder="请于执照一致">
                         </div>
                     </div>
                 </div>
+                <!--店铺负责人-->
                 <div class="small-box">
                     <div class="flexbox">
                         <h3 class="title">商铺负责人</h3>
                         <div class="input-box">
-                            <input type="text" placeholder="请于执照一致">
-                            <input type="text" placeholder="请于执照一致">
+                            <input type="text" placeholder="业务对接人姓名">
+                            <input type="text" placeholder="手机号">
 
                         </div>
                     </div>
                 </div>
+                <!--公司开户银行-->
                 <div class="small-box">
+                    <!--开户银行-->
                     <div class="flexbox">
                         <h3 class="title">公司开户银行</h3>
                         <div class="input-box">
                             <input type="text" placeholder="请于执照一致">
                         </div>
                     </div>
+                    <!--开户账号-->
                     <div class="flexbox">
                         <h3 class="title">开户账号</h3>
                         <div class="input-box">
-                            <input type="text" placeholder="请于执照一致">
+                            <input type="text" placeholder="输入卡号">
                         </div>
                     </div>
+                    <!--开户地址-->
                     <div class="flexbox">
                         <h3 class="title">开户地址</h3>
                         <div class="input-box">
@@ -43,6 +52,7 @@
                         </div>
                     </div>
                 </div>
+                <!--公司地址-->
                 <div class="small-box">
                     <div class="flexbox">
                         <h3 class="title">公司地址</h3>
@@ -58,31 +68,34 @@
                     </div>
 
                 </div>
-            </div>
-            <div class="small-box">
-                <h4 class="info-title">以下为选填</h4>
-                <div class="flexbox">
-                    <h3 class="title">施工等级资质</h3>
-                    <div class='input-box'>
-                        <input type="text" placeholder="请于执照一致">
+                <div class="small-box">
+                    <h4 class="info-title">以下为选填</h4>
+                    <div class="flexbox">
+                        <h3 class="title">施工等级资质</h3>
+                        <div class='input-box'>
+                            <input type="text" placeholder="请于执照一致">
+                        </div>
                     </div>
-                </div>
-                <div class="flexbox">
-                    <h3 class="title">公司座机</h3>
-                    <div class='input-box'>
-                        <input type="text" placeholder="区号+座机号">
+                    <div class="flexbox">
+                        <h3 class="title">公司座机</h3>
+                        <div class='input-box'>
+                            <input type="text" placeholder="区号+座机号">
+                        </div>
                     </div>
-                </div>
-                <div class="flexbox">
-                    <h3 class="title">公司邮箱</h3>
-                    <div class='input-box'>
-                        <input type="text" placeholder="公司指定联系邮箱">
+                    <div class="flexbox">
+                        <h3 class="title">公司邮箱</h3>
+                        <div class='input-box'>
+                            <input type="text" placeholder="公司指定联系邮箱">
+                        </div>
                     </div>
-                </div>
 
 
+                </div>
+            </div></div>
+            <div class="ai-btn">
+                <el-button>默认按钮</el-button>
+                <el-button size="medium" type="primary">主要按钮</el-button>
             </div>
-        </div>
     </div>
 </template>
 <script>
@@ -128,6 +141,7 @@
             margin-right: 7px;
         }
     }
+
      .info-title{
          width: 25%;
          text-align: center;
@@ -202,4 +216,11 @@
         }
 
     }
+     .ai-btn{
+         margin-top: 20px;
+         padding-left: 25% !important;
+         button{
+             width:150px;
+         }
+     }
 </style>

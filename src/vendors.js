@@ -7,13 +7,16 @@ import '@/assets/iconfont/iconfont.css'
 // 样式文件
 import '@/assets/scss/main.scss'
 
-// 公共组件的引入和注册
+// 公共组件的引入
 import BcHeader from '@/components/Commons/Header.vue'
 import BcLfBar from '@/components/Commons/LeftBar.vue'
 import Footer from '@/components/Commons/Footer.vue'
 import AreaSelect from '@/components/Commons/AreaSelect.vue'
 import MyCheckBox from '@/components/Commons/MyCheckBox.vue'
 import InfoBox from '@/components/Commons/InfoBox.vue'
+// 功能组件的引入
+import IdCardBox from '@/components/Content/ApplyJoin/Detailnfo/IdCardBox.vue'
+
 
 // 启用第三方插件
 Vue.use(ElementUI)
@@ -22,8 +25,12 @@ Vue.use(ElementUI)
 Vue.component(BcHeader.name, BcHeader)
 Vue.component(BcLfBar.name, BcLfBar)
 Vue.component(Footer.name, Footer)
-Vue.component(AreaSelect.name,AreaSelect)
-Vue.component(MyCheckBox.name,MyCheckBox)
-Vue.component(InfoBox.name,InfoBox)
+Vue.component(AreaSelect.name, AreaSelect)
+Vue.component(MyCheckBox.name, MyCheckBox)
+Vue.component(InfoBox.name, InfoBox)
 // 注册全局组件 结束
+
+// 注册功能组件 开始
+Vue.component(IdCardBox.name, IdCardBox)
+// 注册功能组件 结束
 
