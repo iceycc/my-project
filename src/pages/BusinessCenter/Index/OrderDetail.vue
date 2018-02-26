@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1>订单详情1111</h1>
+    <!--top-->
+    <div class="top-nav"><a href="javascript:;">首页</a><i class=""></i><a href="javascript:;">订单详情</a></div>
   </div>
 </template>
 <script>
@@ -8,7 +9,7 @@
     name:'',
     data(){
       return{
-        
+
       }
     }
   }

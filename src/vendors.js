@@ -16,6 +16,7 @@ import MyCheckBox from '@/components/Commons/MyCheckBox.vue'
 import InfoBox from '@/components/Commons/InfoBox.vue'
 // 功能组件的引入
 import IdCardBox from '@/components/Content/ApplyJoin/Detailnfo/IdCardBox.vue'
+import InfoCard from '@/components/Content/Index/Index/InfoCard.vue'
 
 
 // 启用第三方插件
@@ -32,5 +33,6 @@ Vue.component(InfoBox.name, InfoBox)
 
 // 注册功能组件 开始
 Vue.component(IdCardBox.name, IdCardBox)
+Vue.component(InfoCard.name, InfoCard)
 // 注册功能组件 结束
 
