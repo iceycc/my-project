@@ -131,6 +131,11 @@ router.addRoutes([
     path: "/joined/notice/detail",
     component: NoticeDetail
   },
+  {
+    name: "index.detail",
+    path: "/joined/index/detail",
+    component: OrderDetail1
+  },
   //订单详情2  单独
   {
     name: "order.detail",

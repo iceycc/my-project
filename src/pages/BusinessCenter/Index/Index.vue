@@ -84,7 +84,7 @@
     },
     methods: {
       goDetail(){
-          this.$router.push({name:'order.detail'})
+          this.$router.push({name:'index.detail'})
       }
     }
   }
