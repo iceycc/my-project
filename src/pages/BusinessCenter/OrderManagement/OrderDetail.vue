@@ -14,10 +14,15 @@
       <div class="info-box">
         <!-- 左侧盒子 -->
         <p class="box-left"><i class="iconfont icon-kehuxinxi icon1"></i>申请进度</p>
-        <!-- 右侧盒子 -->
-        <div class="box-right">
-
-        </div>
+        <!-- 右侧盒子 申请进度-->
+        <ul class="box-right order-rate">
+            <li class="active">
+              <i class="icon-rate"></i>
+              <span class="time">2017-11-11 10:11</span>
+              <span class="message">申诉失败</span>
+              <p><span>原因：</span>客户表示已有装修公司设计师联系过是有装修需求的，需要考虑一下</p>
+            </li>
+        </ul>
       </div>
       <!-- 客户信息-->
       <div class="info-box">
@@ -138,19 +143,51 @@
         }
 
       }
-      /*todo 申请阶段展示 */
-      .status{
-        text-align: center;
-        font-weight: bold;
-        font-size: 20px;
-      }
       /*右侧盒子通用*/
       .box-right {
         display: inline-block;
         vertical-align: top;
         width: 70%;
       }
+      /*todo 申请阶段展示 */
+      .status{
+        text-align: center;
+        font-weight: bold;
+        font-size: 20px;
+      }
+      /*申请进度添加*/
+      .order-rate{
+        font-size: 18px;
+        li{
+          position:relative;
+          line-height: 30px;
+          font-size: 0;
+          span{
+            font-size: 18px;
+          }
+          .icon-rate{
+            position: relative;
+            display: inline-block;
+            width: 30px;
+            &:before{
+              display: inline-block;
+              content: '';
+              width: 16px;
+              height: 16px;
+              background: #5a5a5a;
+              border-radius: 8px;
+            }
+          }
 
+          &.active .icon-rate::before{
+            background:#0099ff;
+          }
+          p{
+            padding-left: 30px;
+            font-size: 18px;
+          }
+        }
+      }
       /*客户信息*/
       .username,
       .tel {
