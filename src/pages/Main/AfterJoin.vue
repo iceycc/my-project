@@ -1,6 +1,6 @@
 <template>
     <div class="bf">
-        <left-bar :leftbar="lists" class="bf-left"></left-bar>  
+        <left-bar :leftbar="lists" class="bf-left"></left-bar>
         <div class="bf-main">
           <router-view class="w-1000"></router-view>
         </div>
@@ -14,7 +14,7 @@ export default {
         { icon: "icon-shouye", title: "首页", name: "joined.index" },
         { icon: "icon-yijianfankui", title: "订单管理", name: "order" },
         { icon: "icon-shouye", title: "账户中心", name: "account.center" },
-        { icon: "icon-yijianfankui", title: "设置", name: "setting.take", 
+        { icon: "icon-yijianfankui", title: "设置", name: "setting.take",
           children: [
             {title:"承接管理",name: "setting.take"}
             ,{title:"账户资料",name: "setting.data"},
@@ -38,8 +38,8 @@ export default {
   margin-left: 300px;
   height: 100%;
   box-sizing: border-box;
-  padding-left: 20x;
-  padding-top: 32px;
+  padding-left: 20px;
+  padding-top: 60px;
 }
 .bf-left {
   position: absolute;

@@ -11,6 +11,7 @@ import '@/assets/scss/main.scss'
 import BcHeader from '@/components/Commons/Header.vue'
 import BcLfBar from '@/components/Commons/LeftBar.vue'
 import Footer from '@/components/Commons/Footer.vue'
+import SmallPagination from '@/components/Commons/SmallPagination.vue'
 import AreaSelect from '@/components/Commons/AreaSelect.vue'
 import MyCheckBox from '@/components/Commons/MyCheckBox.vue'
 import InfoBox from '@/components/Commons/InfoBox.vue'
@@ -29,6 +30,8 @@ Vue.component(Footer.name, Footer)
 Vue.component(AreaSelect.name, AreaSelect)
 Vue.component(MyCheckBox.name, MyCheckBox)
 Vue.component(InfoBox.name, InfoBox)
+Vue.component(SmallPagination.name, SmallPagination)
+
 // 注册全局组件 结束
 
 // 注册功能组件 开始

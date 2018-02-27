@@ -57,7 +57,7 @@ router.addRoutes([
   // 重定向
   {
     path: "/",
-    redirect: { name: "apply.success" },
+    redirect: { name: "info" },
     mate: {}
   },
   // 登陆

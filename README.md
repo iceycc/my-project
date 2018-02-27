@@ -66,7 +66,23 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 ## vue自动讲px转rem
 ## 从less改到scss  安装
-
+## css建议书写顺序
+```
+  /* 位置属性 */
+  position, top, right, z-index, display, float
+  
+  /* 大小 */
+  width, height, padding, margin
+  
+  /* 文字系列 */
+  font, line-height,  color, text-align
+  
+  /* 背景 */
+  background, border
+  
+  /* 其他 */
+  animation, transition
+```
 ### scss 目录构建
 ·https://www.w3cplus.com/preprocessor/architecture-sass-project.html·
 ## 抽离的公共组件

@@ -69,7 +69,7 @@
       </ul>
     </div>
     <!--分页-->
-    <div class="fenye"><i class="xiangzuo"> < </i>1/5 <i class="xiangyou"> > </i> </div>
+    <small-pagination></small-pagination>
     <!--无订单时显示-->
     <p class="no-order">暂无订单</p>
   </div>
@@ -208,7 +208,7 @@
     }
 
   }
-  .no-order,.fenye{
+  .no-order{
     margin-top: 30px;
     font-size: 18px;
     text-align: center;
