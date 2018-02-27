@@ -57,7 +57,7 @@ router.addRoutes([
   // 重定向
   {
     path: "/",
-    redirect: { name: "info" },
+    redirect: { name: "account.center" },
     mate: {}
   },
   // 登陆
