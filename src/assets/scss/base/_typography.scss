@@ -33,3 +33,27 @@
 .flex1{
   flex:1
 }
+
+
+//公共的表格 ul li 样式 todo 后期抽离组件？
+.my-table{//ul
+  background: #fff;
+  border:1px solid #f2f2f2;
+  .table-header{
+    background: #f2f2f2;
+  }
+  li{
+    height: 50px;
+    line-height: 50px;
+    border-top: 1px solid #f2f2f2;
+  }
+}
+/*分页*/
+.my-pagination{
+  position: absolute;
+  left: 50%;
+  margin-left: -192px;
+  bottom: 20px
+}
+
+

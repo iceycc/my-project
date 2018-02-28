@@ -30,6 +30,7 @@ import OrderDetail2 from "@/pages/BusinessCenter/OrderManagement/OrderDetail";
 import AccountCenter from "@/pages/BusinessCenter/Account/AccountCenter";
 import Bill from "@/pages/BusinessCenter/Account/Bill";
 import Recharge from "@/pages/BusinessCenter/Account/Recharge";
+import Account from "@/pages/BusinessCenter/Account/Account";
 
 // setting板块
 import Undertake from "@/pages/BusinessCenter/Setting/Undertake"; // 承接管理
@@ -57,7 +58,7 @@ router.addRoutes([
   // 重定向
   {
     path: "/",
-    redirect: { name: "account.center" },
+    redirect: {name: "account.center"},
     mate: {}
   },
   // 登陆
@@ -74,15 +75,15 @@ router.addRoutes([
     component: BeforeJoin,
     children: [
       // 入住申请 1 -
-      { name: "apply.join", path: "join", component: ApplyJoin },
+      {name: "apply.join", path: "join", component: ApplyJoin},
       // 申请提示
-      { name: "apply.info", path: "info", component: ApplyInfo },
+      {name: "apply.info", path: "info", component: ApplyInfo},
       // 填写基础信息
-      { name: "apply.baseinfo", path: "baseinfo", component: BaseInfo },
+      {name: "apply.baseinfo", path: "baseinfo", component: BaseInfo},
       // 填写资质信息
-      { name: "apply.detailinfo", path: "detailinfo", component: DetailInfo },
+      {name: "apply.detailinfo", path: "detailinfo", component: DetailInfo},
       // 申请成功
-      { name: "apply.success", path: "success", component: ApplySuccess }
+      {name: "apply.success", path: "success", component: ApplySuccess}
     ]
   },
   // 登陆成功后侧边栏的
@@ -112,17 +113,26 @@ router.addRoutes([
       },
 
       // 账户中心=================
-      { name: "account.center", path: "account\/center", component: AccountCenter },
-      { name: "account.bill", path: "account\/bill", component: Bill },
+      {
+        name: "account.center", path: "account_center", component: AccountCenter,
+        redirect:{name:'account.account'},
+        children: [
+          //账户
+          {name: 'account.account', path: "account", component: Account},
+          //账单
+          {name: "account.bill", path: "bill", component: Bill},
+        ]
+      },
+
 
       // 设置板块的页面================
-      { name: "setting.take", path: "setting\/take", component: Undertake },
-      { name: "setting.alter", path: "setting\/alter", component: AlterUndertake },
-      { name: "safe.addwx", path: "safe\/wx", component: BindingWx},
-      { name: "safe.password", path: "safe.password", component: ModifyPassword},
-      { name: "setting.data", path: "setting\/data", component: AccountData},
+      {name: "setting.take", path: "setting_take", component: Undertake},
+      {name: "setting.alter", path: "setting_alter", component: AlterUndertake},
+      {name: "safe.addwx", path: "safe_wx", component: BindingWx},
+      {name: "safe.password", path: "safe.password", component: ModifyPassword},
+      {name: "setting.data", path: "setting_data", component: AccountData},
       // 意见反馈
-      { name: "options", path: "options", component: Options}
+      {name: "options", path: "options", component: Options}
     ]
   },
   // 通知详情1 单独
@@ -149,7 +159,7 @@ router.addRoutes([
     component: Recharge
   },
   // 扫描二维码绑定
-  { name: "safe.code", path: "/joined/safe/code", component: ScanCode},
+  {name: "safe.code", path: "/joined/safe/code", component: ScanCode},
 
   //  404页面
   {

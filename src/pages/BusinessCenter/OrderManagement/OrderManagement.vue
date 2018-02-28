@@ -52,10 +52,9 @@
     <div class="om-detail">
       <!--标题-->
       <div class="detail-top">详细数据  （124）</div>
-      <!--详细数据列表-->
-      <div class="detail-box">
-        <ul class="">
-          <li class="header">
+      <!--详细数据列表 table-->
+      <ul class="my-table">
+          <li class="table-header">
             <span class="order-time">订单时间</span>
             <span class="order-num" >订单编号</span>
             <span class="house-type">户型</span>
@@ -63,7 +62,7 @@
             <span class="order-status">状态</span>
             <span class="order-detail"></span>
           </li>
-          <li class="detail-info">
+          <li class="table-list detail-info">
             <span class="order-time">2017-11-11</span>
             <span class="order-num" >123123123123</span>
             <span class="house-type">两局</span>
@@ -71,12 +70,9 @@
             <span class="order-status">点击申诉</span>
             <span class="order-detail" @click="goDetail">详情</span>
           </li>
-
-
-        </ul>
-      </div>
+      </ul>
       <!--分页-->
-      <div class="om-pagination">
+      <div class="my-pagination">
         <small-pagination></small-pagination>
 
       </div>
@@ -197,16 +193,11 @@
       line-height: 40px;
     }
     /*详细数据表格*/
-    .detail-box{
+    .my-table{
       border:1px solid #f2f2f2;
-      .header{
-        background: #f2f2f2;
-      }
       li{
-        height: 40px;
-        line-height: 40px;
         font-size: 0;
-        border-top: 1px solid #f2f2f2;
+
         span{
           text-indent: 10px;
           &:nth-child(n-5){
@@ -228,11 +219,8 @@
       }
     }
     /*分页*/
-    .om-pagination{
-      position: absolute;
-      left: 50%;
-      margin-left: -192px;
-      bottom: 20px
+    .my-pagination{
+
     }
   }
 
