@@ -13,7 +13,7 @@
         </li>
       </ul>
       <div>
-        <el-button class="recharge-btn" size="small" type="primary">充值</el-button>
+        <el-button class="recharge-btn" size="small" type="primary" @click="goRecharge">充值</el-button>
       </div>
     </div>
     <!--账户明细框-->
@@ -54,7 +54,16 @@
 
 <script>
   export default {
-    name: "account"
+    name: "account",
+    data(){
+      return{}
+    },
+    methods:{
+      //点击充值跳转 编程式导航
+      goRecharge(){
+        this.$router.push({name:'account.recharge'})
+      }
+    }
   }
 </script>
 
