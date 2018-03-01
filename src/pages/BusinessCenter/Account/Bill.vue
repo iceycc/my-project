@@ -115,30 +115,26 @@
     .top{
       font-size: 16px;
     }
-  }
-  /*表格行 样式 比例*/
-  .table-row{
-    li{
-      text-indent: 10px;
-      float: left;
-      font-size: 16px;
-      &:nth-child(1){width: 20%;}
-      &:nth-child(2){width: 20%;}
-      &:nth-child(3){width: 30%;}
-      &:nth-child(4){width: 20%;}
+    /*表格行 比例*/
+    .table-row{
+      li{
+        &:nth-child(1){width: 20%;}
+        &:nth-child(2){width: 20%;}
+        &:nth-child(3){width: 30%;}
+        &:nth-child(4){width: 20%;}
+      }
     }
-  }
-  .tab-show{
-    cursor:pointer;
+    .tab-show{
+      cursor:pointer;
+    }
+
+
+    /*
+   .active{
+     .my-table{display: block}
+   }*/
   }
 
-  .my-table{
-    margin-top: 20px;
-  }
-  /*
- .active{
-   .my-table{display: block}
- }*/
 
 
 </style>

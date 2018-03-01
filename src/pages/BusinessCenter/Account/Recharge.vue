@@ -30,7 +30,7 @@
         <input type="radio" name="radio2" id="je3" v-model="picked2" value="3"/>
       </label>
     </div>
-    <!--去支付-->
+    <!--去支付1-->
     <div class="go-pay">
       <el-button type="primary" class="pay-btn">去支付</el-button>
     </div>
@@ -43,7 +43,7 @@
     name:'',
     data(){
       return{
-        checked1:true,
+        // checked1:true,
         picked1:'1',
         picked2:'1',
       }

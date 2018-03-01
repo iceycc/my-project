@@ -1,5 +1,7 @@
-//排版 这里适用于排版的呢
+//排版  这里适用于排版的呢
 
+
+//清楚浮动的
 .clearfix:after,
 .clearfix:before{
   display: block;
@@ -12,16 +14,20 @@
 .clearfix{
   zoom: 1;
 }
+//
 .w{
   margin: 0 auto;
 }
+//
 .l{
   float: left;
 }
+//
 .r{
   float: right;
 }
 
+//
 .bc-container{
   width: 1220px;
   margin: 0 auto;
@@ -39,6 +45,7 @@
 .my-table{//ul
   background: #fff;
   border:1px solid #f2f2f2;
+  margin-top: 20px;
   .table-header{
     background: #f2f2f2;
   }
@@ -46,6 +53,18 @@
     height: 50px;
     line-height: 50px;
     border-top: 1px solid #f2f2f2;
+  }
+  .table-row{
+    li{
+      text-indent: 10px;
+      float: left;
+      font-size: 16px;
+      //用于设置列宽比例---》
+      //&:nth-child(1){width: 20%;}
+      //&:nth-child(2){width: 20%;}
+      //&:nth-child(3){width: 30%;}
+      //&:nth-child(4){width: 20%;}
+    }
   }
 
 }
@@ -57,4 +76,27 @@
   bottom: 20px
 }
 
+/*标题*/
+.small-title{
+  font-size:18px;
+  margin-bottom:30px ;
+}
+
+
+
+/* 盒子阴影及移入样式 */
+.box-hover-shadow{
+  // TODO:1-盒子公共样式
+  position: relative;
+  top: 0;
+  border-radius: 3px;
+  background: #fff;
+  padding: 30px;
+  box-shadow: 1px 1px 5px #ccc;
+  transition: all 0.2s;
+  &:hover {
+    top: -5px;
+    box-shadow: 5px 5px 5px #aaa;
+  }
+}
 

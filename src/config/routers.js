@@ -36,6 +36,7 @@ import Account from "@/pages/BusinessCenter/Account/Account";
 import Undertake from "@/pages/BusinessCenter/Setting/Undertake"; // 承接管理
 import AlterUndertake from "@/pages/BusinessCenter/Setting/AlterUndertake"; // 修改承接管理
 import AccountData from "@/pages/BusinessCenter/Setting/AccountData";  // 账户资料
+import SafeCenter from "@/pages/BusinessCenter/Setting/Safe/SafeCenter";  // 绑定微信
 import BindingWx from "@/pages/BusinessCenter/Setting/Safe/BindingWx";  // 绑定微信
 import ScanCode from "@/pages/BusinessCenter/Setting/Safe/ScanCode"; // 扫描二维码
 import ModifyPassword from "@/pages/BusinessCenter/Setting/Safe/ModifyPassword";  // 修改密码
@@ -58,7 +59,7 @@ router.addRoutes([
   // 重定向
   {
     path: "/",
-    redirect: {name: "account.center"},
+    redirect: {name: "setting.take"},
     mate: {}
   },
   // 登陆
@@ -126,11 +127,15 @@ router.addRoutes([
 
 
       // 设置板块的页面================
-      {name: "setting.take", path: "setting_take", component: Undertake},
-      {name: "setting.alter", path: "setting_alter", component: AlterUndertake},
-      {name: "safe.addwx", path: "safe_wx", component: BindingWx},
-      {name: "safe.password", path: "safe.password", component: ModifyPassword},
-      {name: "setting.data", path: "setting_data", component: AccountData},
+      {name: "setting.take", path: "setting_take", component: Undertake}, // 承接管理
+      {name: "setting.alter", path: "setting_alter", component: AlterUndertake},// 修改承接信息
+      {name: "setting.data", path: "setting_data", component: AccountData}, //账户资料
+      {name:"setting.safe",path:'safe',component:SafeCenter,
+        redirect:{name:'safe.addwx'},//重定向
+        children:[
+          {name: "safe.addwx", path: "wx", component: BindingWx},
+          {name: "safe.password", path: "password", component: ModifyPassword},
+        ]},
       // 意见反馈
       {name: "options", path: "options", component: Options}
     ]
@@ -138,28 +143,28 @@ router.addRoutes([
   // 通知详情1 单独
   {
     name: "notice.detail",
-    path: "/joined/notice/detail",
+    path: "/joined/notice_detail",
     component: NoticeDetail
   },
   {
     name: "index.detail",
-    path: "/joined/index/detail",
+    path: "/joined/index_detail",
     component: OrderDetail1
   },
   //订单详情2  单独
   {
     name: "order.detail",
-    path: "/joined/order/detail",
+    path: "/joined/order_detail",
     component: OrderDetail2
   },
   // 充值中心  单独
   {
     name: "account.recharge",
-    path: "/joined/acount/recharge",
+    path: "/joined/acount_recharge",
     component: Recharge
   },
   // 扫描二维码绑定
-  {name: "safe.code", path: "/joined/safe/code", component: ScanCode},
+  {name: "safe.code", path: "/joined/safe_code", component: ScanCode},
 
   //  404页面
   {

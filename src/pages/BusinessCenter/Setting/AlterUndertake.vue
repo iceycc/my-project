@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h3 class="ui-title">修改承接管理</h3>
+    <h3 class="small-title">修改承接管理</h3>
+    <!--主要表单区-->
     <div class="ut-form">
       <!-- 选择承接方式 -->
       <div class="form-box">
@@ -35,7 +36,7 @@
               </div>
             </div>
             <div class="ut-t">
-            <el-radio v-model="radio1" label="2">不承接</el-radio>             
+            <el-radio v-model="radio1" label="2">不承接</el-radio>
             </div>
           </div>
         </div>
@@ -47,11 +48,11 @@
               <div class="ut-l">
               <el-radio v-model="radio2" label="1">承接</el-radio>
               </div>
-              <div class="ut-l"> 
+              <div class="ut-l">
               </div>
             </div>
             <div class="ut-t">
-            <el-radio v-model="radio2" label="2">不承接</el-radio>             
+            <el-radio v-model="radio2" label="2">不承接</el-radio>
             </div>
           </div>
         </div>
@@ -67,7 +68,7 @@
               </div>
             </div>
             <div class="ut-t">
-            <el-radio v-model="radio3" label="2">不承接</el-radio>             
+            <el-radio v-model="radio3" label="2">不承接</el-radio>
             </div>
           </div>
         </div>
@@ -100,25 +101,19 @@
               </el-option>
             </el-select>
           </div>
-          <div>
-            <el-select v-model="quxian" placeholder="请选择" size="mini">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
+
         </div>
         <!-- 承接详情 -->
         <div class="ut-detail">
           <h5>承接详情</h5>
-          <ul class="ut-quian">
+          <ul class="ut-quxian">
             <li>这里是区/县</li>
-            <li>这里是区/县</li>
-            <li>这里是区/县</li>
-            <li>这里是区/县</li>            
+            <li
+              :style="{cursor:'pointer'}"
+              v-for="(item,index) in quxians"
+              :key="index">{{item.name}}
+              <i class="iconfont icon-yuangou" v-show="item.isSelected"></i>
+            </li>
           </ul>
           <div class="cart-detail">
             <p>请设置以下承接选项</p>
@@ -130,9 +125,13 @@
               <!-- <div class="house-right"></div> -->
             </div>
           </div>
-          
+
         </div>
       </div>
+    </div>
+    <!--提交-->
+    <div class="ut-submit">
+      <el-button class="submit-btn" type="primary" @click="goTake">确定修改</el-button>
     </div>
   </div>
 </template>
@@ -170,12 +169,12 @@ export default {
           label: "北京烤鸭"
         }
       ],
-
+      //区县列表
+      quxians:[{name:"丰台",isSelected:true},{name:"东城",isSelected:false},{name:"西城",isSelected:true}],
       // 下拉框选择☞
       qifang: "",
       sheng: "",
       shi: "",
-      quxian: "",
 
       // 单选框
       radio1: "",
@@ -204,7 +203,10 @@ export default {
           eara: "",
           money:""
         }
-      ]
+      ],
+
+      //
+      isSelected:false
     };
   },
   methods: {
@@ -218,11 +220,17 @@ export default {
       this.checkAll = checkedCount === this.cities.length;
       this.isIndeterminate =
         checkedCount > 0 && checkedCount < this.cities.length;
+    },
+    //  点击提交
+    goTake(){
+      this.$router.push({name:'setting.take'})
     }
   }
 };
 </script>
 <style lang="scss">
+  @import '~@/assets/scss/main.scss';
+
 .ut-form {
   margin-top: 50px;
   font-size: 18px;
@@ -233,23 +241,7 @@ export default {
   color: #000;
 }
 .form-box {
-  // TODO:1-盒子公共样式
-  position: relative;
-  top: 0;
-  width: 100%;
-  border-radius: 3px;
-  background: #fff;
-  padding-top: 30px;
-  padding-left: 30px;
-  padding-bottom: 30px;
-  padding-right: 30px;
-  box-sizing: border-box;
-  box-shadow: 1px 1px 5px #ccc;
-  transition: all 0.2s;
-  &:hover {
-    top: -5px;
-    box-shadow: 5px 5px 5px #aaa;
-  }
+  @extend .box-hover-shadow;
   // --
   margin-top: 1px;
   border-top: 2px solid #eee;
@@ -303,7 +295,7 @@ export default {
       color:#000;
     }
     & > div {
-      flex: 2;
+      flex: 3;
       padding: 0 4px;
       height: 28px;
     }
@@ -320,22 +312,28 @@ export default {
       vertical-align: middle;
       color:#000;
     }
-    & .ut-quian {
+    .ut-quxian {
       flex: 1;
       font-size: 14px;
       color: #666;
       li{
+        position: relative;
         height: 28px;
+        font-size: 16px;
         line-height: 28px;
       }
+      i::before{
+        font-size: 16px;
+        vertical-align: middle;
+        color: #0099ff;
+      }
+
     }
-    & > div {
+    .cart-detail {
       flex: 5;
       border: 1px solid #ccc;
       border-radius: 2px;
       padding: 10px;
-    }
-    .cart-detail {
       font-size: 14px;
       p {
         color: #aaa;
@@ -347,6 +345,16 @@ export default {
       word-wrap: break-all !important;
       width: 120px;
     }
+  }
+}
+/*提交*/
+.ut-submit{
+  padding-top: 30px;
+  text-align: center;
+  .submit-btn{
+
+    width: 150px;
+
   }
 }
 </style>
