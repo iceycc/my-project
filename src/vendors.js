@@ -15,9 +15,12 @@ import SmallPagination from '@/components/Commons/SmallPagination.vue'
 import AreaSelect from '@/components/Commons/AreaSelect.vue'
 import MyCheckBox from '@/components/Commons/MyCheckBox.vue'
 import InfoBox from '@/components/Commons/InfoBox.vue'
+import BcTab from '@/components/Commons/BcTab.vue'
+
 // 功能组件的引入
 import IdCardBox from '@/components/Content/ApplyJoin/Detailnfo/IdCardBox.vue'
 import InfoCard from '@/components/Content/Index/Index/InfoCard.vue'
+
 
 
 // 启用第三方插件
@@ -31,6 +34,7 @@ Vue.component(AreaSelect.name, AreaSelect)
 Vue.component(MyCheckBox.name, MyCheckBox)
 Vue.component(InfoBox.name, InfoBox)
 Vue.component(SmallPagination.name, SmallPagination)
+Vue.component(BcTab.name, BcTab)
 
 // 注册全局组件 结束
 

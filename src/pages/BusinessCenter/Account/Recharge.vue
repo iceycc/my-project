@@ -43,7 +43,7 @@
     name:'',
     data(){
       return{
-        checked1:true,
+        // checked1:true,
         picked1:'1',
         picked2:'1',
       }

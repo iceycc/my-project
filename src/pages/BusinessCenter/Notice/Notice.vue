@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--顶部通知-->
-    <div class="top-nav">通知</div>
+    <div class="small-title">通知</div>
     <!--通知信息展示区域-->
     <div class="main-box">
       <ul class="info-lists">
@@ -34,9 +34,9 @@
 <style lang="scss">
 
   /*顶部*/
-  .top-nav{
+  .small-title{
     margin:20px 0;
-    font-size:20px;
+    font-size:18px;
   }
   /*主体展示*/
   .main-box{
