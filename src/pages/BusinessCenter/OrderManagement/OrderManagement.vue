@@ -83,6 +83,7 @@
   export default{
     data() {
       return {
+        input23:'',
         options2: [{
           value: '选项1',
           label: '订单号搜索'

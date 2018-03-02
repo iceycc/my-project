@@ -44,4 +44,7 @@ export default {
   height: 52px;
   background: #fff;
 }
+  .center-box{
+    width: 1000px;
+  }
 </style>

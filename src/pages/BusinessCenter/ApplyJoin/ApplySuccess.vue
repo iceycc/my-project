@@ -4,7 +4,7 @@
     <div class="success-box">
       <h4><i class="iconfont icon-chenggong"> </i> 申请已经提交</h4>
       <p>审核工作将在1-3个工作日内完成，请注意登陆后台查看审核结果</p>
-      <el-button class="success-btn" type="primary" @click="goIndex">我知道了</el-button>
+      <el-button class="success-btn" type="primary" @click="goApplyJoin">我知道了</el-button>
     </div>
   </div>
 </template>
@@ -16,9 +16,9 @@
       return {}
     },
     methods: {
-      goIndex() {
+      goApplyJoin() {
         // console.log(this);
-        this.$router.push({name: 'joined.index'})
+        this.$router.push({name: 'apply.join'})
       }
     }
   };

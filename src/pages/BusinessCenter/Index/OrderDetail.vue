@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="center-box">
     <!--top-->
     <div class="top-nav"><a href="javascript:;" class="go_home">首页</a><i class="iconfont icon-xiangyou"></i><a href="javascript:;">订单详情</a></div>
     <!-- 详情表单-->
@@ -150,11 +150,11 @@
           display: inline-block;
           width: 80px;
           height: 30px;
-          color: rgb(0, 255, 255);
+          color: #0099ff;
           font-size: 16px;
           text-align: center;
           line-height: 30px;
-          border: 1px solid rgb(0, 255, 255);
+          border: 1px solid #0099ff;
           border-radius: 3px;
         }
         p {

@@ -32,7 +32,9 @@
       <div class="order-top">
         <div class="order-count">
           <h5 class="flex1 order-h5"><i class="iconfont icon-jinqidingdan order-icon"></i>近期订单（<i>15</i>）</h5>
-          <div class="search-box flex1"><el-input
+          <div class="search-box flex1">
+            <el-input
+              size="mini"
             placeholder="订单号（可申诉订单）"
             prefix-icon="el-icon-search"
             v-model="input">
@@ -43,7 +45,7 @@
       <!--订单列表-->
       <ul class="order-list">
         <!--订单详情-->
-        <li class="order-detail">
+        <li class="order-detail" v-for="(item,index) in orders" :key="index">
           <!--box1-->
           <div class="box1">
             <p>户型：<span>两局</span></p>
@@ -69,7 +71,7 @@
       </ul>
     </div>
     <!--分页-->
-    <small-pagination></small-pagination>
+    <small-pagination class="index-page"></small-pagination>
     <!--无订单时显示-->
     <p class="no-order">暂无订单</p>
   </div>
@@ -79,7 +81,8 @@
     name: '',
     data() {
       return {
-        input: ''
+        input: '',
+        orders:[{},{},{}]
       }
     },
     methods: {
@@ -171,6 +174,7 @@
       font-size: 0;
 
       .order-detail{
+        border-bottom: 1px solid #d6d6d6;
         >div{
           display: inline-block;
           font-size: 0;
@@ -213,6 +217,10 @@
     font-size: 18px;
     text-align: center;
   }
-
+  /**/
+  .index-page{
+    margin-top: 30px;
+    margin-left: 200px;
+  }
 
 </style>

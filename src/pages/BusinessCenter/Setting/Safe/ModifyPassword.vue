@@ -19,6 +19,11 @@
         <el-button type="primary" @click="submitForm('ruleForm2')">提交</el-button>
       </el-form-item>
     </el-form>
+    <!--<timer-btn ref="timerbtn" class="btn btn-default" v-on:run="sendCode"-->
+               <!--:disabled="disabled" :second="60"></timer-btn>-->
+    <!--todo 短信验证码-->
+    <!--<message-code ref="timerbtn" class="btn btn-default" v-on:run="sendCode" ></message-code>-->
+
   </div>
 </template>
 <script>
@@ -91,7 +96,26 @@
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
-      }
+      },
+
+      sendCode:function(){
+        var _this= this;
+        this.$refs.timerbtn.setDisabled(true); //设置按钮不可用
+        this.$axios.get('/user?ID=12345')
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+        // this.$axios.get("sys/sendCode?_"+$.now(),function(data){
+        //   if(data.status){
+        //     _this.$refs.timerbtn.start(); //启动倒计时
+        //   }else{
+        //     _this.$refs.timerbtn.stop(); //停止倒计时
+        //   }
+        // });
+      },
     }
   }
 </script>

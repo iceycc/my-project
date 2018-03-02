@@ -59,7 +59,7 @@ router.addRoutes([
   // 重定向
   {
     path: "/",
-    redirect: {name: "setting.take"},
+    redirect: {name: "login"},
     mate: {}
   },
   // 登陆

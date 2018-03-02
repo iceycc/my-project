@@ -126,4 +126,8 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 19. /** + Enter，自动生成注释
 20. Ctrl + Alt + L，格式化代码
 
+### 前端校验 
+* 参考 VeeValidate 
+* http://blog.csdn.net/docallen/article/details/73650179
+
 

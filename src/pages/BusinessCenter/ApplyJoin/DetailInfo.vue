@@ -68,8 +68,8 @@
       </div>
     </div>
     <div class="ai-btn">
-      <el-button>上一部</el-button>
-      <el-button size="medium" type="primary">提交申请</el-button>
+      <el-button @click="goBaseInfo">上一步</el-button>
+      <el-button @click="goSuccess" size="medium" type="primary">提交申请</el-button>
     </div>
   </div>
 </template>
@@ -80,7 +80,14 @@
     data() {
       return {};
     },
-    methods: {}
+    methods: {
+      goBaseInfo(){
+        this.$router.push({name:'apply.baseinfo'})
+      },
+      goSuccess(){
+        this.$router.push({name:'apply.success'})
+      }
+    }
   };
 </script>
 

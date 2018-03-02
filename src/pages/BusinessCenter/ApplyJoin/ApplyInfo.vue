@@ -4,7 +4,7 @@
       <div class="ai-main">
           <div ai-box>
               <div class="small-box">
-                 <h3 class="title">身份证照片</h3> 
+                 <h3 class="title">身份证照片</h3>
                  <p class="info">证件照(正反面) 需清晰可辨认,不得使用复印件</p>
                  <div class="pic">
                     <el-upload
@@ -19,7 +19,7 @@
                  </div>
               </div>
               <div class="small-box">
-                 <h3 class="title">营业执照</h3> 
+                 <h3 class="title">营业执照</h3>
                  <p class="info">证明拍摄证件，照片需清晰可辨认，不得使用复印件</p>
                  <div class="pic">
                     <el-upload
@@ -34,7 +34,7 @@
                  </div>
               </div>
               <div class="small-box">
-                 <h3 class="title small-info">施工等级资质</h3> 
+                 <h3 class="title small-info">施工等级资质</h3>
                  <p class="info">证件照(正反面) 需清晰可辨认,不得使用复印件</p>
                  <div class="pic">
                     <el-upload
@@ -49,11 +49,11 @@
                  </div>
               </div>
 
-          </div>         
+          </div>
       </div>
-      <div class="ai-btn"> 
-        <el-button>返回首页</el-button>
-        <el-button type="primary">我已经准备好资料，开始申请入住</el-button>
+      <div class="ai-btn">
+        <el-button @click="goApplyJoin">返回首页</el-button>
+        <el-button @click="goBaseInfo" type="primary">我已经准备好资料，开始申请入住</el-button>
       </div>
   </div>
 </template>
@@ -81,6 +81,12 @@ export default {
       }
       return isJPG && isLt2M;
       console.log(1);
+    },
+    goApplyJoin(){
+      this.$router.push({name:'apply.join'})
+    },
+    goBaseInfo(){
+      this.$router.push({name:'apply.baseinfo'})
     }
   }
 };
@@ -145,7 +151,7 @@ export default {
 // 按钮
 .ai-btn{
   margin-top:20px;
-  text-align: center; 
+  text-align: center;
 }
 
 // 图片预览style

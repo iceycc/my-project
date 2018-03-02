@@ -9,11 +9,11 @@
           <h3>{{step}}</h3>
           <p>1、填写基础信息</p>
           <p>2、填写资质信息</p>
-          <el-button type="primary" class="aj-top-btn">申请入住</el-button>
+          <el-button type="primary" class="aj-top-btn" @click="goApplyInfo">申请入住</el-button>
       </info-box>
       <!-- TODO: -->
       <!-- 申请入住 -->
-      <info-box>
+      <info-box v-if="status===1">
         <div class="step-l">
           <h4>
           <i class="iconfont icon-yuangou"></i>
@@ -23,11 +23,11 @@
         </div>
         <div class="step-r">
           <el-button class="aj-btn" type="primary">完善信息</el-button>
-          <el-button class="aj-btn">重新申请</el-button>          
+          <el-button class="aj-btn">重新申请</el-button>
         </div>
       </info-box>
       <!-- 资料审核中 -->
-      <info-box>
+      <info-box v-else-if="status===2">
         <div class="step-l">
           <h4>
           <i class="iconfont icon-yuangou"></i>
@@ -39,7 +39,7 @@
         </div>
       </info-box>
       <!-- 资料审核已经通过 -->
-      <info-box>
+      <info-box v-else-if="status===3">
         <div class="step-l">
           <h4>
           <i class="iconfont icon-yuangou"></i>
@@ -52,7 +52,7 @@
         </div>
       </info-box>
       <!-- 资料审核未通过 -->
-      <info-box>
+      <info-box v-else-if="status===4">
         <div class="step-l">
           <h4>
           <i class="iconfont icon-yuangou"></i>
@@ -64,19 +64,39 @@
           <el-button class="aj-btn" type="primary">重新申请</el-button>
         </div>
       </info-box>
+      <!--todo 状态异常-->
+      <info-box v-else>
+        <div class="step-l">
+          <h4>
+            <i class="iconfont icon-yuangou"></i>
+            状态异常</h4>
+          <p>请重新访问</p>
+          <p>创建时间：<i>2011-11-11 11：11</i></p>
+        </div>
+        <div class="step-r">
+          <el-button class="aj-btn" type="primary">重新访问</el-button>
+        </div>
+      </info-box>
   </div>
   </div>
-  
+
 </template>
 <script>
 export default {
   // name: "apply-join",
   data() {
     return {
-      step: "两步完成商户入驻"
+      step: "两步完成商户入驻",
+      //状态显示 申请入住（1）资料审核中（2）资料审核已通过（3）资料审核未通过（4） 其他
+      status:1
     };
   },
-  methods: {}
+  methods: {
+    goApplyInfo(){
+      this.$router.push({name:'apply.info'})
+    }
+
+  }
 };
 </script>
 
@@ -94,6 +114,10 @@ export default {
   .icon-gonggao::before {
     color: red;
     font-size: 30px;
+  }
+  h3{
+    font-size: 20px;
+    font-weight: bold;
   }
   p {
     height: 40px;

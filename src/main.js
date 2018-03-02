@@ -4,7 +4,6 @@ import Vue from 'vue'
 import App from './App' // 入口文件
 import router from './config/routers' // 引入路由配置文件  里面是index 默认可以省略
 import Axios from 'axios' // 引入 axios 出来ajax
-
 // 生产环境提示，这里设置成了false
 Vue.config.productionTip = false
 

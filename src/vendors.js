@@ -16,6 +16,7 @@ import AreaSelect from '@/components/Commons/AreaSelect.vue'
 import MyCheckBox from '@/components/Commons/MyCheckBox.vue'
 import InfoBox from '@/components/Commons/InfoBox.vue'
 import BcTab from '@/components/Commons/BcTab.vue'
+import MessageCode from '@/components/Commons/MessageCode.vue'
 
 // 功能组件的引入
 import IdCardBox from '@/components/Content/ApplyJoin/Detailnfo/IdCardBox.vue'
@@ -35,6 +36,7 @@ Vue.component(MyCheckBox.name, MyCheckBox)
 Vue.component(InfoBox.name, InfoBox)
 Vue.component(SmallPagination.name, SmallPagination)
 Vue.component(BcTab.name, BcTab)
+Vue.component(MessageCode.name, MessageCode)
 
 // 注册全局组件 结束
 
