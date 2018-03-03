@@ -37,13 +37,13 @@ function apiAxios(method, url, params, success, failure) {
     params = filterNull(params)
   }
   axios({
-      method: method,
-      url: url,
-      data: method === 'POST' || method === 'PUT' ? params : null,
-      params: method === 'GET' || method === 'DELETE' ? params : null,
-      baseURL: root,
-      withCredentials: false
-    })
+    method: method,
+    url: url,
+    data: method === 'POST' || method === 'PUT' ? params : null,
+    params: method === 'GET' || method === 'DELETE' ? params : null,
+    baseURL: root,
+    withCredentials: false
+  })
     .then(function (res) {
       if (res.data.success === true) {
         if (success) {
