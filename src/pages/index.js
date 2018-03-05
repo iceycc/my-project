@@ -1,3 +1,8 @@
+/**
+ *@author wangbingyang
+ *@date 2018/03/03 13:20:25
+ *@desc
+ */
 // 各个路由板块------B-----
 // 申请页面哎
 import Login from "@/pages/Main/Login";

@@ -74,9 +74,13 @@
   </div>
 </template>
 <script>
+  import {contents} from '@/components/index.js'
+
   export default {
     // name: 'base-info'1,
-
+    components:{
+      "id-card-box":contents.IdCardBox
+    },
     data() {
       return {};
     },

@@ -1,6 +1,6 @@
 <template>
     <div class="bf">
-        <left-bar :leftbar="lists" class="bf-left"></left-bar>
+        <left-bar :left-bar="lists" class="bf-left"></left-bar>
         <div class="bf-main">
           <router-view class="w-1000"></router-view>
         </div>

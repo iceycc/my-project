@@ -2,7 +2,7 @@
 <template>
   <div class="bc-lfbar">
       <ul>
-          <li class="bc-lf-list" :class='{active:index==ai}' v-for= "(value,index) in leftbar" :key="index" >              
+          <li class="bc-lf-list" :class='{active:index==ai}' v-for= "(value,index) in leftBar" :key="index" >
             <div class="bc-text">
               <i :class="value.icon" class="iconfont"></i>
               <router-link class="bc-a" :to="{name:value.name}" @click.native="ulCLick(index)">{{value.title}}</router-link>
@@ -21,7 +21,19 @@
 export default {
   name: "left-bar",
   // 需要从父组件接受包含 字体图标类名和标题的 对象
-  props: ["leftbar"],
+  props: {
+    leftBar:{
+      type:Array,// 指定类型传入数组哎
+      // 默认返回 在登陆前的页面不必传入leftBar的对象值 直接返回 一个数组
+      default:function (){
+        return [
+            { icon: "icon-shouye", title: "首页", name: 'apply.join' },
+            { icon: "icon-yijianfankui", title: "意见反馈", name: 'apply.info' }
+          ]
+      }
+    }
+  },
+
   data() {
     return {
       ai: 0,
@@ -29,14 +41,14 @@ export default {
       children:[]
     };
   },
-  methods: {  
+  methods: {
      // 点击ul触发：
     ulCLick(index){
       // 判断是否有下拉ol
       // console.log(event.target);
       this.ai = index;
       // 点击展示下拉
-      // if(!this.children.length) return;      
+      // if(!this.children.length) return;
       var ols = this.$refs.ols;
       console.log(ols)
       // 排他
@@ -72,10 +84,10 @@ export default {
     li{
      padding-top:5px;
      height: 30px;
-     line-height: 30px; 
-      &.active a{    
+     line-height: 30px;
+      &.active a{
           color: $activeColor;
-      }     
+      }
     }
   }
   .bc-lf-list {

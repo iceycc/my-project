@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>使用 v-on 绑定自定义事件</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+</head>
+<body>
+<div id="counter-event-example">
+  <p>{{ total }}</p>
+  <!--<button-counter v-on:increment="incrementTotal"></button-counter>-->
+  <!--<button-counter v-on:increment="incrementTotal"></button-counter>-->
+  <!--监听原生事件 .native-->
+  <button-counter v-on:click.native="doTheThing"></button-counter>
+</div>
+<script>
+  //--注册公共组件-
+  Vue.component('button-counter', {
+    // 子组件模板
+    template: '<button v-on:click="incrementCounter">{{ counter }}</button>',
+    // 数据
+    data: function () {
+      return {
+        counter: 0
+      }
+    },
+    // 方法
+    methods: {
+      incrementCounter: function () {
+        this.counter += 1
+        this.$emit('increment') // 通过父组件内  v-on:increment="incrementTotal" 的 increment 与父组件建立联系
+        // 将自己的内部事件报告给父组件  注释后 父组件的 total无法接受来着子组件的变化
+        // this.$emit('increment')
+      },
+    },
+  })
+
+  new Vue({
+    el: '#counter-event-example',
+    data: {
+      total: 0
+    },
+    methods: {
+      incrementTotal: function () {
+        this.total += 1
+      },
+      doTheThing(){
+        this.total += 2
+
+      }
+    },
+  })
+</script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 <template>
     <div class="bf">
-        <left-bar :leftbar="lists" class="bf-left"></left-bar>  
+        <left-bar class="bf-left"></left-bar>
         <div class="bf-main">
           <router-view class="w-1000"></router-view>
         </div>
@@ -10,10 +10,11 @@
 export default {
   data() {
     return {
-      lists: [
-        { icon: "icon-shouye", title: "首页", name: 'apply.join' },
-        { icon: "icon-yijianfankui", title: "意见反馈", name: 'apply.info' }
-      ]
+      // 侧边栏组件里设置校验规则了 有默认返回啦
+      // lists: [
+      //   { icon: "icon-shouye", title: "首页", name: 'apply.join' },
+      //   { icon: "icon-yijianfankui", title: "意见反馈", name: 'apply.info' }
+      // ]
     };
   },
   methods: {}
