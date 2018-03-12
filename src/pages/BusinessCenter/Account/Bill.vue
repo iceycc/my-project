@@ -26,21 +26,17 @@
             <!--表头-->
             <li class="table-header">
               <ol class="table-row">
-                <li>时间</li>
-                <li>订单号</li>
-                <li>户型</li>
-                <li>类型</li>
-                <li>金额</li>
+                <li v-for="(item,index) in titles" :key="index">{{item}}</li>
               </ol>
             </li>
             <!--表格内容-->
             <li class="[{'table-detail':true}]" v-for="(info,index) in billInfos" :key="index">
               <ol class="table-row">
-                <li>2017-11-11 11:11</li>
-                <li>123123123123</li>
-                <li>两局</li>
-                <li>扣款</li>
-                <li>-123</li>
+                <li>{{info.time}}</li>
+                <li>{{info.num}}</li>
+                <li>{{info.home}}</li>
+                <li>{{info.status}}</li>
+                <li>{{info.price}}</li>
               </ol>
             </li>
           </ul>
@@ -65,7 +61,8 @@
       //  每个月的账单总信息
         mouseBills:[{data:'',isShow:false},{data:'',isShow:false}],
         //每个月单独的订单信息
-        billInfos:[{},{},{}],
+        titles:['时间','订单号','户型','类型','金额'],
+        billInfos:[{time:'2017-11-11 11:11',num:'123123123123',home:'两局',status:'扣款',price:'-123'},{time:'2017-11-11 11:11',num:'123123123123',home:'两局',status:'扣款',price:'-123'},{}],
         //
       }
     },

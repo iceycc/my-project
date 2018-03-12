@@ -1,9 +1,10 @@
 // 路由配置
 import Vue from "vue";
 import VueRouter from "vue-router";
-import "@/vendors.js"; //引入组件 字体图标 样式scss 什么的
+import "@/plugins/Vendors.js"; //引入组件 字体图标 样式scss 什么的
 
-import pages from '../pages/index.js'//引入页面
+import pages from '@/pages/index.js'//引入页面
+import {Constants} from '@/config'
 
 //404提示
 var NotFound = {
@@ -27,13 +28,14 @@ router.addRoutes([
     path: "/join",
     name: "login",
     component: pages.Login,
-    meta: {}
+    meta: {check:false}
   },
   // 申请入住
   {
     name: "apply",
     path: "/apply",
     component: pages.BeforeJoin,
+    meta:{check:true},
     children: [
       // 入住申请 1 -
       {name: "apply.join", path: "join", component: pages.ApplyJoin},
@@ -132,5 +134,23 @@ router.addRoutes([
     component: NotFound
   }
 ]);
+
+
+
+// 全局导航过滤（其实就是拦截路由请求）
+router.beforeEach((to,from,next) => {
+  let uid = localStorage.getItem(Constants.LocalStorage.uid)
+
+
+  if(uid){
+    next()
+  }else{
+    if(to.path !== '/login'){
+      next()
+    }else{
+      next()
+    }
+  }
+})
 
 export default router;

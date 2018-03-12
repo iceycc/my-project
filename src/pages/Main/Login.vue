@@ -3,10 +3,10 @@
   <div>
     <h1>商铺登陆</h1>
     <div class="join-from">
-      <label for=""><span>账号</span><input type="text"> <br></label>
+      <label for=""><span>账号</span><input type="text" v-model="username"> <br></label>
       <label for=""><span>密码</span><input type="password"> <br></label>
       <label for=""><input type="radio"> 下次自动登陆 <br></label>
-      <button>登陆</button>
+      <button @click="goLogin">登陆</button>
     </div>
   </div>
 
@@ -14,14 +14,39 @@
 </template>
 
 <script>
+  // 引入request混入
+  import {Constants, EventBus, mixins} from '@/config/index'
+
   export default {
+    mixins: [mixins.base, mixins.request],
+
     data() {
       return {
-
+        username: ''
       }
     },
     methods: {
+      goLogin() {
+        // 1 校验
+        // 2 校验成功登陆
+        this.doRequest(Constants.Method.get_hot_words, null, (result) => {
+          // 3 登陆成功后 获取uid
+          let uid = 'icey'
+          console.log('登陆成功')
+          // 4 登陆成功，跳转到主页
+          this.goHome(uid)
+        },(err)=>{
+          console.log(err)
+        });
+      },
 
+      goHome(uid) {
+        this.$ls.set(Constants.LocalStorage.uid,uid)
+        this.$router.push({
+          name:'apply.join'
+        })
+
+      }
     }
   }
 </script>

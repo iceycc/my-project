@@ -1,0 +1,93 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "login": [
+    {
+      "isLogin": false,
+      "id": "icey"
+    },
+    {
+      "id": "005",
+      "isLogin": false
+    },
+    {
+      "uid": "icey",
+      "id": "EybTPhk"
+    },
+    {
+      "uid": "icey",
+      "id": "AUU5yZd"
+    },
+    {
+      "uid": "icey",
+      "id": "_ch9hyE"
+    },
+    {
+      "uid": "icey",
+      "id": "12T2Qp~"
+    },
+    {
+      "uid": "icey",
+      "id": "oOc68_r"
+    },
+    {
+      "uid": "icey",
+      "id": "aFSnayg"
+    },
+    {
+      "uid": "icey",
+      "id": "hPJUi~r"
+    },
+    {
+      "uid": "icey",
+      "id": "3GTNcJ9"
+    },
+    {
+      "uid": "icey",
+      "id": "Q1dvKGh"
+    },
+    {
+      "uid": "icey",
+      "id": "VwJ25S9"
+    },
+    {
+      "uid": "icey",
+      "id": "LRsNZyM"
+    },
+    {
+      "uid": "icey",
+      "id": "jcnbwA4"
+    },
+    {
+      "uid": "icey",
+      "id": "yKQD2px"
+    },
+    {
+      "uid": "icey",
+      "id": "LGHgDjz"
+    },
+    {
+      "uid": "icey",
+      "id": "y8Ch_Qw"
+    },
+    {
+      "uid": "icey",
+      "id": "hYw3LMd"
+    }
+  ]
+}

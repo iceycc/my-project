@@ -13,7 +13,7 @@ Vue.use(ElementUI)
 // todo : 抽空抽离需要的组件 按需加载
 
 // 组件的引入
-import {commons} from './components/index.js'
+import {commons} from '../components/index.js'
 
 // 注册全局组件 开始
 Vue.component(commons.BcHeader.name, commons.BcHeader)
