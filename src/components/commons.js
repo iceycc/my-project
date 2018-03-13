@@ -14,6 +14,7 @@ import MyCheckBox from '@/components/Commons/MyCheckBox.vue'
 import InfoBox from '@/components/Commons/InfoBox.vue'
 import BcTab from '@/components/Commons/BcTab.vue'
 import MessageCode from '@/components/Commons/MessageCode.vue'
+import ZenModal from '@/components/Commons/ZenModal.vue'
 
 // 默认导出 外面直接
 // 引入全部时 import commons from './commons.js'
@@ -28,5 +29,6 @@ export default {
   MyCheckBox,
   InfoBox,
   BcTab,
-  MessageCode
+  MessageCode,
+  ZenModal
 }
