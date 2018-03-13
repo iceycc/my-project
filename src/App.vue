@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <bc-header class="bc-header" :isShow="isLogin"></bc-header>
+    <bc-header class="bc-header" :isShow="isLogin" @clicl="outLogin"></bc-header>
     <div class='bc-main'>
       <router-view class="bc-1220"></router-view>
       <bc-footer class="bc-footer"></bc-footer>
@@ -27,6 +27,11 @@
         this.uid = this.$ls.get(Constants.LocalStorage.uid)
         this.isLogin = true
         console.log(this.uid)
+      }
+    },
+    methods:{
+      outLogin(){
+        createApp()
       }
     }
 
