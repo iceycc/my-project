@@ -77,7 +77,12 @@
   </div>
 </template>
 <script>
+  import * as components  from '@/components/index.js'
+
   export default {
+    components:{
+      "info-card":components.contents.InfoCard
+    },
     name: '',
     data() {
       return {
