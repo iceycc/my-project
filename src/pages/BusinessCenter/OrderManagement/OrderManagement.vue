@@ -80,7 +80,12 @@
   </div>
 </template>
 <script>
+  // import {TimePicker,Select } from 'element-ui'
   export default{
+    // components:{
+    //   TimePicker:TimePicker.name,
+    //   Select:Select.name
+    // },
     data() {
       return {
         input23:'',

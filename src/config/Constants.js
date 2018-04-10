@@ -1,5 +1,5 @@
 /**
- * Created by zhangweiwei on 16/9/7.
+ *
  */
 
 const BASE_URL = 'http://m.uzhuang.com/index.php?m=wenda&';

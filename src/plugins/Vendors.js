@@ -1,19 +1,25 @@
 import Vue from "vue";
-// element ui外部组件
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
 // 字体图标文件
 import '@/assets/iconfont/iconfont.css'
 // 样式文件
 import '@/assets/scss/main.scss'
-
-
-// 启用第三方插件
-Vue.use(ElementUI)
-// todo : 抽空抽离需要的组件 按需加载
-
-// 组件的引入
+// 自己组件的引入
 import {commons} from '../components/index.js'
+// element ui外部组件 按需引入
+import 'element-ui/lib/theme-chalk/index.css'
+import {
+  TimePicker,
+  Select,
+  DatePicker,
+  Input,
+  Pagination
+} from 'element-ui'
+Vue.component(TimePicker.name, TimePicker)
+Vue.component(Select.name, TimePicker)
+Vue.component(DatePicker.name, DatePicker)
+Vue.component(Input.name,Input)
+Vue.component(Pagination.name,Pagination)
+
 
 // 注册全局组件 开始
 Vue.component(commons.BcHeader.name, commons.BcHeader)

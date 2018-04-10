@@ -15,10 +15,8 @@
 
 <script>
   // 引入request混入
-  import {Constants, EventBus, mixins} from '@/config/index'
 
   export default {
-    mixins: [mixins.base, mixins.request],
 
     data() {
       return {
@@ -29,24 +27,12 @@
       goLogin() {
         // 1 校验
         // 2 校验成功登陆
-        this.doRequest(Constants.Method.get_hot_words, null, (result) => {
           // 3 登陆成功后 获取uid
-          let uid = 'icey'
-          console.log('登陆成功')
+
           // 4 登陆成功，跳转到主页
-          this.goHome(uid)
-        },(err)=>{
-          console.log(err)
-        });
+
       },
 
-      goHome(uid) {
-        this.$ls.set(Constants.LocalStorage.uid,uid)
-        this.$router.push({
-          name:'apply.join'
-        })
-
-      }
     }
   }
 </script>

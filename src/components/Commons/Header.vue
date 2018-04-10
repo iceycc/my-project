@@ -49,7 +49,7 @@
 </script>
 <style lang="scss">
   @import '../../assets/scss/main.scss';
-
+  @import '../../assets/scss/reset'; // 引入初始化文件
   .bc-header1 {
     width: $containerWith;
     height: $headerHeight;
