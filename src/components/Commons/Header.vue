@@ -1,20 +1,7 @@
 <template>
   <div>
     <div class="bc-header1">
-      <div class="bc-logo">
-        <a href="javascript:;">优装美家</a>
-      </div>
-      <div class="bc-user-info">
-        <div v-if="isLogin">
-          <a href="javascript:;">{{uid}}</a>
-          <i class="line"></i>
-          <a href="javascript:;" @click="outLogin">退出</a>
-        </div>
-        <a href="" v-else>未登录</a>
 
-
-
-      </div>
     </div>
   </div>
 
@@ -51,7 +38,7 @@
   @import '../../assets/scss/main.scss';
   @import '../../assets/scss/reset'; // 引入初始化文件
   .bc-header1 {
-    width: $containerWith;
+    width: 100%;
     height: $headerHeight;
     margin: 0 auto;
     background: $headerBgColor;

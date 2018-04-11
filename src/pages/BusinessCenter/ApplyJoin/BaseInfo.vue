@@ -120,7 +120,7 @@
   .bf-titile {
     height: 22px;
     font-size: $h3FontSize;
-    padding: 30px 0 20px 0;
+    padding-bottom:20px;
     color: #999;
     .active {
       color: $activeColor;

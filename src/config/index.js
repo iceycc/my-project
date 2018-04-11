@@ -3,4 +3,10 @@ import * as Constants from './Constants';
 import * as mixins from './mixins';
 import Request from '../plugins/request';
 import * as util from './util';
-export {EventBus,util,Constants,mixins,Request};
+export {
+  EventBus,
+  util,
+  Constants,
+  mixins,
+  Request
+};

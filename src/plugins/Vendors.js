@@ -12,13 +12,33 @@ import {
   Select,
   DatePicker,
   Input,
-  Pagination
+  Pagination,
+  Menu,
+  Submenu,
+  MenuItem,
+  MenuItemGroup,
+  Button,
+  Col,
+  Header,
+  Main,
+  Footer,
+  Upload
 } from 'element-ui'
 Vue.component(TimePicker.name, TimePicker)
 Vue.component(Select.name, TimePicker)
 Vue.component(DatePicker.name, DatePicker)
 Vue.component(Input.name,Input)
 Vue.component(Pagination.name,Pagination)
+Vue.component(Menu.name,Menu )
+Vue.component(Submenu.name,Submenu )
+Vue.component(MenuItemGroup.name,MenuItemGroup )
+Vue.component(MenuItem.name,MenuItem )
+Vue.component(Button.name,Button )
+Vue.component(Col.name,Col)
+Vue.component(Header.name,Header)
+Vue.component(Main.name,Main)
+Vue.component(Footer.name,Footer)
+Vue.component(Upload.name,Upload)
 
 
 // 注册全局组件 开始

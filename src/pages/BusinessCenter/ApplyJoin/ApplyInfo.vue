@@ -8,7 +8,6 @@
                  <p class="info">证件照(正反面) 需清晰可辨认,不得使用复印件</p>
                  <div class="pic">
                     <el-upload
-                      class="avatar-uploader"
                       action="https://jsonplaceholder.typicode.com/posts/"
                       :show-file-list="false"
                       :on-success="handleAvatarSuccess"
@@ -155,14 +154,14 @@ export default {
 }
 
 // 图片预览style
-.avatar-uploader .el-upload {
+.el-upload{
   border: 1px dashed #d9d9d9;
   border-radius: 6px;
   cursor: pointer;
   position: relative;
   overflow: hidden;
 }
-.avatar-uploader .el-upload:hover {
+.el-upload:hover {
   border-color: #409eff;
 }
 .avatar-uploader-icon {

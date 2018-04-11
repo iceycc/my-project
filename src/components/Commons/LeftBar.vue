@@ -75,7 +75,6 @@ export default {
   height: 100%;
   ul {
     height: 100%;
-    padding-left: 74px;
     padding-top: 7px;
   }
   ol {

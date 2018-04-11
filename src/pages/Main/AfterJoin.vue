@@ -1,9 +1,12 @@
 <template>
     <div class="bf">
+      <el-col :span="6" style="height: 100%">
         <left-bar :left-bar="lists" class="bf-left"></left-bar>
-        <div class="bf-main">
+      </el-col>
+
+        <el-col :span="18" class="bf-main">
           <router-view class="w-1000"></router-view>
-        </div>
+        </el-col>
     </div>
 </template>
 <script>
@@ -28,26 +31,16 @@ export default {
 </script>
 
 <style lang="scss">
-.bf {
-  position: relative;
-  padding-bottom: 30px;
-  height: 100%;
-}
-.bf-main {
-  width: 80%;
-  margin-left: 300px;
-  height: 100%;
-  box-sizing: border-box;
-  padding-left: 20px;
-  padding-top: 60px;
-}
-.bf-left {
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-.w-1000 {
-  width: 80%;
-  margin: 0 auto;
-}
+
+
+  .el-col{
+    min-height: 100%;
+  }
+  .bf-left {
+    height: 100%;
+  }
+  .w-1000 {
+    /*width: 80%;*/
+    margin: 0 auto;
+  }
 </style>

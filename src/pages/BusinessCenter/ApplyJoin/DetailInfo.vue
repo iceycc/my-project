@@ -107,7 +107,6 @@
   .bf-titile {
     height: 22px;
     font-size: $h3FontSize;
-
     color: #999;
     .active {
       color: $activeColor;
