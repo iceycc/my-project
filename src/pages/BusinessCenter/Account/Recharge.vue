@@ -51,7 +51,7 @@
 
   }
 </script>
-<style lang="scss">
+<style lang="scss" scoped >
 
   .rc-main{
     height: 600px;

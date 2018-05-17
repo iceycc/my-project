@@ -31,8 +31,9 @@
   }
 </script>
 
-<style lang="scss">
-  @import '~@/assets/scss/main.scss';
+<style lang="scss" scoped>
+  @import "../../assets/style/config";
+
 
   /*tap切换*/
   .bc-tab {

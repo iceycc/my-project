@@ -1,5 +1,5 @@
-// 基础配置文件 webpack.base.conf.js  
-//1-定义了入口出口  
+// 基础配置文件 webpack.base.conf.js
+//1-定义了入口出口
 //2-处理vue，babel等的模块，是最基础的部分
 //3-其他模式的配置文件以此为基础通过webpack-merge合并
 'use strict'
@@ -29,13 +29,13 @@ function resolve (dir) {
 // })
 
 //
-module.exports = {  
+module.exports = {
   context: path.resolve(__dirname, '../'),//基础目录
 
   entry: {//入口
     app: './src/main.js' //入口文件
   },
-  
+
   output: {// 出口
     path: config.build.assetsRoot,//输出文件 默认‘../dist’
     filename: '[name].js',//输出文件名
@@ -43,7 +43,10 @@ module.exports = {
       ? config.build.assetsPublicPath//生产环境publicpath
       : config.dev.assetsPublicPath//开发模式 publicpath
   },
-
+  // 引入百度地图api
+  externals: {
+    'BMap': 'BMap',
+  },
   resolve: {
     extensions: ['.js', '.vue', '.json'],//解析确定的拓展名
     alias: {//创建别名
@@ -56,7 +59,7 @@ module.exports = {
     rules: [
       // ...(config.dev.useEslint ? [createLintingRule()] : []),// TODO:eslint关闭
       {
-        test: /\.vue$/,//vue要在bable之前 
+        test: /\.vue$/,//vue要在bable之前
         loader: 'vue-loader',//vue转普通的html
         options: vueLoaderConfig//可选项 vue-loader选择配置
       },
@@ -70,7 +73,7 @@ module.exports = {
         loader: 'url-loader',
         options: {//兼容性问题 将query换成 options
           limit: 10000,//默认无限制
-          name: utils.assetsPath('img/[name].[hash:7].[ext]')//hash:7  代表七位的hash值 
+          name: utils.assetsPath('img/[name].[hash:7].[ext]')//hash:7  代表七位的hash值
         }
       },
       {//url-音视频

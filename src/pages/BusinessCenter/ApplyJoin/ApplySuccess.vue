@@ -1,6 +1,10 @@
 <template>
   <div>
-    <h3 class="as-title">等待审核</h3>
+    <el-steps :active="3" simple>
+      <el-step title="填写基本信息" icon="el-icon-edit"></el-step>
+      <el-step title="填写资质信息" icon="el-icon-upload"></el-step>
+      <el-step title="提交审核" icon="el-icon-upload"></el-step>
+    </el-steps>
     <div class="success-box">
       <h4><i class="iconfont icon-chenggong"> </i> 申请已经提交</h4>
       <p>审核工作将在1-3个工作日内完成，请注意登陆后台查看审核结果</p>
@@ -24,19 +28,16 @@
   };
 </script>
 
-<style lang="scss">
-  @import '~@/assets/scss/main.scss';
-
-  .as-title {
-    margin-top: 50px;
-    font-size: $h3FontSize;
-    color: #333;
+<style lang="scss" scoped >
+  @import "../../../assets/style/config";
+  .el-steps{
+    background: #eeeeee;
+    padding: 10px 4%;
   }
-
   .success-box {
     text-align: center;
     padding-top: 150px;
-    margin-top: 50px;
+    margin-top: 20px;
     width: 100%;
     height: 400px;
     background: #fff;

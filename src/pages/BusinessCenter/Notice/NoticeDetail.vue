@@ -13,7 +13,7 @@
 
   }
 </script>
-<style lang="scss">
+<style lang="scss" scoped >
 
 .nd-main{
   margin-top:80px;

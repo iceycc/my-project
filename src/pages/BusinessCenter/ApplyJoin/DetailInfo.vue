@@ -1,68 +1,64 @@
 <template>
   <div class="bf">
-    <div class="bf-titile">
-      <span><i>1</i>填写基本信息</span>
-      <img src="" alt="">
-      <span class="active"><i>2</i>填写资质信息</span>
-    </div>
+    <el-steps :active="2" simple>
+      <el-step title="填写基本信息" icon="el-icon-edit"></el-step>
+      <el-step title="填写资质信息" icon="el-icon-upload"></el-step>
+      <el-step title="提交审核" icon="el-icon-upload"></el-step>
+    </el-steps>
     <div class="ai-main">
       <!--form信息盒子-->
       <div class="ai-box">
         <!--公司法人-->
         <div class="small-box">
-          <div class="flexbox">
-            <h3 class="title">公司法人</h3>
-            <div class="input-box">
-              <input type="text" placeholder="注册公司法人姓名">
-              <input type="text" placeholder="手机号">
-            </div>
-          </div>
+          <el-row>
+            <el-col :span="6"><h3 class="title">公司法人</h3></el-col>
+            <el-col :span="18">
+              <el-input v-model="input" placeholder="请与执照一致"></el-input>
+            </el-col>
+          </el-row>
           <!--身份证号码-->
-          <div class="flexbox">
-            <h3 class="title">身份证照片</h3>
-            <div class="input-box">
-              <input type="text" placeholder="请输入">
+          <el-row>
+            <el-col :span="6"><h3 class="title">身份证照片</h3></el-col>
+            <el-col :span="18">
+              <el-input v-model="input" placeholder="请输入"></el-input>
+            </el-col>
+          </el-row>
 
-            </div>
-          </div>
           <!--身份证照片-->
-          <div class="flexbox">
-            <h3 class="title">身份证号码</h3>
-            <div class="id-card-img">
+          <el-row>
+            <el-col :span="6"><h3 class="title">身份证照片</h3></el-col>
+            <el-col :span="18">
               <id-card-box img_name='正面照' info_text="证件上的文字需能够清晰辨认"></id-card-box>
               <id-card-box img_name='反面照' info_text="证件上的文字需能够清晰辨认"></id-card-box>
-            </div>
-
-          </div>
-
+            </el-col>
+          </el-row>
 
         </div>
         <div class="small-box">
           <!--营业执照-->
-          <div class="flexbox">
-            <h3 class="title">营业执照</h3>
-            <div class="input-box">
-              <input style="width: 60%" type="text" placeholder="统一社会信用代码（请上传三证合一后的信用代码">
-            </div>
-          </div>
+          <el-row>
+            <el-col :span="6"><h3 class="title">营业执照</h3></el-col>
+            <el-col :span="18">
+              <el-input v-model="input" placeholder="统一社会信用代码（请上传三证合一后的信用代码"></el-input>
+            </el-col>
+          </el-row>
           <!--证件照片-->
-          <div class="flexbox">
-            <h3 class="title">证件照片</h3>
-            <div class="id-card-img">
+          <el-row>
+            <el-col :span="6"><h3 class="title">证件照片</h3></el-col>
+            <el-col :span="18">
               <id-card-box img_name='营业执照' info_text="证件上的文字需能够清晰辨认"></id-card-box>
-            </div>
-          </div>
+            </el-col>
+          </el-row>
         </div>
         <!--公司地址-->
         <div class="small-box padding-30">
-          <div class="flexbox">
-            <h3 class="title">公司地址</h3>
 
-            <div class="id-card-img">
+          <el-row>
+            <el-col :span="6"><h3 class="title">公司地址</h3></el-col>
+            <el-col :span="18">
               <id-card-box img_name='营业执照' info_text="证件上的文字需能够清晰辨认"></id-card-box>
-            </div>
-          </div>
-
+            </el-col>
+          </el-row>
         </div>
 
       </div>
@@ -75,6 +71,7 @@
 </template>
 <script>
   import {contents} from '@/components/index.js'
+  import EventBus from '@/config/EventBus';
 
   export default {
     // name: 'base-info'1,
@@ -82,88 +79,59 @@
       "id-card-box":contents.IdCardBox
     },
     data() {
-      return {};
+      return {
+        input:''
+      };
     },
     methods: {
       goBaseInfo(){
         this.$router.push({name:'apply.baseinfo'})
       },
       goSuccess(){
-        this.$router.push({name:'apply.success'})
+        var _this = this
+        EventBus.$emit('notice',{
+          type:'confirm',
+          title:'确定提交吗？',
+          success(){
+            _this.$router.push({name:'apply.success'})
+          }
+        })
       }
     }
   };
 </script>
 
-<style lang="scss">
-  /*~@   */
-  @import '~@/assets/scss/main.scss';
+<style lang="scss" scoped >
+  @import "../../../assets/style/config";
   /**/
   .padding-30 {
     padding-top: 30px;
   }
-
-  // 标题
-  .bf-titile {
-    height: 22px;
-    font-size: $h3FontSize;
-    color: #999;
-    .active {
-      color: $activeColor;
-      i {
-        background: $activeColor;
-      }
-    }
-    span {
-      line-height: 22px;
-      padding-right: 30px;
-    }
-    i {
-      display: inline-block;
-      vertical-align: top;
-      width: 22px;
-      height: 22px;
-      text-align: center;
-      line-height: 22px;
-      color: #fff;
-      background: #999;
-      margin-right: 7px;
-    }
+  .el-steps{
+    background: #eeeeee;
+    padding: 10px 4%;
   }
+  .el-col{
+    padding-bottom: 20px;
 
-  .info-title {
-    width: 25%;
-    text-align: center;
-    font-size: 18px;
-    padding-top: 10px;
   }
-
   .ai-main {
+    margin-top: 20px;
     // height: 100px;
     background: #fff;
     .small-box {
       border-bottom: 1px solid #ccc;
-      margin-top: 3px;
       transition: all 0.3s;
-      padding-bottom: 30px;
+      padding:20px;
 
       &:hover {
         box-shadow: 5px 5px 5px #ccc;
       }
     }
     .title {
-      position: relative;
       text-align: center;
-      line-height: 100px;
+      line-height: 40px;
       font-size: 18px;
-      font-weight: bold;
-      flex: 1;
-    }
-    .input-box {
-      flex: 3;
-      line-height: 100px;
-      padding-right: 30px;
-
     }
     .id-card-img {
       flex: 3;

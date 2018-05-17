@@ -120,10 +120,7 @@
   }
 </script>
 
-<style lang="scss">
-
-
-
+<style lang="scss" scoped >
   .mp-input{
     width: 200px;
   }

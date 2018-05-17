@@ -17,8 +17,8 @@
   }
 </script>
 
-<style lang="scss">
-  @import '~@/assets/scss/main.scss';
+<style lang="scss" scoped>
+  @import "../../../../assets/style/config.scss";
   .info-card-box{
     padding:20px 20px 20px 40px;
     margin-bottom:10px;

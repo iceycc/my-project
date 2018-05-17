@@ -33,7 +33,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .el-pagination__editor.el-input .el-input__inner{
     height: 18px;
   }

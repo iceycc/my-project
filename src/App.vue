@@ -6,17 +6,15 @@
           <a href="javascript:;">优装美家</a>
         </div>
         <div class="bc-user-info">
-          <div v-if="isLogin">
-            <a href="javascript:;">{{uid}}</a>
-            <i class="line"></i>
-            <a href="javascript:;" @click="outLogin">退出</a>
-          </div>
-          <a href="" v-else>未登录</a>
+          <el-button @click="open('notify')">未登录</el-button>
         </div>
     </el-header>
 
     <el-main>
-      <router-view></router-view>
+      <keep-alive>
+        <router-view v-if="$route.meta.keepAlive"></router-view>
+      </keep-alive>
+      <router-view v-if="!$route.meta.keepAlive"></router-view>
     </el-main>
     <el-footer>
       <p class="bc-div">
@@ -28,11 +26,14 @@
         <a target="_blank" class="footer-menu-a" href="javascript:;" style="cursor:default">优装美家 版权所有</a>
       </p>
     </el-footer>
+
+
   </div>
 </template>
 
 <script>
   import {Constants} from '@/config'
+  import EventBus from './config/EventBus';
 
   export default {
     name: "App",
@@ -43,10 +44,59 @@
         isLogin:false
       }
     },
-    beforeUpdate(){
+    created(){
+      // 信息提示
+      EventBus.$on('notice',(options)=> {
+        let type = options.type
+        switch (type){
+          case 'confirm':
+            this.showConfirm(options);
+            break;
+          case 'message':
+            this.showMessage();
+            break;
+          case 'notify':
+            this.showNotify();
+            break;
+        }
+      })
 
     },
     methods:{
+      open(options){
+        EventBus.$emit('notice',options)
+      },
+      showMessage(){
+        this.$message('这是一条消息提示');
+      },
+      showConfirm(options){
+        var title = options.title || '你确定吗？'
+        var success = options.success
+        this.$confirm(title, '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '成功!'
+          });
+          success && success()
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '退出'
+          });
+        });
+      },
+      showNotify(){
+        const h = this.$createElement;
+        this.$notify({
+          title: '标题名称',
+          message: h('i', { style: 'color: teal'}, '示文案这是提示文案')
+        });
+      },
+
       outLogin(){
         createApp()
       }
@@ -57,8 +107,7 @@
 </script>
 
 <style scoped lang="scss">
-  @import './assets/scss/main.scss';
-  @import './assets/scss/_config.scss';
+  @import './assets/style/common';
   #app {
     height: 100%;
     display: flex;

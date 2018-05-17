@@ -22,8 +22,8 @@
   }
 </script>
 
-<style lang="scss">
-  @import "~@/assets/scss/main.scss";
+<style lang="scss" scoped >
+  @import "../../../../assets/style/config";
   .safe-box{
     @extend .box-hover-shadow;
     background: #fff;

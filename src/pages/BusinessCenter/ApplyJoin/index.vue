@@ -1,6 +1,6 @@
 <template>
     <div class="bf">
-        <left-bar :leftbar="lists" class="bf-left"></left-bar>  
+        <left-bar :leftbar="lists" class="bf-left"></left-bar>
         <div class="bf-main">
           <router-view class="w-1000"></router-view>
         </div>
@@ -20,7 +20,7 @@ export default {
 };
 </script>
 
-<style less="scss">
+<style lang="scss" scoped >
 .bf {
   position: relative;
   padding-bottom:30px;

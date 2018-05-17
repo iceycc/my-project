@@ -1,10 +1,10 @@
 // 路由配置
 import Vue from "vue";
 import VueRouter from "vue-router";
-import "@/plugins/Vendors.js"; //引入组件 字体图标 样式scss 什么的
+import "../plugins/Vendors.js"; //引入组件 字体图标 样式scss 什么的
 
-import pages from '@/pages/index.js'//引入页面
-import {Constants} from '@/config'
+import pages from '../pages/index.js'//引入页面
+import {Constants} from '../../config'
 
 //404提示
 var NotFound = {
@@ -20,25 +20,25 @@ router.addRoutes([
   // 重定向
   {
     path: "/",
-    redirect: {name: "login"},
-    mate: {}
+    redirect: {name:"login"},
+    mate: {keepAlive:true}
   },
   // 登陆
   {
-    path: "/join",
-    name: "login",
+    path: "/login",
+    name:"login",
     component: pages.Login,
-    meta: {check:false}
+    meta: {check:false,keepAlive:true}
   },
   // 申请入住
   {
     name: "apply",
     path: "/apply",
     component: pages.BeforeJoin,
-    meta:{check:true},
+    meta:{check:true,keepAlive:true},
     children: [
       // 入住申请 1 -
-      {name: "apply.join", path: "join", component: pages.ApplyJoin},
+      {name: "apply.join", path: "join", component: pages.ApplyJoin, meta:{check:true,keepAlive:true}},
       // 申请提示
       {name: "apply.info", path: "info", component: pages.ApplyInfo},
       // 填写基础信息
@@ -139,18 +139,8 @@ router.addRoutes([
 
 // 全局导航过滤（其实就是拦截路由请求）
 router.beforeEach((to,from,next) => {
-  let uid = localStorage.getItem(Constants.LocalStorage.uid)
-
-
-  if(uid){
-    next()
-  }else{
-    if(to.path !== '/login'){
-      next()
-    }else{
-      next()
-    }
-  }
+  let uid = localStorage.getItem('uid')
+  next()
 })
 
 export default router;

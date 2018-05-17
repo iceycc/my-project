@@ -31,7 +31,7 @@
     }
   }
 </script>
-<style lang="scss">
+<style lang="scss" scoped >
 
   /*顶部*/
   .small-title{

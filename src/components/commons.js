@@ -15,6 +15,7 @@ import InfoBox from '@/components/Commons/InfoBox.vue'
 import BcTab from '@/components/Commons/BcTab.vue'
 import MessageCode from '@/components/Commons/MessageCode.vue'
 import ZenModal from '@/components/Commons/ZenModal.vue'
+import MapBox from '@/components/Commons/MapBox.vue'
 // 默认导出 外面直接
 // 引入全部时 import commons from './commons.js'
 // 引入部分
@@ -28,5 +29,6 @@ export default {
   InfoBox,
   BcTab,
   MessageCode,
-  ZenModal
+  ZenModal,
+  MapBox
 }

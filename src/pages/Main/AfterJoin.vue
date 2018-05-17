@@ -1,12 +1,13 @@
 <template>
     <div class="bf">
-      <el-col :span="6" style="height: 100%">
-        <left-bar :left-bar="lists" class="bf-left"></left-bar>
-      </el-col>
-
-        <el-col :span="18" class="bf-main">
-          <router-view class="w-1000"></router-view>
-        </el-col>
+        <el-row>
+          <el-col :span="6" style="height: 100%">
+            <left-bar :left-bar="lists" class="bf-left"></left-bar>
+          </el-col>
+          <el-col :span="18" class="bf-main">
+            <router-view class="w-1000"></router-view>
+          </el-col>
+        </el-row>
     </div>
 </template>
 <script>
@@ -30,7 +31,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped >
 
 
   .el-col{

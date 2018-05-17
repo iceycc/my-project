@@ -29,7 +29,7 @@
     }
   }
 </script>
-<style lang="scss">
+<style lang="scss" scoped >
 
   .text-box{
     padding: 20px;

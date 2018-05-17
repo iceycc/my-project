@@ -97,9 +97,8 @@
     }
   }
 </script>
-<style lang="scss">
-  @import '~@/assets/scss/main.scss';
-
+<style lang="scss" scoped >
+  @import "../../../assets/style/config";
 
   /*1 信息盒子*/
   .ut-box {

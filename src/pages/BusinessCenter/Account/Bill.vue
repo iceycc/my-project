@@ -74,7 +74,7 @@
     }
   }
 </script>
-<style lang="scss">
+<style lang="scss" scoped >
 
   /*账单总*/
   .bill-total{

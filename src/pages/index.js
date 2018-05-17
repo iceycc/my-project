@@ -44,6 +44,35 @@ import ModifyPassword from "@/pages/BusinessCenter/Setting/Safe/ModifyPassword";
 // 意见反馈
 import Options from "@/pages/BusinessCenter/Options/Options" ; // 修改密码
 
+let pages = {
+  Login:resolve => require(['@/pages/Main/Login'], resolve),
+  BeforeJoin:resolve => require(['@/pages/Main/BeforeJoin'], resolve),
+  AfterJoin:resolve => require(['@/pages/Main/AfterJoin'], resolve),
+  ApplyJoin:resolve => require(['@/pages/BusinessCenter/ApplyJoin/ApplyJoin'], resolve),
+  ApplyInfo:resolve => require(['@/pages/BusinessCenter/ApplyJoin/ApplyInfo'], resolve),
+  BaseInfo:resolve => require(['@/pages/BusinessCenter/ApplyJoin/BaseInfo'], resolve),
+  ApplySuccess:resolve => require(['@/pages/BusinessCenter/ApplyJoin/ApplySuccess'], resolve),
+  DetailInfo:resolve => require(['@/pages/BusinessCenter/ApplyJoin/DetailInfo'], resolve),
+  JoinedIndex:resolve => require(['@/pages/BusinessCenter/Index/Index'], resolve),
+  OrderDetail1:resolve => require(['@/pages/BusinessCenter/Index/OrderDetail'], resolve),
+  Notice:resolve => require(['@/pages/BusinessCenter/Notice/Notice'], resolve),
+  NoticeDetail:resolve => require(['@/pages/BusinessCenter/Notice/NoticeDetail'], resolve),
+  OrderManagement:resolve => require(['@/pages/BusinessCenter/OrderManagement/OrderManagement'], resolve),
+  OrderDetail2:resolve => require(['@/pages/BusinessCenter/OrderManagement/OrderDetail'], resolve),
+  AccountCenter:resolve => require(['@/pages/BusinessCenter/Account/AccountCenter'], resolve),
+  Bill:resolve => require(['@/pages/BusinessCenter/Account/Bill'], resolve),
+  Recharge:resolve => require(['@/pages/BusinessCenter/Account/Recharge'], resolve),
+  Account:resolve => require(['@/pages/BusinessCenter/Account/Account'], resolve),
+  Undertake:resolve => require(['@/pages/BusinessCenter/Setting/Undertake'], resolve),
+  AlterUndertake:resolve => require(['@/pages/BusinessCenter/Setting/AlterUndertake'], resolve),
+  AccountData:resolve => require(['@/pages/BusinessCenter/Setting/AccountData'], resolve),
+  SafeCenter:resolve => require(['@/pages/BusinessCenter/Setting/Safe/SafeCenter'], resolve),
+  BindingWx:resolve => require(['@/pages/BusinessCenter/Setting/Safe/BindingWx'], resolve),
+  ScanCode:resolve => require(['@/pages/BusinessCenter/Setting/Safe/ScanCode'], resolve),
+  ModifyPassword:resolve => require(['@/pages/BusinessCenter/Setting/Safe/ModifyPassword'], resolve),
+  Options:resolve => require(['@/pages/BusinessCenter/Options/Options'], resolve)
+}
+
 export default {
   Login,
   BeforeJoin,

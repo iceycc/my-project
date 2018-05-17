@@ -7,44 +7,23 @@
                  <h3 class="title">身份证照片</h3>
                  <p class="info">证件照(正反面) 需清晰可辨认,不得使用复印件</p>
                  <div class="pic">
-                    <el-upload
-                      action="https://jsonplaceholder.typicode.com/posts/"
-                      :show-file-list="false"
-                      :on-success="handleAvatarSuccess"
-                      :before-upload="beforeAvatarUpload">
-                      <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                    </el-upload>
+                   <img src="" alt="">
                  </div>
               </div>
               <div class="small-box">
                  <h3 class="title">营业执照</h3>
                  <p class="info">证明拍摄证件，照片需清晰可辨认，不得使用复印件</p>
                  <div class="pic">
-                    <el-upload
-                      class="avatar-uploader"
-                      action="https://jsonplaceholder.typicode.com/posts/"
-                      :show-file-list="false"
-                      :on-success="handleAvatarSuccess"
-                      :before-upload="beforeAvatarUpload">
-                      <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                    </el-upload>
+                   <img src="" alt="">
+
                  </div>
               </div>
               <div class="small-box">
                  <h3 class="title small-info">施工等级资质</h3>
                  <p class="info">证件照(正反面) 需清晰可辨认,不得使用复印件</p>
                  <div class="pic">
-                    <el-upload
-                      class="avatar-uploader"
-                      action="https://jsonplaceholder.typicode.com/posts/"
-                      :show-file-list="false"
-                      :on-success="handleAvatarSuccess"
-                      :before-upload="beforeAvatarUpload">
-                      <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                    </el-upload>
+                   <img src="" alt="">
+
                  </div>
               </div>
 
@@ -65,23 +44,7 @@ export default {
     };
   },
   methods: {
-    handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
-    },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg" || "image/png";
-      const isLt2M = file.size / 1024 / 1024 < 2;
-
-      if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
-      }
-      if (!isLt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
-      }
-      return isJPG && isLt2M;
-      console.log(1);
-    },
-    goApplyJoin(){
+        goApplyJoin(){
       this.$router.push({name:'apply.join'})
     },
     goBaseInfo(){
@@ -90,7 +53,7 @@ export default {
   }
 };
 </script>
-<style lang='scss'>
+<style lang='scss' scoped >
 .ai-title {
   height: 50px;
   line-height: 50px;
@@ -145,6 +108,7 @@ export default {
     // display:inline-block;
     // vertical-align: middle;
     flex: 1;
+    background: #666666;
   }
 }
 // 按钮

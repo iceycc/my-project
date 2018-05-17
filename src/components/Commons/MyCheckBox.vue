@@ -3,13 +3,13 @@
 
         <!-- <div v-for="(v,index) in dataList" :key="index">
           <input type="checkbox" :id="v" :value="v" v-model="checkedNames">
-          <label :for="v">{{v}}</label> 
+          <label :for="v">{{v}}</label>
         </div> -->
 
         <div v-for="(house,index) in houseList" :key="index" class="flexbox one-box">
           <div class="flex1">
             <input type="checkbox" :id="index" :value="house.house" v-model="detailCardList">
-            <label :for="house.house">{{house.house}}</label> 
+            <label :for="house.house">{{house.house}}</label>
           </div>
           <div class="flex1">
             <el-select v-model="house.eara" placeholder="面积不限" size="mini" :key="index">
@@ -29,11 +29,11 @@
                 :label="item.label"
                 :value="item.value">
               </el-option>
-            </el-select>                      
-          </div>                
+            </el-select>
+          </div>
         </div>
     </div>
-      
+
 </template>
 <script>
 export default {
@@ -48,7 +48,7 @@ export default {
   }
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .flexbox {
   margin-bottom: 20px;
 }

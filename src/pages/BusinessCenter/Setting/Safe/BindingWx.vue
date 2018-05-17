@@ -28,7 +28,7 @@
     }
   }
 </script>
-<style lang="scss">
+<style lang="scss" scoped >
   .wx-info{
   padding: 50px 0 10px;
 

@@ -31,54 +31,64 @@
       <!--头部信息-->
       <div class="order-top">
         <div class="order-count">
-          <h5 class="flex1 order-h5"><i class="iconfont icon-jinqidingdan order-icon"></i>近期订单（<i>15</i>）</h5>
-          <div class="search-box flex1">
-            <el-input
-              size="mini"
-            placeholder="订单号（可申诉订单）"
-            prefix-icon="el-icon-search"
-            v-model="input">
-          </el-input>
-          </div>
+          <el-row>
+            <el-col :span="12">
+              <h5 class="order-h5">
+                <i class="iconfont icon-jinqidingdan order-icon"></i>近期订单（<i>15</i>）
+              </h5>
+            </el-col>
+            <el-col :span="12">
+              <el-input
+                placeholder="订单号（可申诉订单）"
+                prefix-icon="el-icon-search"
+                v-model="input">
+              </el-input>
+            </el-col>
+
+          </el-row>
         </div>
       </div>
       <!--订单列表-->
       <ul class="order-list">
         <!--订单详情-->
         <li class="order-detail" v-for="(item,index) in orders" :key="index">
-          <!--box1-->
-          <div class="box1">
-            <p>户型：<span>两局</span></p>
-            <p>业主：<span>张三</span></p>
-            <p>电话：<span>13555555555</span></p>
-          </div>
-          <!---->
-          <div class="box1">
-            <p>2017-11-11</p>
-            <p>11:11</p>
-            <p>订单号：<span>13555555555</span></p>
-          </div>
-          <!--点击申诉-->
-          <div class="box3">
-            <a class="shensu" href="javascript:;">点击申诉</a>
-            <p>72h后失效</p>
-          </div>
-          <!--订单详情-->
-          <div class="box4">
-            <el-button @click="goDetail">订单详情</el-button>
-          </div>
+            <el-row>
+              <el-col :span="9">
+                <p>户型：<span>两局</span></p>
+                <p>业主：<span>张三</span></p>
+                <p>电话：<span>13555555555</span></p>
+              </el-col>
+              <el-col :span="9">
+                <p>2017-11-11</p>
+                <p>11:11</p>
+                <p>订单号：<span>13555555555</span></p>
+              </el-col>
+              <el-col :span="3">
+                <a class="shensu" href="javascript:;">点击申诉</a>
+                <p>72h后失效</p>
+              </el-col>
+              <el-col :span="3">
+                <el-button @click="goDetail">订单详情</el-button>
+              </el-col>
+            </el-row>
         </li>
       </ul>
+      <div class="block">
+        <el-pagination
+          layout="prev, pager, next"
+          :total="50">
+        </el-pagination>
+      </div>
     </div>
     <!--分页-->
-    <small-pagination class="index-page"></small-pagination>
+
     <!--无订单时显示-->
     <p class="no-order">暂无订单</p>
   </div>
 </template>
 <script>
   import * as components  from '@/components/index.js'
-
+  import {getIndexInfos} from '../../../api/api'
   export default {
     components:{
       "info-card":components.contents.InfoCard
@@ -86,20 +96,34 @@
     name: '',
     data() {
       return {
+        currentPage: 5,
+        small:'',
         input: '',
         orders:[{},{},{}]
       }
     },
+    created(){
+      getIndexInfos({uid:1})
+    },
     methods: {
       goDetail(){
           this.$router.push({name:'index.detail'})
+      },
+      handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+      },
+      handleCurrentChange(val) {
+        console.log(`当前页: ${val}`);
       }
     }
   }
 </script>
-<style lang="scss">
-  @import '~@/assets/scss/main.scss';
-
+<style lang="scss" scoped >
+  @import "../../../assets/style/config";
+  .el-pagination{
+    padding: 10px 0;
+    text-align: center;
+  }
   .infos{
     height: 50px;
     background: #fff;
@@ -150,7 +174,8 @@
     background: #fff;
     /*头部*/
     .order-top{
-      height: 53px;
+      height: 40px;
+      padding: 10px 0;
       border-bottom: 1px solid $gray;
       .order-h5{
         position: relative;
@@ -160,59 +185,20 @@
         top:0px;
         left:-25px;
         font-size: 20px;
-        line-height: 50px;
+        line-height: 40px;
         color:#1afa29;
       }
       .order-count{
-        display: flex;
-        padding-left: 40px;
-        line-height: 50px;
-      }
-      .search-box{
-        box-sizing: border-box;
-        padding: 5px 20px 0 50%;
+        padding:0 40px;
+        line-height: 40px;
       }
     }
     /*订单详情*/
     .order-list{
       background: #fff;
-      font-size: 0;
-
       .order-detail{
         border-bottom: 1px solid #d6d6d6;
-        >div{
-          display: inline-block;
-          font-size: 0;
-          vertical-align: top;
-          box-sizing: border-box;
-          width: 25%;
-        }
-        .box1{
-          font-size: 14px;
-          padding-top:20px;
-          padding-left:40px;
-          box-sizing: border-box;
-          color:#5a5a5a;
-          p{
-            padding-bottom: 15px;
-          }
-        }
-        .box3{
-          padding-top: 35px;
-          font-size: 16px;
-          text-align: center;
-          /*申诉*/
-          .shensu{
-            color:#0099ff;
-            box-sizing: border-box;
-            display: inline-block;
-            margin-bottom: 10px;
-          }
-        }
-        .box4{
-          padding-top: 36px;
-          text-align: center;
-        }
+        padding: 10px 20px;
       }
     }
 

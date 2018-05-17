@@ -1,6 +1,6 @@
 import {EventBus, Constants, JsBridge} from '../index';
 
-// 混入 mixins 组件内路由守卫
+// 混入 mixins
 export default {
 
   beforeRouteEnter(to, from, next) {
@@ -29,16 +29,95 @@ export default {
   },
   //
   created() {
-
     if (this.$route.meta && this.$route.meta.title) {
       this.title = this.$route.meta.title;
     }
   },
   methods: {
+    fenXiang(content,fn) {
+      let data = {
+        title:content.title || '诸葛装修，全方位解决您的装修问题',
+        link:content.link || window.location.href,
+        imgUrl:content.imgUrl || 'http://image1.uzhuang.com/zhuge-logo.png',
+        type:content.type || '',
+        dataUrl:content.dataUrl || '',
+        desc:content.desc || '',
+      }
+      fn && fn()
+      // console.log(data)
+      wx.onMenuShareTimeline({
+        title: data.title, // 分享标题
+        link: data.link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+        imgUrl: data.imgUrl, // 分享图标
+        success: function () {
+          // 用户确认分享后执行的回调函数
+        },
+        fail: function () {
+          // 用户确认分享后执行的回调函数
+        }
+      })
+
+
+      wx.onMenuShareAppMessage({
+        title: data.title, // 分享标题
+        desc: data.desc, // 分享描述
+        link: data.link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+        imgUrl: data.imgUrl, // 分享图标
+        type: data.type, // 分享类型,music、video或link，不填默认为link
+        dataUrl: data.dataUrl, // 如果type是music或video，则要提供数据链接，默认为空
+        success: function () {
+// 用户确认分享后执行的回调函数
+        },
+        cancel: function () {
+// 用户取消分享后执行的回调函数
+        }
+      });
+
+      wx.onMenuShareQQ({
+        title: data.title, // 分享标题
+        desc: data.desc, // 分享描述
+        link: data.link, // 分享链接
+        imgUrl: data.imgUrl, // 分享图标
+        success: function () {
+// 用户确认分享后执行的回调函数
+        },
+        cancel: function () {
+// 用户取消分享后执行的回调函数
+        }
+      });
+
+
+      wx.onMenuShareWeibo({
+        title: data.title, // 分享标题
+        desc: data.desc, // 分享描述
+        link: data.link, // 分享链接
+        imgUrl: data.imgUrl, // 分享图标
+        success: function () {
+// 用户确认分享后执行的回调函数
+        },
+        cancel: function () {
+// 用户取消分享后执行的回调函数
+        }
+      });
+
+
+      wx.onMenuShareQZone({
+        title:data.title, //data. 分享标题
+        desc: data.desc, // 分享描述
+        link: data.link, // 分享链接
+        imgUrl: data.imgUrl, // 分享图标
+        success: function () {
+// 用户确认分享后执行的回调函数
+        },
+        cancel: function () {
+// 用户取消分享后执行的回调函数
+        }
+      });
+    },
     pagePause() {
       this._pagePause && this._pagePause()
     },
-    // 编程式导航
+    //
     pushPage(action) {
       let rou = {
         name: action.name
@@ -52,6 +131,46 @@ export default {
         rou.params = action.params;
       }
       this.$router.push(rou);
-    }
+    },
+    // 这里为啥不管 todo
+    filters: {
+      crtTime: function (val) {
+        if (val != null) {
+          // let data = new Date()
+          var date = new Date(val * 1000);
+          // return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' '
+          //     + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+          return moment(date).format("YYYY-MM-DD HH:mm:ss")
+          // return date
+        }
+      }
+    },
+
+    // 监听 监听 浏览器返回
+    lisBack() {
+      pushHistory();
+      var _this = this
+      window.addEventListener("popstate", function (e) {
+        _this.goBack && _this.goBack()
+        console.log('goBack')
+        if (window.event) {
+          //IE中阻止函数器默认动作的方式
+          window.event.returnValue = false;
+        }
+        else {
+          //阻止默认浏览器动作(W3C)
+          e.preventDefault();
+        }
+
+      }, false);
+
+      function pushHistory() {
+        var state = {
+          title: "title",
+          url: "#"
+        };
+        window.history.pushState(state, "title", "#");
+      }
+    },
   }
 }

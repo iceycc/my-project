@@ -112,9 +112,7 @@
     }
   }
 </script>
-<style lang="scss">
-  @import '~@/assets/scss/main.scss';
-
+<style lang="scss" scoped >
 
   /*主体部分*/
   .ad-main{

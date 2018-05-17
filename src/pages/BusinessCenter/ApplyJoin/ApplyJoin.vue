@@ -100,8 +100,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
-// @import "../../../assets/icon/iconfont.css";
+<style lang="scss" scoped >
 .iconfont::before {
   font-size: 30px;
   margin-right: 5px;

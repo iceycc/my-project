@@ -34,9 +34,9 @@
     }
   };
 </script>
-<style lang="scss">
-  @import '../../assets/scss/main.scss';
-  @import '../../assets/scss/reset'; // 引入初始化文件
+<style lang="scss" scoped>
+  @import "../../assets/style/config";
+
   .bc-header1 {
     width: 100%;
     height: $headerHeight;

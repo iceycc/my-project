@@ -2,7 +2,7 @@
 
   <div class="info-box">
       <slot></slot>
-  </div> 
+  </div>
 </template>
 <script>
 export default {
@@ -12,7 +12,7 @@ export default {
   }
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .info-box {
   position: relative;
   top: 0;

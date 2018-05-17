@@ -67,7 +67,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped >
   /*充值框*/
   .recharge{
     background: #fff;

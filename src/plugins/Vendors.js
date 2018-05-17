@@ -19,10 +19,26 @@ import {
   MenuItemGroup,
   Button,
   Col,
+  Row,
   Header,
   Main,
   Footer,
-  Upload
+  Upload,
+  Form,
+  FormItem,
+  Radio,
+  Checkbox,
+  Alert,
+  Cascader,
+  Step,
+  Steps,
+  CheckboxGroup,
+  CheckboxButton,
+
+  Loading,
+  MessageBox,
+  Message,
+  Notification
 } from 'element-ui'
 Vue.component(TimePicker.name, TimePicker)
 Vue.component(Select.name, TimePicker)
@@ -35,11 +51,32 @@ Vue.component(MenuItemGroup.name,MenuItemGroup )
 Vue.component(MenuItem.name,MenuItem )
 Vue.component(Button.name,Button )
 Vue.component(Col.name,Col)
+Vue.component(Row.name,Row)
 Vue.component(Header.name,Header)
 Vue.component(Main.name,Main)
 Vue.component(Footer.name,Footer)
 Vue.component(Upload.name,Upload)
+Vue.component(Alert.name,Alert)
+Vue.component(Form.name,Form)
+Vue.component(FormItem.name,FormItem)
+Vue.component(Radio.name,Radio)
+Vue.component(Checkbox.name,Checkbox)
+Vue.component(Cascader.name,Cascader)
+Vue.component(Step.name,Step)
+Vue.component(Steps.name,Steps)
+Vue.component(CheckboxGroup.name,CheckboxGroup)
+Vue.component(CheckboxButton.name,CheckboxButton)
 
+// Vue.use(Cascader);
+// Vue.use(Steps);
+Vue.use(Loading.directive);
+Vue.prototype.$loading = Loading.service;
+Vue.prototype.$msgbox = MessageBox;
+Vue.prototype.$alert = MessageBox.alert;
+Vue.prototype.$confirm = MessageBox.confirm;
+Vue.prototype.$prompt = MessageBox.prompt;
+Vue.prototype.$notify = Notification;
+Vue.prototype.$message = Message;
 
 // 注册全局组件 开始
 Vue.component(commons.BcHeader.name, commons.BcHeader)
