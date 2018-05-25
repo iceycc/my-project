@@ -12,45 +12,54 @@
         </div>
         <!---->
         <div class="bi-info">
-          <p class="info">
-            <span>公司名称</span>
-            北京xx装饰有限公司
-          </p>
+          <div class="info">
+            <el-row>
+              <el-col :span="6">公司名称</el-col>
+              <el-col :span="18">{{account_data.companyname}}</el-col>
+            </el-row>
+          </div>
           <div class="line"></div>
-          <p class="info">
-            <span>店铺负责人</span>
-            <span>张三</span>13155556666
-          </p>
+          <div class="info">
+            <el-row>
+              <el-col :span="6">店铺负责人</el-col>
+              <el-col :span="9">{{account_data.fzrxm}}</el-col>
+              <el-col :span="9">{{account_data.chargePersonPhone}}</el-col>
+            </el-row>
+          </div>
           <div class="line"></div>
-          <p class="info">
-            <span>公司开户行</span>
-            招商银行
-          </p>
-          <p class="info">
-            <span>开户账号</span>
-            62626266662624324334
-          </p>
-          <p class="info">
-            <span>开户地址</span>
-            北京市朝阳区建国路支行
-          </p>
+          <div class="info">
+            <el-row>
+              <el-col :span="6">公司开户行</el-col>
+              <el-col :span="18">{{account_data.openaccount}}</el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="6">开户账号</el-col>
+              <el-col :span="18">{{account_data.BankNo}}</el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="6">开户地址</el-col>
+              <el-col :span="18">{{account_data.branchname}}</el-col>
+            </el-row>
+          </div>
           <div class="line"></div>
-          <p class="info">
-            <span>公司地址</span>
-            北京市朝阳区建国路支行
-          </p>
-          <p class="info">
-            <span>施工等级资质</span>
-            一级
-          </p>
-          <p class="info">
-            <span>公司座机</span>
-            010-123123123
-          </p>
-          <p class="info">
-            <span>公司邮箱</span>
-            345678987@QQ.com
-          </p>
+          <div class="info">
+            <el-row>
+              <el-col :span="6">公司地址</el-col>
+              <el-col :span="18">{{account_data.one_text}}</el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="6">施工等级资质</el-col>
+              <el-col :span="18">{{account_data.ConstructQuay}}</el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="6">公司座机</el-col>
+              <el-col :span="18">{{account_data.gszj}}</el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="6">公司邮箱</el-col>
+              <el-col :span="18">{{account_data.company_email}}</el-col>
+            </el-row>
+          </div>
         </div>
       </div>
       <!--资质信息-->
@@ -58,38 +67,48 @@
         <!--top-->
         <div class="bi-top">
           <i class="iconfont icon-jichuxinxi"></i>
-          <span>基本信息</span>
+          <span>资质信息</span>
         </div>
-        <!---->
         <div class="bi-info">
           <div class="info">
-            <span>公司法人</span>
-            石原贵雅
-          </div>
-          <div class="info">
-            <span>身份证号码</span>
-            124567988765434567
-          </div>
-          <div class="info">
-            <span>身份证照片</span>
-            <!--照片-->
-            <div class="info-img"><img src="" alt=""></div>
-            <div class="info-img"><img src="" alt=""></div>
-          </div>
-          <div class="line"></div>
-
-          <div class="info">
-            <span>营业执照</span>
-            124567988765434567
-          </div>
-          <div class="info">
-            <span>证件照片</span>
-            <div class="info-img"><img src="" alt=""></div>
+            <el-row>
+              <el-col :span="6">公司法人</el-col>
+              <el-col :span="18">{{account_data.company_corporate}}</el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="6">身份证号码</el-col>
+              <el-col :span="18">{{account_data.LegalIdentityCard}}</el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="6">身份证照片</el-col>
+              <el-col :span="18">
+                <!--照片-->
+                <div class="info-img"><img :src="account_data.LegalCardId" alt=""></div>
+                <div class="info-img"><img src="" alt=""></div>
+              </el-col>
+            </el-row>
           </div>
           <div class="line"></div>
           <div class="info">
-            <span>施工资质照片</span>
-            <div class="info-img"><img src="" alt=""></div>
+            <el-row>
+              <el-col :span="6">营业执照</el-col>
+              <el-col :span="18">{{account_data.yyzzbh}}</el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="6">证件照片</el-col>
+              <el-col :span="18">
+                <div class="info-img"><img :src="account_data.yyzz" alt=""></div>
+              </el-col>
+            </el-row>
+          </div>
+          <div class="line"></div>
+          <div class="info">
+            <el-row>
+              <el-col :span="6">施工资质照片</el-col>
+              <el-col :span="18">
+                <div class="info-img"><img :src="account_data.ConstructQuayPhoto" alt=""></div>
+              </el-col>
+            </el-row>
           </div>
         </div>
       </div>
@@ -98,14 +117,26 @@
   </div>
 </template>
 <script>
+  import {getAccountData} from '../../../api/api'
   export default{
     name:'',
     data(){
       return{
-
+        account_data:{}
       }
     },
+    created(){
+      this.getData()
+    },
     methods:{
+      getData(){
+        let params = {}
+        getAccountData(params)
+          .then((result)=>{
+            console.log(result);
+            this.account_data = result
+          })
+      },
       goAlterInfo(){
         this.$router.push({name:'apply.baseinfo'})
       }
@@ -118,6 +149,9 @@
   .ad-main{
     background: #fff;
   }
+  .el-row{
+    padding-top: 20px;  }
+
   /*信息盒子*/
   .info-box{
     padding: 20px 0 40px 30px;
@@ -140,14 +174,7 @@
       .info{
         font-size: 18px;
         color:#5a5a5a;
-        padding-top: 30px;
-        span{
-          display: inline-block;
-          width: 200px;
-        }
-
       }
-
     }
     /*线*/
     .line{
@@ -168,6 +195,4 @@
       }
     }
   }
-
-
 </style>

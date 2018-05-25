@@ -5,10 +5,10 @@
     <!--管理选择的标签-->
     <div class="om-select">
       <span class="left-tap">时间</span>
-      <el-button>全部</el-button>
+      <el-button :type="isClick1 ? 'primary':''" @click="choseAllTime">全部</el-button>
       <div class="right-box">
         <el-date-picker
-          v-model="value1"
+          v-model="screenTime"
           type="daterange"
           range-separator="至"
           start-placeholder="开始日期"
@@ -18,101 +18,324 @@
     </div>
     <div class="om-select">
       <span class="left-tap">状态</span>
-      <el-button>全部</el-button>
-      <div class="right-box">
-        <el-checkbox-group v-model="checkboxGroup2">
-          <el-checkbox-button v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox-button>
-        </el-checkbox-group>
-      </div>
+        <!--1可申诉2申诉中3申诉成功4申诉失败5已承接6全部-->
+        <el-radio-group v-model="status">
+          <!--todo 监视值改变 然后-->
+          <el-radio-button label="0">全部</el-radio-button>
+          <el-radio-button label="1">可申诉</el-radio-button>
+          <el-radio-button label="2">已承接</el-radio-button>
+          <el-radio-button label="3">申诉中</el-radio-button>
+          <el-radio-button label="4">申诉成功</el-radio-button>
+          <el-radio-button label="5">申诉失败</el-radio-button>
+        </el-radio-group>
     </div>
     <!--筛选搜索栏-->
     <div class="om-search">
-      <el-select v-model="value" placeholder="请选择">
-
-        <el-option
-          v-for="item in options2"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
+      <select name="" id="" class="selected-search" v-model="selectedType">
+        <option value="1">订单号搜索</option>
+        <option value="2">手机号搜索</option>
+        <option value="3">业主姓名搜索</option>
+      </select>
       <el-input
         class="search-box"
         style="width: 150px;"
-        placeholder="请输入内容"
-        v-model="input23">
-        <i slot="prefix" class="el-input__icon el-icon-search"></i>
+        :placeholder="placeholder_text"
+        v-model="search_value">
+        <i slot="prefix" class="el-input__icon el-icon-search" @click="searchhandle"></i>
       </el-input>
 
     </div>
     <!--详细信息盒子-->
     <div class="om-detail">
       <!--标题-->
-      <div class="detail-top">详细数据 （124）</div>
-      <!--详细数据列表 table-->
-      <ul class="my-table">
-        <li class="table-header">
-          <span class="order-time">订单时间</span>
-          <span class="order-num">订单编号</span>
-          <span class="house-type">户型</span>
-          <span class="holder-tel">业主电话</span>
-          <span class="order-status">状态</span>
-          <span class="order-detail"></span>
-        </li>
-        <li class="table-list detail-info">
-          <span class="order-time">2017-11-11</span>
-          <span class="order-num">123123123123</span>
-          <span class="house-type">两局</span>
-          <span class="holder-tel">15621185521</span>
-          <span class="order-status">点击申诉</span>
-          <span class="order-detail" @click="goDetail">详情</span>
-        </li>
-      </ul>
-      <!--分页-->
+      <div class="detail-top">详细数据 （{{listTotal}}）</div>
+      <el-table
+        :data="tableData"
+        v-loading="loading"
+        border
+        style="width: 100%">
+        <el-table-column
+          prop="add_time"
+          label="订单时间">
+        </el-table-column>
+        <el-table-column
+          prop="orderno"
+          label="订单编号">
+        </el-table-column>
+        <el-table-column
+          prop="homestyle"
+          label="户型">
+        </el-table-column>
+        <el-table-column
+          prop="telephone"
+          label="业主电话">
+        </el-table-column>
+        <el-table-column
+          label="状态">
+          <template slot-scope="scope">
+            <span @click="appealhandle(scope.row.status,scope.row.id)" :class="{'can-appeal': (scope.row.status == '可申诉' ? true : false)}">{{scope.row.status}}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop=""
+          label=""
+          width="90">
+          <template slot-scope="scope">
+            <el-button
+              @click="handleEdit(scope.$index, scope.row)">详情
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
       <div class="block">
-        <el-pagination
-          layout="prev, pager, next"
-          :total="50">
-        </el-pagination>
 
+        <el-pagination
+          @current-change="currentChange($event)"
+          :current-page="current_page"
+          layout="prev, pager, next"
+          :total="listTotal">
+        </el-pagination>
       </div>
     </div>
+
+    <el-dialog title="申诉" :visible.sync="dialogFormVisible">
+      <el-form>
+        <el-form-item label="申诉原因" :label-width="formLabelWidth">
+          <el-input v-model="appealReason" auto-complete="off"  type="textarea"></el-input>
+        </el-form-item>
+        <el-form-item label="申诉条件" :label-width="formLabelWidth">
+          <select class="selected-appeal" v-model="appealCondition" name="">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="doAppealHandle">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
-  const cityOptions = ['可申诉', '已承接', '申诉中', '申诉成功','申诉失败'];
+  import {getOrderList,doOrderSearch,doOrderAppeal,doOrderScreen} from '@/api/api'
+  import EventBus from '@/config/EventBus';
   export default {
     data() {
       return {
-        input23: '',
-        checkboxGroup2: ['可申诉'],
-        cities: cityOptions,
-        options2: [{
-          value: '选项1',
-          label: '黄金糕'
-        }, {
-          value: '选项2',
-          label: '双皮奶'
-        }, {
-          value: '选项3',
-          label: '蚵仔煎'
-        }, {
-          value: '选项4',
-          label: '龙须面'
-        }, {
-          value: '选项5',
-          label: '北京烤鸭'
-        }],
-        value:'选项1',
-        value1: '',
+        loading:true,
+        isClick1:true,
+        search_value: '',
+        selectedType:1,
+        screenTime:[null,null],
+        status:0,
         value2: '',
         value3: '',
+        //  订单详情相关
+        listTotal: 0,
+        tableData: [],
+        // 分页相关
+        current_page:1,
+        // 状态选项相关
+        radio:'',
+        listType:0, // 自己用于判断列表类型 走不同的接口 默认0为正常获取详细数据列表  1 搜索
+        dialogTableVisible: false,
+        dialogFormVisible: false,
+        formLabelWidth: '120px',
+        appealCondition:1,
+        appealReason:'',
+        appealId:null //申诉的id
       };
+
+    },
+    created() {
+      this.init()
+    },
+    computed:{
+      'placeholder_text':function () {
+        switch (Number(this.selectedType)) {
+          case 1 :
+            return '请输入订单号'
+          break;
+          case 2:
+            return '请输入手机号'
+            break;
+          case 3:
+            return '请输入业主姓名'
+            break;
+          default:
+            return '请输入搜索内容'
+        }
+      }
+    },
+    watch:{
+      status:function (newVal,oldVal) {
+        this.listType = 2
+        this.getData()
+      },
+      isClick1:function (newVal,oldVal) {
+        console.log('newVal:' + newVal);
+        console.log('oldVal:' + oldVal);
+        if(newVal === true){
+          this.screenTime = [null,null]
+        }
+      },
+      screenTime:function (newVal,oldVal) {
+        console.log('newVal:' + newVal);
+        console.log('oldVal:' + oldVal);
+        if(newVal !== [null,null]){
+          this.isClick1 = false
+        }
+      },
     },
     methods: {
-      goDetail: function () {
+      init() {
+        this.getData()
+      },
+      // 获取数据
+      getData(page) {
+        this.loading = true
+        // 第一次登陆列表
+        if(this.listType === 0) {
+          this.getFristListDate(page)
+        }
+        // 搜索列表
+        if(this.listType === 1) {
+          this.getSearchData(page)
+        }
+        // 搜索列表
+        if(this.listType === 2){
+          this.doScreen(page)
+        }
+      },
+      // 第一次进入列表
+      getFristListDate(page){
+        let params = {
+          isindex: 0,
+          page: page || 1
+        }
+        getOrderList(params)
+          .then((result) => {
+            this.listTotal = result.data.total
+            this.tableData = result.data.data
+            this.loading = false
+          })
+      },
+      // 搜索获取列表
+      getSearchData(page){
+        let params = {
+          data:{
+            type:this.selectedType,
+            page:page || 1
+          },
+          value:this.search_value
+        }
+        doOrderSearch(params)
+          .then((result)=>{
+            console.log(result)
+            if(result.data && result.data.length == 0) {
+              EventBus.$emit('notice',{
+                type:'message',
+                message:'没有找到数据'
+              })
+              return
+            }
+            this.listTotal = result.data.totalpage
+            this.tableData = result.data.pagedata
+            this.loading = false
+          })
+      },
+      // 筛选列表
+      doScreen(page){
+        // console.log(this.screenTime[0].valueOf())
+        let params = {
+          status:this.status,
+          data:{
+            page:page || 1,
+            statime:this.screenTime[0] ? this.screenTime[0].valueOf() * 0.001:null,
+            endtime:this.screenTime[1] ? this.screenTime[1].valueOf() * 0.001:null,
+          }
+        }
+        doOrderScreen(params)
+          .then((result)=>{
+            console.log(result)
+            if(result.data && result.data.length == 0) {
+              EventBus.$emit('notice',{
+                type:'message',
+                message:'没有找到数据'
+              })
+              return
+            }
+            this.listTotal = result.data.total
+            this.tableData = result.data.data
+            this.loading = false
+          })
+      },
+      // 点击申诉
+      doAppealHandle(){
+        if(!this.appealReason.replace(/^\s+|\s+$/g, "")){
+          EventBus.$emit('notice',{
+            type:'message',
+            message:'申诉原因不能为空'
+          })
+          return
+        }
+        let params ={
+          cause:this.appealReason,
+          condition:this.appealCondition,
+          orderid:this.appealId
+        }
+        doOrderAppeal(params)
+          .then((result)=>{
+            console.log(result);
+            EventBus.$emit('notice',{
+              type:'message',
+              message:result.message
+            })
+            if(result.code == 0) {
+              this.dialogFormVisible = false
+            }
+          })
+          .catch((err)=>{
+            console.log(err);
+          })
+      },
+      // 判断是否是 可申诉
+      appealhandle(staus,id){
+        if(staus == '可申诉'){
+          console.log(id)
+          this.dialogFormVisible = true
+          this.appealId = id
+        }
+        return
+      },
+      //
+      choseAllTime(){
+        this.isClick1 = !this.isClick1
+      },
+      //
+      searchhandle(){
+        this.listType = 1
+        if(!this.search_value.replace(/^\s+|\s+$/g, "")){
+          EventBus.$emit('notice',{
+            type:'message',
+            message:'搜索内容不能为空'
+          })
+          return
+        }
+        this.getData()
+      },
+      handleEdit(index, row) {
+        console.log(index, row);
         this.$router.push({name: 'order.detail'})
-      }
+      },
+      currentChange($event) {
+        console.log($event)
+        this.getData($event)
+      },
     }
   };
 </script>
@@ -122,18 +345,32 @@
   .om-titile {
     vertical-align: middle;
   }
-.el-checkbox-button{
-  margin-right: 15px;
-}
+
+  .el-radio-group{
+    vertical-align: middle;
+    .el-radio-button{
+      vertical-align: middle;
+      margin-right: 20px;
+
+    }
+  }
+  .selected-appeal{
+    width: 100%;
+    height: 40px;
+    border:1px solid #c0c4cc;
+  }
+  .can-appeal{
+    color: red;
+    cursor: pointer;
+  }
   /**/
   .om-select {
     padding-top: 20px;
     line-height: 40px;
-
     .right-box {
       display: inline-block;
       vertical-align: middle;
-      margin-left: 30px;
+      margin-left: 16px;
       height: 40px;
     }
     .left-tap {
@@ -149,12 +386,26 @@
 
   .om-search {
     margin-top: 30px;
+    font-size: 0;
+    margin-bottom: 20px;
+    .selected-search{
+      vertical-align: top;
+      border: 1px solid #dcdfe6;
+      margin-right: 10px;
+      padding: 0 10px;
+      border-radius: 5px;
+      height: 40px;
+      color: #ccc;
+    }
+    .search-box{
+      vertical-align: top;
+    }
+
   }
 
   /*详细数据大盒子*/
   .om-detail {
     position: relative;
-    height: 600px;
     padding: 10px;
     background: #fff;
     /*top*/
@@ -189,7 +440,7 @@
       }
     }
     /*分页*/
-    .el-pagination{
+    .el-pagination {
       padding: 10px 0;
       text-align: center;
     }

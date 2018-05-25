@@ -2,13 +2,17 @@
   <div>
     <!--顶部信息栏-->
     <div class="infos">
-      <i class="iconfont icon-gonggao"></i>
-      <p class="news"><b>NEW</b>商户中心全面升级，点击查看详情功能介绍</p>
-      <span class="time">2017-12-18</span>
-      <a class="click-more" href="javascript:;">更多</a>
+      <div class="left">
+        <i class="iconfont icon-gonggao"></i>
+        <p class="news"><b v-if="meassages.is_read == 0">NEW</b>{{meassages.title}}</p>
+      </div>
+      <div class="right">
+        <span class="time">{{meassages.addtime | momentTime}}</span>
+        <router-link class="click-more" :to="{name:'info'}">更多</router-link>
+      </div>
     </div>
     <!-- 进度 信息展示-->
-    <info-card info_titile="修改账户中心">
+    <info-card :info_titile="info_titile" v-if="settled_progress == 1 || settled_progress == 2 || settled_progress == 4">
       <!--<i slot="icon" class="iconfont icon-shanchu"></i>-->
       <p class="wenzi" slot="info_text">
         您已提交申请修改账户资料，平台将在提交日期后的1-3个工作日内完成审核，请注意登陆后台查看审核结果，审核期间无法接收新订单。如想加快审核速度，请联系平台工作人员</p>
@@ -16,13 +20,13 @@
     </info-card>
     <!--可以设置的选项卡-->
     <div>
-      <info-card info_titile="完善承接信息">
+      <info-card info_titile="完善承接信息" v-if="isSet">
         <p class="wenzi" slot="info_text">未完善承接信息将无法接单，点击设置<a>承接信息</a></p>
       </info-card>
-      <info-card info_titile="充值提示">
+      <info-card info_titile="充值提示" v-if="ifWalletEnough">
         <p class="wenzi" slot="info_text">账户余额不足，暂时无法接单，点击充值<a>账户余额</a></p>
       </info-card>
-      <info-card info_titile="绑定微信">
+      <info-card info_titile="绑定微信" v-if="isBindWechat">
         <p class="wenzi" slot="info_text">当前账户未绑定微信，优装美家无法在微信中向你推送新订单通知，点击 <a>绑定微信</a></p>
       </info-card>
     </div>
@@ -49,30 +53,44 @@
         </div>
       </div>
       <!--订单列表-->
-      <ul class="order-list">
-        <!--订单详情-->
-        <li class="order-detail" v-for="(item,index) in orders" :key="index">
-            <el-row>
-              <el-col :span="9">
-                <p>户型：<span>两局</span></p>
-                <p>业主：<span>张三</span></p>
-                <p>电话：<span>13555555555</span></p>
-              </el-col>
-              <el-col :span="9">
-                <p>2017-11-11</p>
-                <p>11:11</p>
-                <p>订单号：<span>13555555555</span></p>
-              </el-col>
-              <el-col :span="3">
-                <a class="shensu" href="javascript:;">点击申诉</a>
-                <p>72h后失效</p>
-              </el-col>
-              <el-col :span="3">
-                <el-button @click="goDetail">订单详情</el-button>
-              </el-col>
-            </el-row>
-        </li>
-      </ul>
+      <el-table
+        :data="orderList"
+        border
+        style="width: 100%"
+        :show-header="false"
+        :row-style="rowStyle()"
+
+      >
+        <el-table-column>
+          <template slot-scope="scope">
+            <p>户型：<span>{{scope.row.homestyle}}</span></p>
+            <p>业主：<span>{{scope.row.title}}</span></p>
+            <p>电话：<span>{{scope.row.telephone}}</span></p>
+          </template>
+        </el-table-column>
+        <el-table-column>
+          <template slot-scope="scope">
+            <p>{{scope.row.add_time}}</p>
+            <p>订单号：<span>{{scope.row.orderno}}</span></p>
+          </template>
+        </el-table-column>
+        <el-table-column>
+          <template slot-scope="scope">
+            <el-button
+              @click="handleShensu(scope.$index, scope.row)">点击申诉
+            </el-button>
+            <p>72h后失效</p>
+          </template>
+        </el-table-column>
+        <el-table-column>
+          <template slot-scope="scope">
+            <el-button
+              @click="goDetailHandle(scope.$index, scope.row)">查看详情
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <!--分页-->
       <div class="block">
         <el-pagination
           layout="prev, pager, next"
@@ -80,80 +98,161 @@
         </el-pagination>
       </div>
     </div>
-    <!--分页-->
-
     <!--无订单时显示-->
     <p class="no-order">暂无订单</p>
   </div>
 </template>
 <script>
-  import * as components  from '@/components/index.js'
-  import {getIndexInfos} from '../../../api/api'
+  import * as components from '@/components/index.js'
+  import {getIndexInfos, getOrderList} from '../../../api/api'
+  import moment from 'moment'
+
   export default {
-    components:{
-      "info-card":components.contents.InfoCard
+    components: {
+      "info-card": components.contents.InfoCard
     },
     name: '',
     data() {
       return {
         currentPage: 5,
-        small:'',
+        small: '',
         input: '',
-        orders:[{},{},{}]
+        orders: [{}, {}, {}],
+        orderList: [{
+          add_time: '1111',
+          homestyle: '两句',
+          orderno: '1111111',
+          telephone: '11111111111111',
+          title: '哈哈'
+        }],
+        addTime: '',
+        ifWalletEnough: false,
+        isBindWechat: false,
+        isSet: false,
+        settled_progress: 5,
+        meassages: {},
+        info_titile: ''
       }
     },
-    created(){
-      getIndexInfos({uid:1})
+    created() {
+      this.init()
+      // var date = new Date()
+      // todo
+      console.log(moment().weekday(-7)); // last Monday
+      console.log(11); // last Monday
     },
     methods: {
-      goDetail(){
-          this.$router.push({name:'index.detail'})
+      // 数据层
+      init() {
+        let data = {
+          isindex: 1,
+          page: 1
+        }
+        this.getData(data)
+        this.getInfo({uid: 1})
+      },
+      getInfo(params) {
+        getIndexInfos(params).then((result) => {
+          console.log(result)
+          this.ifWalletEnough = result.balance == 1 ? true : false
+          this.isBindWechat = result.isBindWechat == 2 ? true : false
+          this.isSet = result.isSet == 1 ? true : false
+          this.meassages = result.meassages
+          this.settled_progress = result.settled_progress
+          switch (Number(this.settled_progress)) {
+            case 1:
+              this.info_titile = '请补全信息'
+                  break;
+            case 2:
+              this.info_titile = '等待审核通过'
+                  break;
+            case 3:
+              this.info_titile = '审核通过'
+                  break;
+            case 4:
+              this.info_titile = '审核未通过'
+                  break;
+            case 5:
+              this.info_titile = '审核通过'
+                  break;
+            default:
+              break
+          }
+        })
+      },
+      getData(params) {
+        getOrderList(params).then((res) => {
+          console.log(res);
+          this.orderList = res.data.data
+        })
+      },
+      // 样式
+      rowStyle() {
+        return {
+          textAlign: 'center',
+          // background:'red'
+        }
+      },
+      // 交互
+      goDetailHandle() {
+        this.$router.push({name: 'index.detail'})
       },
       handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
       },
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
+      },
+      handleShensu() {
+
       }
     }
   }
 </script>
-<style lang="scss" scoped >
+<style lang="scss" scoped>
   @import "../../../assets/style/config";
-  .el-pagination{
+
+  .el-pagination {
     padding: 10px 0;
     text-align: center;
   }
-  .infos{
+
+  .infos {
     height: 50px;
     background: #fff;
     margin-bottom: 20px;
-    font-size:0;
-    i{
+    font-size: 0;
+    .left {
+      float: left;
+    }
+    .right {
+      float: right;
+      padding-right: 30px;
+      line-height: 50px;
+    }
+    i {
       display: inline-block;
       width: 40px;
       line-height: 50px;
       text-align: center;
     }
-    .news{
+    .news {
       display: inline-block;
       font-size: 16px;
-      b{
-        color:#ff0000;
+      b {
+        color: #ff0000;
         font-size: 20px;
-        padding-right:10px;
+        padding-right: 10px;
       }
     }
-    .time{
-      padding-left:200px;
-      font-size:16px;
+    .time {
+      font-size: 16px;
       color: #5a5a5a;
     }
-    .click-more{
+    .click-more {
       padding-left: 20px;
       font-size: 16px;
-      color:$aColor;
-
+      color: $aColor;
     }
   }
 
@@ -170,46 +269,49 @@
     }
 
   }
-  .order-info-box{
+
+  .order-info-box {
     background: #fff;
     /*头部*/
-    .order-top{
+    .order-top {
       height: 40px;
       padding: 10px 0;
       border-bottom: 1px solid $gray;
-      .order-h5{
+      .order-h5 {
         position: relative;
       }
-      .order-icon::before{
+      .order-icon::before {
         position: absolute;
-        top:0px;
-        left:-25px;
+        top: 0px;
+        left: -25px;
         font-size: 20px;
         line-height: 40px;
-        color:#1afa29;
+        color: #1afa29;
       }
-      .order-count{
-        padding:0 40px;
+      .order-count {
+        padding: 0 40px;
         line-height: 40px;
       }
     }
     /*订单详情*/
-    .order-list{
+    .order-list {
       background: #fff;
-      .order-detail{
+      .order-detail {
         border-bottom: 1px solid #d6d6d6;
         padding: 10px 20px;
       }
     }
 
   }
-  .no-order{
+
+  .no-order {
     margin-top: 30px;
     font-size: 18px;
     text-align: center;
   }
+
   /**/
-  .index-page{
+  .index-page {
     margin-top: 30px;
     margin-left: 200px;
   }

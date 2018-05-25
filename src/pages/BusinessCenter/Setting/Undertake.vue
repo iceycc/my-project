@@ -11,18 +11,7 @@
           <el-button class="ut-btn r" type="primary" @click="goAlterInfo">修改信息</el-button>
         </div>
         <div class="cjfs-selected">
-          <label for="qingbao">
-            <span :class="{active:picked1==='1'}">清包</span>
-            <input type="radio" id="qingbao" value="1" name="cjfs" v-model="picked1">
-          </label>
-          <label for="banbao">
-            <span :class="{active:picked1==='2'}">半包</span>
-            <input type="radio" id="banbao" value="2" name="cjfs" v-model="picked1">
-          </label>
-          <label for="quanbao">
-            <span :class="{active:picked1==='3'}">全包</span>
-            <input type="radio" id="quanbao" value="3" name="cjfs" v-model="picked1">
-          </label>
+            <span v-for="item,index in undertake_way" :key="index">{{item | undertake_way_filter}}</span>
         </div>
       </div>
       <!--承接类型-->
@@ -45,31 +34,47 @@
         </div>
         <!--区域面积table-->
         <div class="qy-table">
-          <ul class="my-table">
-            <!--表头-->
-            <li class="table-header">
-              <ol class="table-row">
-                <li>省份</li>
-                <li>城市</li>
-                <li>区/县城</li>
-                <li>房屋类型</li>
-                <li>承接面积</li>
-                <li>承接金额</li>
-              </ol>
-            </li>
-            <!--表格内容-->
-            <!--表格内容-->
-            <li v-for="(info,index) in qymjInfos" :key="index">
-              <ol class="table-row">
-                <li>省份</li>
-                <li>城市</li>
-                <li>区/县城</li>
-                <li>房屋类型</li>
-                <li>承接面积</li>
-                <li>承接金额</li>
-              </ol>
-            </li>
-          </ul>
+          <el-table
+            :data="tableData"
+            border
+            style="width: 100%">
+            <el-table-column
+              prop="province"
+              label="省份">
+            </el-table-column>
+            <el-table-column
+              prop="city"
+              label="城市">
+            </el-table-column>
+            <el-table-column
+              prop="address"
+              label="区/县城">
+            </el-table-column>
+            <el-table-column
+              label="房屋类型">
+              <template slot-scope="scope">
+                <p v-for="item,index in scope.row.data" :key="index">
+                  {{item.housing_type}}
+                </p>
+              </template>
+            </el-table-column>
+            <el-table-column
+              label="承接面积">
+              <template slot-scope="scope">
+                <p v-for="item,index in scope.row.data" :key="index">
+                  {{item.area}}
+                </p>
+              </template>
+            </el-table-column>
+            <el-table-column
+              label="承接金额">
+              <template slot-scope="scope">
+                <p v-for="item,index in scope.row.data" :key="index">
+                  {{item.money}}
+                </p>
+              </template>
+            </el-table-column>
+          </el-table>
         </div>
       </div>
     </div>
@@ -81,14 +86,50 @@
   </div>
 </template>
 <script>
+  import {getCompanysSetup} from '@/api/api'
   export default {
     name: '',
     data() {
       return {
+        undertake_way:[],
         picked1: '',
         qymjInfos:['','',''],
-        isShow:true
+        isShow:true,
+        tableData: [{
+          province: '北京',
+          city: '北京',
+          address: '北京',
+          data:[
+            {
+              housing_type:'普通住房',
+              area:'不限',
+              money:'不限'
+            },
+            {
+              housing_type:'公寓',
+              area:'不限',
+              money:'不限'
+            },
+          ]
+        }]
       }
+    },
+    filters:{
+      undertake_way_filter:function (val) {
+        if(val ==1 ){
+          return '半包'
+        }
+        if(val ==2 ){
+          return '全包'
+        }
+      }
+    },
+    created(){
+      getCompanysSetup().then((result)=>{
+        console.log(result);
+        this.undertake_way = result.undertake_way
+      })
+
     },
     methods:{
       goAlterInfo(){
@@ -148,7 +189,7 @@
       text-align: center;
       line-height: 30px;
       border: 1px solid #5a5a5a;
-      border-radius: 15px;
+      border-radius: 5px;
     }
     .active {
       color: #0099ff;

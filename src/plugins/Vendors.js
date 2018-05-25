@@ -7,9 +7,14 @@ import '@/assets/scss/main.scss'
 import {commons} from '../components/index.js'
 // element ui外部组件 按需引入
 import 'element-ui/lib/theme-chalk/index.css'
+// fade/zoom 等
+import 'element-ui/lib/theme-chalk/base.css';
+import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
 import {
   TimePicker,
+  TimeSelect,
   Select,
+  Option,
   DatePicker,
   Input,
   Pagination,
@@ -34,6 +39,13 @@ import {
   Steps,
   CheckboxGroup,
   CheckboxButton,
+  Table,
+  TableColumn,
+  RadioGroup,
+  RadioButton,
+  Dialog,
+  Collapse,
+  CollapseItem,
 
   Loading,
   MessageBox,
@@ -66,7 +78,16 @@ Vue.component(Step.name,Step)
 Vue.component(Steps.name,Steps)
 Vue.component(CheckboxGroup.name,CheckboxGroup)
 Vue.component(CheckboxButton.name,CheckboxButton)
-
+Vue.component(Table.name,Table)
+Vue.component(TableColumn.name,TableColumn)
+Vue.component(RadioGroup.name,RadioGroup)
+Vue.component(RadioButton.name,RadioButton)
+Vue.component(Dialog.name,Dialog)
+Vue.component(Option.name,Option)
+Vue.component(TimeSelect.name,TimeSelect)
+Vue.component(Collapse.name,Collapse)
+Vue.component(CollapseItem.name,CollapseItem)
+Vue.component(CollapseTransition.name,CollapseTransition)
 // Vue.use(Cascader);
 // Vue.use(Steps);
 Vue.use(Loading.directive);

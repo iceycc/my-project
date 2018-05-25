@@ -7,13 +7,13 @@
       <el-form-item label="确认密码" prop="checkPass">
         <el-input class="mp-input" type="password" v-model="ruleForm2.checkPass" auto-complete="off"></el-input>
       </el-form-item>
-      <el-form-item  label="图形码" prop="age">
-        <el-input class="mp-input" v-model.number="ruleForm2.age"></el-input>
-        <img class="code-img" src="" alt="">
+      <el-form-item  label="图形码" prop="img_code">
+        <el-input class="mp-input" v-model.number="ruleForm2.img_code"></el-input>
+        <img class="code-img" :src="img_code_url" alt="" @clicl="reGetPicCode">
       </el-form-item>
-      <el-form-item label="短信验证码" prop="age">
-        <el-input class="mp-input" v-model.number="ruleForm2.age"></el-input>
-        <a class="send-code" href="javascript:;">发送验证码</a>
+      <el-form-item label="短信验证码" prop="img_code">
+        <el-input class="mp-input" v-model.number="ruleForm2.img_code"></el-input>
+        <a @click="postMsgCodeToTel" class="send-code" href="javascript:;">发送验证码</a>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm2')">提交</el-button>
@@ -27,18 +27,19 @@
   </div>
 </template>
 <script>
+  import {getPicCode,getMsgCode} from '@/api/api'
   export default {
     data() {
-      var checkAge = (rule, value, callback) => {
-        if (!value) {
+      var checkImgCode = (rule, value, callback) => {
+        if (false) {
           return callback(new Error('年龄不能为空'));
         }
         setTimeout(() => {
-          if (!Number.isInteger(value)) {
+          if (false) {
             callback(new Error('请输入数字值'));
           } else {
-            if (value < 18) {
-              callback(new Error('必须年满18岁'));
+            if (false) {
+              callback(new Error(''));
             } else {
               callback();
             }
@@ -65,10 +66,11 @@
         }
       };
       return {
+        img_code_url:'',
         ruleForm2: {
           pass: '',
           checkPass: '',
-          age: ''
+          img_code: ''
         },
         rules2: {
           pass: [
@@ -77,13 +79,33 @@
           checkPass: [
             { validator: validatePass2, trigger: 'blur' }
           ],
-          age: [
-            { validator: checkAge, trigger: 'blur' }
+          img_code: [
+            { validator: checkImgCode, trigger: 'blur' }
           ]
         }
       };
     },
+    created(){
+      // this.getPicCodeData()
+    },
     methods: {
+      reGetPicCode(){
+        this.getPicCodeData()
+      },
+      // 获取图片二维码
+      getPicCodeData(){
+        getPicCode()
+          .then((result)=>{
+            console.log(result);
+          })
+      },
+      postMsgCodeToTel(){
+        let params = {}
+        getMsgCode(params)
+          .then((result)=>{
+            console.log(result)
+          })
+      },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
@@ -93,28 +115,6 @@
             return false;
           }
         });
-      },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
-      },
-
-      sendCode:function(){
-        var _this= this;
-        this.$refs.timerbtn.setDisabled(true); //设置按钮不可用
-        this.$axios.get('/user?ID=12345')
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-        // this.$axios.get("sys/sendCode?_"+$.now(),function(data){
-        //   if(data.status){
-        //     _this.$refs.timerbtn.start(); //启动倒计时
-        //   }else{
-        //     _this.$refs.timerbtn.stop(); //停止倒计时
-        //   }
-        // });
       },
     }
   }

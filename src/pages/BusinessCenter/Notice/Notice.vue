@@ -5,11 +5,9 @@
     <!--通知信息展示区域-->
     <div class="main-box">
       <ul class="info-lists">
-        <li class="info-detail">
-          <router-link :to="{name:'notice.detail'}" class="new go-detail">平台新增申诉功能，点击查看 <i>NEW</i> </router-link><span class="time">2017-12-12</span>
-        </li>
-        <li class="info-detail">
-          <router-link :to="{name:'notice.detail'}" class="go-detail">平台新增申诉功能，点击查看 <i>NEW</i> </router-link><span class="time">2017-12-12</span>
+        <div style="text-align: center" v-show="notice_list.length == 0">暂无数据</div>
+        <li class="info-detail" v-for="item,index in notice_list" :key="index">
+          <router-link :to="{name:'notice.detail'}" :class="{new:item.is_read && item.is_read == 1, 'go-detail':true}">{{item.title}} <i>NEW</i> </router-link><span class="time">{{item.addtime | momentTime}}</span>
         </li>
       </ul>
       <!--分页-->
@@ -19,12 +17,22 @@
   </div>
 </template>
 <script>
+  import {getNoticeList} from '@/api/api'
   export default{
     name:'',
     data(){
       return{
-
+        notice_list:[]
       }
+    },
+    created(){
+      let params = {}
+      getNoticeList(params)
+        .then((result)=>{
+          console.log(result);
+          this.notice_list = result
+          // this.totalpage = result.totalpage
+        })
     },
     methods:{
 

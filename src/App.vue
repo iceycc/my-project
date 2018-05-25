@@ -33,7 +33,7 @@
 
 <script>
   import {Constants} from '@/config'
-  import EventBus from './config/EventBus';
+  import EventBus from '@/config/EventBus';
 
   export default {
     name: "App",
@@ -46,17 +46,17 @@
     },
     created(){
       // 信息提示
+      // todo 将信息提升抽离到mixin
       EventBus.$on('notice',(options)=> {
-        let type = options.type
-        switch (type){
+        switch (options.type){
           case 'confirm':
             this.showConfirm(options);
             break;
           case 'message':
-            this.showMessage();
+            this.showMessage(options);
             break;
           case 'notify':
-            this.showNotify();
+            this.showNotify(options);
             break;
         }
       })
@@ -66,8 +66,9 @@
       open(options){
         EventBus.$emit('notice',options)
       },
-      showMessage(){
-        this.$message('这是一条消息提示');
+      showMessage(options){
+        let msg = options.message || '失败'
+        this.$message(msg);
       },
       showConfirm(options){
         var title = options.title || '你确定吗？'
@@ -89,7 +90,7 @@
           });
         });
       },
-      showNotify(){
+      showNotify(options){
         const h = this.$createElement;
         this.$notify({
           title: '标题名称',

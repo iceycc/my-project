@@ -1,137 +1,130 @@
 <template>
   <div>
-    <!--账单统计-->
-    <div :class="[{'bill-total':true}]" v-for="(item,index) in mouseBills" :key="index">
-      <div >
-        <h3 class="title">12月份账单</h3>
-        <!--总计-->
-        <ul class="bill-count clearfix">
-          <li class="l" v-for="(data,index) in data1" :key="index">
-            <p>{{data.info}}</p>
-            <p>{{data.money}}元</p>
-          </li>
-        </ul>
+    <el-collapse accordion v-model="select">
+    <div class="card" v-for="item,index in countData" :key="index">
+      <div class="bill-info-box">
+        <h3 class="">{{item.billtime | tiemFormat}}月账单</h3>
+        <el-row>
+          <el-col :span="12">
+            <p>共计扣款15笔</p>
+            <p>{{item.withdrawing}}元</p>
+          </el-col>
+          <el-col :span="12">
+            <p>共收退款{{item.refundnum}}笔</p>
+            <p>{{item.refund}}元</p>
+          </el-col>
+        </el-row>
       </div>
-      <!--账单详情-->
-      <div class="bill-detail clearfix">
-        <!--top-->
-        <div class="top clearfix">
-          <div class="l tab-show" @click="tabDetail(index)">
-            <span>账单详情</span>
-            <i class="iconfont icon-xiangshang"></i>
-          </div>
-          <p class="r">账单号：34567876543456</p>
-        </div>
-          <ul class="my-table" v-show="item.isShow">
-            <!--表头-->
-            <li class="table-header">
-              <ol class="table-row">
-                <li v-for="(item,index) in titles" :key="index">{{item}}</li>
-              </ol>
-            </li>
-            <!--表格内容-->
-            <li class="[{'table-detail':true}]" v-for="(info,index) in billInfos" :key="index">
-              <ol class="table-row">
-                <li>{{info.time}}</li>
-                <li>{{info.num}}</li>
-                <li>{{info.home}}</li>
-                <li>{{info.status}}</li>
-                <li>{{info.price}}</li>
-              </ol>
-            </li>
-          </ul>
-      </div>
+        <el-collapse-item :name="item.billtime" >
+          <template slot="title">
+            <div style="padding-left: 20px">查看详情<span style="float: right;padding-right: 20px">账单号：{{item.monthbillnumber}}</span>
+            </div>
+          </template>
+
+          <el-table
+            :data="tableData"
+            style="width: 100%">
+            <el-table-column
+              prop="date"
+              label="时间">
+            </el-table-column>
+            <el-table-column
+              prop="name"
+              label="订单号">
+            </el-table-column>
+            <el-table-column
+              prop="address"
+              label="户型">
+            </el-table-column>
+            <el-table-column
+              prop="address"
+              label="类型">
+            </el-table-column>
+            <el-table-column
+              prop="address"
+              label="金额">
+            </el-table-column>
+          </el-table>
+
+        </el-collapse-item>
     </div>
+    </el-collapse>
+
   </div>
 </template>
 <script>
-  export default{
-    name:'',
-    data(){
-      return{
-        //详细账单的内容数据
-        data1:[
-          {info:'共计扣款15笔',money:10000},
-          {info:'共收退款15笔',money:10000},
-          {info:'申诉处理中15笔',money:10000},
-        ],
-      //  判断是否显示下拉框  因为要进行循环创建 todo 怎么分别判断不同盒子的状态
-      //   isShow:false,
-
-      //  每个月的账单总信息
-        mouseBills:[{data:'',isShow:false},{data:'',isShow:false}],
-        //每个月单独的订单信息
-        titles:['时间','订单号','户型','类型','金额'],
-        billInfos:[{time:'2017-11-11 11:11',num:'123123123123',home:'两局',status:'扣款',price:'-123'},{time:'2017-11-11 11:11',num:'123123123123',home:'两局',status:'扣款',price:'-123'},{}],
-        //
+  import {getBillList,getMonthbil} from '@/api/api'
+  import moment from 'moment'
+  export default {
+    name: '',
+    data() {
+      return {
+        select:'',
+        countData:[],
+        tableData: []
       }
     },
-    methods:{
-      tabDetail(index){
-        var nowIs = this.mouseBills[index].isShow;
-        this.mouseBills[index].isShow = !nowIs;
+    filters:{
+      tiemFormat(val){
+        return moment(val * 1000).format('YYYY年MM')
       }
+    },
+    watch:{
+      select(newVal,oldVal){
+        if(newVal){
+          let params = {
+            time:newVal
+          }
+          getMonthbil(params)
+            .then((result) =>{
+              console.log(result);
+              this.tableData= result
+              console.log(this.tableData)
+            })
+        }
+      }
+    },
+    created() {
+      this.getData()
+
+    },
+    methods: {
+      showInfo(mouth){
+        console.log(mouth)
+        let params = {
+          time:mouth
+        }
+        getMonthbil(params)
+          .then((result) =>{
+            console.log(result);
+            this.tableData[mouth] = result
+            console.log(this.tableData)
+          })
+      },
+      getData() {
+        let params = {}
+        getBillList(params)
+          .then((result) => {
+            this.countData = result
+          })
+      },
     }
   }
 </script>
-<style lang="scss" scoped >
+<style lang="scss" scoped>
 
-  /*账单总*/
-  .bill-total{
+  .card {
+    margin-bottom: 20px;
     background: #fff;
-    margin-bottom: 40px;
-  }
-  /*title*/
-  .title{
-    padding-top:20px ;
-    padding-left: 20px;
-    font-size: 16px;
-  }
-  /*账单统计*/
-  .bill-count{
-    padding-top: 30px;
-    border-bottom: 1px solid #d6d6d6;
-    padding-left: 30px;
-    li{
-      width: 33.3%;
+    h3 {
+      padding: 10px;
+      font-size: 20px;
+    }
+    .el-row {
       text-align: center;
-      p{
-        padding-bottom: 30px;
-      }
-      p:first-child{
-        font-size: 16px;
-      }
-      p:last-child{
-        font-size: 28px;
-      }
+      padding: 20px 0;
+      font-size: 20px;
     }
+
   }
-  /*账单详情 */
-  .bill-detail{
-    padding: 20px;
-    .top{
-      font-size: 16px;
-    }
-    /*表格行 比例*/
-    .table-row{
-      li{
-        &:nth-child(1){width: 20%;}
-        &:nth-child(2){width: 20%;}
-        &:nth-child(3){width: 30%;}
-        &:nth-child(4){width: 20%;}
-      }
-    }
-    .tab-show{
-      cursor:pointer;
-    }
-
-
-    /*
-   .active{
-     .my-table{display: block}
-   }*/
-  }
-
-
-
 </style>
