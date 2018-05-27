@@ -4,7 +4,6 @@ import VueRouter from "vue-router";
 import "../plugins/Vendors.js"; //引入组件 字体图标 样式scss 什么的
 
 import pages from '../pages/index.js'//引入页面
-import {Constants} from '../../config'
 
 //404提示
 var NotFound = {
@@ -20,7 +19,7 @@ router.addRoutes([
   // 重定向
   {
     path: "/",
-    redirect: {name:"login"},
+    redirect: {name:"apply"},
     mate: {keepAlive:true}
   },
   // 登陆

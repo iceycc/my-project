@@ -1,9 +1,6 @@
 <template>
 
   <div class="login-main">
-    <el-col :span="12" class="banner">
-      <img src="http://a3.topitme.com/c/e7/b3/11800188571e9b3e7co.jpg" alt="广告未">
-    </el-col>
     <el-col :span="12">
       <div class="join-from">
         <el-input v-model="username" placeholder="请输入账号"></el-input>
@@ -14,7 +11,6 @@
         <el-button type="primary" @click="goLogin">登陆</el-button>
       </div>
     </el-col>
-    <p>{{ count }}</p>
     <p>
       <button @click="increment">+</button>
       <button @click="decrement">-</button>
