@@ -27,10 +27,23 @@
 export default {
   data() {
     return {
-      active_index:'2'
+      active_index:'1'
     };
   },
   watch:{
+
+  },
+  created(){
+    switch(this.$route.name){
+      case 'apply.join':
+        this.active_index = '1';
+        break;
+      case 'apply.info':
+        this.active_index = '2';
+        break;
+      default:
+        this.active_index = '1';
+    }
   },
   methods: {
     selectHandle(index){
