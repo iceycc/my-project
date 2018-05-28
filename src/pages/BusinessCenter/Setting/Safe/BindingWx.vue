@@ -29,7 +29,7 @@
       </div>
       <div class="wx-btn clearfix">
         <el-button type="primary" class="r" @click="changeBindHandle">更改</el-button>
-        <el-button class="r" @clcik="removeBindHandle">解除绑定</el-button>
+        <el-button class="r" @click="removeBindHandle">解除绑定</el-button>
       </div>
     </div>
     <el-dialog title="更改绑定" :visible.sync="dialogFormVisible" width="400px" :center="true">
@@ -45,7 +45,7 @@
   </div>
 </template>
 <script>
-  import {getIfBingWx, getWxQrcode} from '@/api/api'
+  import {getIfBingWx, getWxQrcode,relieveBind} from '@/api/api'
   import EventBus from '@/config/EventBus'
 
   export default {
@@ -88,11 +88,23 @@
         this.getWxRwCode()
       },
       removeBindHandle() {
+        console.log(111)
         EventBus.$emit('notice', {
           type: 'confirm',
           title: '解除绑定',
           success: function () {
             console.log('todo 执行解除绑定函数')
+            relieveBind()
+              .then((result)=>{
+                console.log(result);
+                if(result.code == 1) {
+                  EventBus.$emit('notice', {
+                    type: 'message',
+                    message: '解除成功',
+                  })
+                }
+                this.getIfBingWxHandle()
+              })
           }
         })
       },

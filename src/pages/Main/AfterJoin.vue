@@ -54,7 +54,6 @@
     },
     created() {
       // 用于刷新时 侧边导航默认高亮的正确
-      console.log(this.$route.name);
       switch (this.$route.name) {
         case 'order':
           this.active_index = '2';
@@ -64,6 +63,12 @@
           break;
         case 'account.bill':
           this.active_index = '3';
+          break;
+        case 'joined.baseinfo':
+          this.active_index = '4-1';
+          break;
+        case 'joined.detailinfo':
+          this.active_index = '4-1';
           break;
         case 'setting.take':
           this.active_index = '4-1';

@@ -34,6 +34,9 @@ router.addRoutes([
     name: "apply",
     path: "/apply",
     component: pages.BeforeJoin,
+    redirect:{
+      name:"apply.join"
+    },
     meta:{check:true,keepAlive:true},
     children: [
       // 入住申请 1 -
@@ -45,7 +48,9 @@ router.addRoutes([
       // 填写资质信息
       {name: "apply.detailinfo", path: "detailinfo", component: pages.DetailInfo},
       // 申请成功
-      {name: "apply.success", path: "success", component: pages.ApplySuccess}
+      {name: "apply.success", path: "success", component: pages.ApplySuccess},
+      // 意见反馈
+      {name: "apply.options", path: "options", component: pages.Options}
     ]
   },
   // 登陆成功后侧边栏的
@@ -53,6 +58,9 @@ router.addRoutes([
     name: "joined",
     path: "/joined",
     component: pages.AfterJoin,
+    redirect:{
+      name:"joined.index"
+    },
     // 订单管理页面 ==============
     children: [
       // 首页 登陆后的默认页面
@@ -73,6 +81,10 @@ router.addRoutes([
         path: "order",
         component: pages.OrderManagement
       },
+      // 填写基础信息
+      {name: "joined.baseinfo", path: "baseinfo", component: pages.BaseInfo},
+      // 填写资质信息
+      {name: "joined.detailinfo", path: "detailinfo", component: pages.DetailInfo},
 
       // 账户中心=================
       {
@@ -89,7 +101,7 @@ router.addRoutes([
 
       // 设置板块的页面================
       {name: "setting.take", path: "setting_take", component: pages.Undertake}, // 承接管理
-      {name: "setting.alter", path: "setting_alter", component: pages.AlterUndertake},// 修改承接信息
+      {name: "settingalter.", path: "setting_alter", component: pages.AlterUndertake},// 修改承接信息
       {name: "setting.data", path: "setting_data", component: pages.AccountData}, //账户资料
       {name:"setting.safe",path:'safe',component:pages.SafeCenter,
         redirect:{name:'safe.addwx'},//重定向

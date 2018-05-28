@@ -34,11 +34,12 @@ export default {
 
   },
   created(){
-    switch(this.$route.name){
+    switch (this.$route.name){
+      //
       case 'apply.join':
         this.active_index = '1';
         break;
-      case 'apply.info':
+      case 'apply.options':
         this.active_index = '2';
         break;
       default:
@@ -48,24 +49,19 @@ export default {
   methods: {
     selectHandle(index){
       console.log(index);
-      switch (Number(index)){
-        case 1:
+      switch (index){
+        case '1':
           this.$router.push({
             name:'apply.join'
           });
           break;
-        case 2:
+        case '2':
           this.$router.push({
-            name:'apply.info'
+            name:'apply.options'
           });
+          break;
       }
     },
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
-    }
   }
 };
 </script>

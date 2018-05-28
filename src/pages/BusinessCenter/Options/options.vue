@@ -22,75 +22,90 @@
   import EventBus from '@/config/EventBus';
 
   // import
-  export default{
-    name:'',
-    data(){
-      return{
+  export default {
+    name: '',
+    data() {
+      return {
         textarea: '',
-        telephone:''
+        telephone: ''
 
       }
     },
-    created(){
+    created() {
 
     },
-    methods:{
-      submitFeedBack(){
+    methods: {
+      submitFeedBack() {
 
-        if(!this.textarea.replace(/^\s+|\s+$/g, "")){
-          EventBus.$emit('notice',{
-            type:'message',
-            message:'意见反馈不能为空'
+        if (!this.textarea.replace(/^\s+|\s+$/g, "")) {
+          EventBus.$emit('notice', {
+            type: 'message',
+            message: '意见反馈不能为空'
           })
           return
         }
-        if(this.textarea.length < 10){
-          EventBus.$emit('notice',{
-            type:'message',
-            message:'意见反馈不能少于10个字'
+        if (this.textarea.length < 10) {
+          EventBus.$emit('notice', {
+            type: 'message',
+            message: '意见反馈不能少于10个字'
           })
           return
         }
-        if(!this.telephone.replace(/^\s+|\s+$/g, "")){
-          EventBus.$emit('notice',{
-            type:'message',
-            message:'手机号不能未空'
+        if (!this.telephone.replace(/^\s+|\s+$/g, "")) {
+          EventBus.$emit('notice', {
+            type: 'message',
+            message: '手机号不能未空'
           })
           return
         }
-        if(!/^1[0-9]{10}$/.test(this.telephone)){
-          EventBus.$emit('notice',{
-            type:'message',
-            message:'手机号格式不正确'
+        if (!/^1[0-9]{10}$/.test(this.telephone)) {
+          EventBus.$emit('notice', {
+            type: 'message',
+            message: '手机号格式不正确'
           })
           return
         }
 
         let params = {
-          content:this.textarea,
-          telephone:this.telephone
+          content: this.textarea,
+          telephone: this.telephone
         }
         postFeedBack(params)
-          .then((result)=>{
+          .then((result) => {
             console.log(result);
+            if (result.code == 0) {
+              EventBus.$emit('notice', {
+                type: 'message',
+                message: '提交反馈成功'
+              })
+              this.textarea = ''
+              this.telephone = ''
+            } else {
+              EventBus.$emit('notice', {
+                type: 'message',
+                message: result.message
+              })
+            }
+
           })
       }
     }
   }
 </script>
-<style lang="scss" scoped >
+<style lang="scss" scoped>
 
-  .text-box{
+  .text-box {
     padding: 20px;
     background: #fff;
-    .text-tarea{
+    .text-tarea {
       margin-bottom: 10px;
     }
   }
-  .op-btn{
+
+  .op-btn {
     padding-top: 20px;
     text-align: center;
-    .el-button{
+    .el-button {
       width: 100px;
     }
   }

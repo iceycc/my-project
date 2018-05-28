@@ -133,7 +133,7 @@
     },
     methods:{
       goAlterInfo(){
-        this.$router.push({name:'setting.alter'})
+        this.$router.push({name:'joined.baseinfo'})
       }
     }
   }

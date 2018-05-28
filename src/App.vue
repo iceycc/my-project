@@ -78,15 +78,15 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
+          success && success()
           this.$message({
             type: 'success',
             message: '成功!'
           });
-          success && success()
         }).catch(() => {
           this.$message({
             type: 'info',
-            message: '退出'
+            message: '取消'
           });
         });
       },
@@ -169,4 +169,5 @@
   .center-box {
     width: 1000px;
   }
+
 </style>

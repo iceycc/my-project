@@ -53,7 +53,7 @@ import {
   Notification
 } from 'element-ui'
 Vue.component(TimePicker.name, TimePicker)
-Vue.component(Select.name, TimePicker)
+Vue.component(Select.name, Select)
 Vue.component(DatePicker.name, DatePicker)
 Vue.component(Input.name,Input)
 Vue.component(Pagination.name,Pagination)

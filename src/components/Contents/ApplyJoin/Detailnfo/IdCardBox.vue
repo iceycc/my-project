@@ -8,7 +8,7 @@
     <!--文件上传框-->
     <div class="upload">
       <i class="iconfont icon-jiahao"></i>
-      <input type="file" name="file" class="upload-input" @change="imgPre($event)">
+      <input type="file" name="file" class="upload-input" @change="changeUrl($event)">
     </div>
     <!--提示文字-->
     <div class="info-text">{{info_text}}</div>
@@ -26,16 +26,19 @@
 
 <script>
   import ZenModal from '@/components/Commons/ZenModal.vue'
+  import EventBus from '@/config/EventBus';
+
 
 
   export default {
     name: "id-card-box",
-    props: ['img_name', 'info_text'],
+    props: ['img_name', 'info_text','info_key'],
     components:{
       'zen-modal':ZenModal
     },
     data() {
       return {
+        value:'',
         imgInfo: {},
         preImgUrl: '',
         showModal: false
@@ -45,14 +48,22 @@
     },
 
     methods: {
-      // 图片预览
-      imgPre($event) {
+
+      // 图片预览及获取url
+      changeUrl($event) {
         // 1 获取当前上传图片文件
         let file = $event.target.files[0]
         // 2 创建img对象
         var img = new Image()
         // 3 得到bolb 对象路径 可当成普通的文件路径一样使用 复制给src
         this.preImgUrl = window.URL.createObjectURL(file)
+
+        // 绑定
+        this.$emit('changeUrl', {
+          file,
+          name:this.info_key || 'nothing'
+        })
+
       },
 
       show() {
