@@ -27,22 +27,25 @@
 <script>
   import ZenModal from '@/components/Commons/ZenModal.vue'
   import EventBus from '@/config/EventBus';
-
+  import {postImg} from '@/api/api'
 
 
   export default {
     name: "id-card-box",
-    props: ['img_name', 'info_text','info_key'],
-    components:{
-      'zen-modal':ZenModal
+    props: ['img_name', 'info_text', 'info_key','defaultUrl'],
+    components: {
+      'zen-modal': ZenModal
     },
     data() {
       return {
-        value:'',
+        value: '',
         imgInfo: {},
         preImgUrl: '',
         showModal: false
       }
+    },
+    created(){
+      this.preImgUrl =this.defaultUrl || ''
     },
     mounted() {
     },
@@ -58,17 +61,35 @@
         // 3 得到bolb 对象路径 可当成普通的文件路径一样使用 复制给src
         this.preImgUrl = window.URL.createObjectURL(file)
 
-        // 绑定
-        this.$emit('changeUrl', {
-          file,
-          name:this.info_key || 'nothing'
-        })
+        this.postImgHandle(file)
+
 
       },
-
+      postImgHandle(file) {
+        console.log(file);
+        let params = new FormData()
+        params.append('file', file)
+        let config = {
+          headers:{'Content-Type':'multipart/form-data;'},
+          transformRequest: [function (data) {
+              return data;
+          }],
+        }; //添加请求头
+        postImg(params,config)
+          .then((result) => {
+            // console.log(result);
+            // 绑定
+            this.$emit('changeUrl', {
+              fileId:result.data.id,
+              name: this.info_key.split('.')[1] || 'nothing'
+            })
+          })
+      },
       show() {
         console.log(1111)
-        this.showModal = true
+        if(this.preImgUrl!= ''){
+          this.showModal = true
+        }
       }
     }
   }
@@ -84,6 +105,7 @@
     line-height: 0;
     .pre-img {
       position: relative;
+      cursor: pointer;
       width: 100px;
       height: 100px;
       background: #ddd;
@@ -110,6 +132,7 @@
       height: 100px;
       background: #ddd;
       overflow: hidden;
+      cursor: pointer;
       i::before {
         position: absolute;
         display: block;
@@ -132,14 +155,14 @@
       }
     }
     .info-text {
-      flex: 2;
+      flex: 1;
       height: 100%;
       text-align: center;
       line-height: 100px;
     }
     .show-img {
-      flex: 1;
-      height: 100%;
+      width: 100px;
+      height: 100px;
       background: #ddd;
 
       text-align: center;

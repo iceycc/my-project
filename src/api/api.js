@@ -42,8 +42,10 @@ const Method = {
 
 
   postPerfectInfo: 'companysetup/perfect',// 承接管理信息添加修改
-  postCompanyMessage:'shoppingunit/Companymessageadd',// 添加/修改账户资料
-  // todo 获取修改账户资料时的资料
+  postCompanyMessage:'shoppingunit/companymessageadd',// 添加/修改账户资料
+  postImg:'uploadimg/uploadimg',
+
+  postSetupPerfect:'companysetup/perfect', // 承接管理信息添加/修改 todo
 
 
   // 获取省市区
@@ -172,7 +174,7 @@ export const getMonthbil = (params) => {
     })
 }
 
-// 承接管理页面
+// 承接管理页面需信息
 export const getCompanysSetup = (params) => {
   return Request.get(Method.getCompanysSetup, {params})
     .then((result) => {
@@ -243,3 +245,20 @@ export const postCompanyMessage = (params,config) =>{
       return result.data
     })
 }
+
+// 上传图片
+export const postImg = (params,config) =>{
+  return Request.post(Method.postImg, params,config)
+    .then((result) => {
+      return result
+    })
+}
+// 承接管理信息添加/修改
+export const postSetupPerfect = (params) =>{
+  return Request.post(Method.postSetupPerfect, params)
+    .then((result) => {
+      return result
+    })
+}
+
+

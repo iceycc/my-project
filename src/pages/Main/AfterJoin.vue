@@ -1,7 +1,7 @@
 <template>
   <div class="bf">
     <el-row>
-      <el-col :span="6" style="height: 100%;">
+      <el-col :span="4" style="height: 100%;">
         <el-menu
           @select="selectHandle($event)"
           :default-active="active_index"
@@ -34,7 +34,7 @@
           </el-menu-item>
         </el-menu>
       </el-col>
-      <el-col :span="18" class="bf-main">
+      <el-col :span="20" class="bf-main">
         <router-view class="w-1000"></router-view>
       </el-col>
     </el-row>
@@ -55,7 +55,7 @@
     created() {
       // 用于刷新时 侧边导航默认高亮的正确
       switch (this.$route.name) {
-        case 'order':
+        case 'ordermanagement':
           this.active_index = '2';
           break;
         case 'account.account':
@@ -70,16 +70,19 @@
         case 'joined.detailinfo':
           this.active_index = '4-1';
           break;
-        case 'setting.take':
+        case 'alterundertake':
           this.active_index = '4-1';
           break;
-        case 'setting.data':
+        case 'undertake':
+          this.active_index = '4-1';
+          break;
+        case 'accountdata':
           this.active_index = '4-2';
           break;
-        case 'safe.addwx':
+        case 'bindingwx':
           this.active_index = '4-3';
           break;
-        case 'safe.password':
+        case 'modifypassword':
           this.active_index = '4-3';
           break;
         case 'options':
@@ -101,7 +104,7 @@
             break;
           case '2':
             this.$router.push({
-              name: 'order'
+              name: 'ordermanagement'
             });
             break;
           case '3':
@@ -111,17 +114,17 @@
             break;
           case '4-1':
             this.$router.push({
-              name: 'setting.take'
+              name: 'undertake'
             });
             break;
           case '4-2':
             this.$router.push({
-              name: 'setting.data'
+              name: 'accountdata'
             });
             break;
           case '4-3':
             this.$router.push({
-              name: 'safe.addwx'
+              name: 'bindingwx'
             });
             break;
           case '5':
@@ -147,5 +150,6 @@
   .w-1000 {
     /*width: 80%;*/
     margin: 0 auto;
+    padding:0 50px;
   }
 </style>

@@ -11,6 +11,16 @@ export const Method = {
 
 //用于管理router中页面名称
 export const PageName = {
+  Login:'login'
+  // ApplyJoin:'applyjoin',
+  // ApplyInfo,
+  // BaseInfo,
+  // DetailInfo,
+  // ApplySuccess,
+  // ApplyOptions,
+  // JoinedIndex,
+  // Notice,
+  // OrderManagement,
 
 };
 

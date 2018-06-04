@@ -34,6 +34,7 @@
 <script>
   import {Constants} from '@/config'
   import EventBus from '@/config/EventBus';
+  import {getCookie,setCookie} from "./config/util";
 
   export default {
     name: "App",
@@ -60,7 +61,8 @@
             break;
         }
       })
-
+      setCookie('text','1',1)
+      console.log(getCookie('text'));
     },
     methods:{
       open(options){
@@ -70,6 +72,7 @@
         let msg = options.message || '失败'
         this.$message(msg);
       },
+      // confirm
       showConfirm(options){
         var title = options.title || '你确定吗？'
         var success = options.success
@@ -123,7 +126,6 @@
   .el-main{
     flex: 1;
     /*padding-top: 40px;*/
-    padding:40px 10%;
   }
   .bc-logo {
     float: left;

@@ -21,7 +21,7 @@
     <!--可以设置的选项卡-->
     <div>
       <info-card info_titile="完善承接信息" v-if="isSet">
-        <p class="wenzi" slot="info_text">未完善承接信息将无法接单，点击设置<a>承接信息</a></p>
+        <p class="wenzi" slot="info_text">未完善承接信息将无法接单，点击设置<router-link :to="{name:'alterundertake'}">承接信息</router-link></p>
       </info-card>
       <info-card info_titile="充值提示" v-if="ifWalletEnough">
         <p class="wenzi" slot="info_text">账户余额不足，暂时无法接单，点击充值<a>账户余额</a></p>
@@ -118,13 +118,7 @@
         small: '',
         input: '',
         orders: [{}, {}, {}],
-        orderList: [{
-          add_time: '1111',
-          homestyle: '两句',
-          orderno: '1111111',
-          telephone: '11111111111111',
-          title: '哈哈'
-        }],
+        orderList: [],
         addTime: '',
         ifWalletEnough: false,
         isBindWechat: false,
@@ -138,11 +132,11 @@
       this.init()
       // var date = new Date()
       // todo
-      console.log(moment().weekday(-7)); // last Monday
-      console.log(11); // last Monday
+      // console.log(moment().weekday(-7)); // last Monday
+      // console.log(11); // last Monday
     },
     methods: {
-      // 数据层
+      // 数据
       init() {
         let data = {
           isindex: 1,

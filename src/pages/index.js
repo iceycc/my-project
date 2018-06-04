@@ -19,7 +19,7 @@
   ApplySuccess:resolve => require(['@/pages/BusinessCenter/ApplyJoin/ApplySuccess'], resolve),
   DetailInfo:resolve => require(['@/pages/BusinessCenter/ApplyJoin/DetailInfo'], resolve),
   // 登陆后的首页
-  JoinedIndex:resolve => require(['@/pages/BusinessCenter/Index/Index'], resolve),
+  JoinedIndex:resolve => require(['@/pages/BusinessCenter/Index/JoinedIndex'], resolve),
   OrderDetail1:resolve => require(['@/pages/BusinessCenter/Index/OrderDetail'], resolve),
   // notice通知
   Notice:resolve => require(['@/pages/BusinessCenter/Notice/Notice'], resolve),

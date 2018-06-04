@@ -1,20 +1,16 @@
 <template>
-
-  <div class="login-main">
-    <el-col :span="12">
-      <div class="join-from">
-        <el-input v-model="username" placeholder="请输入账号"></el-input>
-        <el-input v-model="password" placeholder="请输入密码"></el-input>
-        <br>
-        <el-checkbox v-model="checked">下次自动登陆</el-checkbox>
-        <br>
-        <el-button type="primary" @click="goLogin">登陆</el-button>
-      </div>
-    </el-col>
-    <p>
-      <button @click="increment">+</button>
-      <button @click="decrement">-</button>
-    </p>
+  <div class="login-main" style="text-align: center">
+    正在登陆中。。。。
+    <!--<el-col :span="24">-->
+      <!--<div class="join-from" style="margin: 0 auto;">-->
+        <!--<el-input v-model="username" placeholder="请输入账号"></el-input>-->
+        <!--<el-input v-model="password" placeholder="请输入密码"></el-input>-->
+        <!--<br>-->
+        <!--<el-checkbox v-model="checked">下次自动登陆</el-checkbox>-->
+        <!--<br>-->
+        <!--<el-button type="primary" @click="goLogin">登陆</el-button>-->
+      <!--</div>-->
+    <!--</el-col>-->
   </div>
 </template>
 
@@ -31,28 +27,18 @@
         checked: true
       }
     },
+    created(){
+      this.checkLogin()
+    },
     computed: {
-      count() {
-        return store.state.count
-      }
+
     },
     methods: {
-      increment() {
-        store.commit('increment')
-      },
-      decrement() {
-        store.commit('decrement')
-      },
-
-      goLogin() {
+      checkLogin() {
         // 1 校验
         // 2 校验成功登陆
         // 3 登陆成功后 获取uid
         // 4 登陆成功，跳转到主页
-        Request.get('http://merchant.uzhuang.com/v1/bill/bill',{})
-          .then((result)=>{
-            console.log(result);
-          })
       },
 
     }

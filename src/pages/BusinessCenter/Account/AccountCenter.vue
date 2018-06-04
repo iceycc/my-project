@@ -4,7 +4,7 @@
     <!--主要内容展示-->
     <div class="ac-mian">
       <!--tap切换-->
-      <bc-tab :tabs="tabs"></bc-tab>
+      <bc-tab :tabs="tabs" :activeNum="activeNum"></bc-tab>
       <!--切换展示区域-->
       <router-view></router-view>
     </div>
@@ -18,7 +18,18 @@
       return {
         tabs:[{text:'账户',url:'account.account'},{text:'账单',url:'account.bill'}],
         urls:['account.account','account.bill'],
-        num:0
+        num:0,
+        activeNum:0
+      }
+    },
+    created(){
+      switch (this.$route.name){
+        case 'account.bill':
+          this.activeNum = 1;
+          break;
+        default:
+          this.activeNum = 0;
+          break;
       }
     },
     methods:{

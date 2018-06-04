@@ -20,28 +20,29 @@
             <div style="padding-left: 20px">查看详情<span style="float: right;padding-right: 20px">账单号：{{item.monthbillnumber}}</span>
             </div>
           </template>
-
           <el-table
             :data="tableData"
             style="width: 100%">
             <el-table-column
-              prop="date"
+              prop="addtime"
               label="时间">
             </el-table-column>
             <el-table-column
-              prop="name"
+              prop="order_no"
               label="订单号">
             </el-table-column>
             <el-table-column
-              prop="address"
               label="户型">
+              <template slot-scope="scope">
+                {{scope.row.hometyle | hometyleFilter}}
+              </template>
             </el-table-column>
             <el-table-column
-              prop="address"
+              prop="type"
               label="类型">
             </el-table-column>
             <el-table-column
-              prop="address"
+              prop="money"
               label="金额">
             </el-table-column>
           </el-table>
@@ -66,7 +67,10 @@
     },
     filters:{
       tiemFormat(val){
-        return moment(val * 1000).format('YYYY年MM')
+        return val
+      },
+      hometyleFilter(val){
+        return val
       }
     },
     watch:{

@@ -1,7 +1,7 @@
 // 路由配置
 import Vue from "vue";
 import VueRouter from "vue-router";
-import "../plugins/Vendors.js"; //引入组件 字体图标 样式scss 什么的
+import "../plugins/Vendors.js"; //引入第三方组件 字体图标 样式scss 什么的
 
 import pages from '../pages/index.js'//引入页面
 
@@ -40,23 +40,23 @@ router.addRoutes([
     meta:{check:true,keepAlive:true},
     children: [
       // 入住申请 1 -
-      {name: "apply.join", path: "join", component: pages.ApplyJoin, meta:{check:true,keepAlive:true}},
+      {name: "apply.join", path: "applyjoin", component: pages.ApplyJoin, meta:{check:true,keepAlive:false}},// keepAlive设置true后侧边导航点击事件出现异常
       // 申请提示
-      {name: "apply.info", path: "info", component: pages.ApplyInfo},
+      {name: "apply.info", path: "applyinfo", component: pages.ApplyInfo},
       // 填写基础信息
       {name: "apply.baseinfo", path: "baseinfo", component: pages.BaseInfo},
       // 填写资质信息
       {name: "apply.detailinfo", path: "detailinfo", component: pages.DetailInfo},
       // 申请成功
-      {name: "apply.success", path: "success", component: pages.ApplySuccess},
+      {name: "apply.success", path: "applysuccess", component: pages.ApplySuccess},
       // 意见反馈
       {name: "apply.options", path: "options", component: pages.Options}
     ]
   },
   // 登陆成功后侧边栏的
   {
-    name: "joined",
-    path: "/joined",
+    name: "afterjoin",
+    path: "/afterjoin",
     component: pages.AfterJoin,
     redirect:{
       name:"joined.index"
@@ -66,19 +66,19 @@ router.addRoutes([
       // 首页 登陆后的默认页面
       {
         name: "joined.index",
-        path: "index",
+        path: "joinedindex",
         component: pages.JoinedIndex
       },
       // 通知=================
       {
         name: "info",
-        path: "info",
+        path: "notice",
         component: pages.Notice
       },
       // 订单管理==============
       {
-        name: "order",
-        path: "order",
+        name: "ordermanagement",
+        path: "ordermanagement",
         component: pages.OrderManagement
       },
       // 填写基础信息
@@ -88,7 +88,7 @@ router.addRoutes([
 
       // 账户中心=================
       {
-        name: "account.center", path: "account_center", component: pages.AccountCenter,
+        name: "account.center", path: "accountcenter", component: pages.AccountCenter,
         redirect:{name:'account.account'},
         children: [
           //账户
@@ -100,14 +100,14 @@ router.addRoutes([
 
 
       // 设置板块的页面================
-      {name: "setting.take", path: "setting_take", component: pages.Undertake}, // 承接管理
-      {name: "settingalter.", path: "setting_alter", component: pages.AlterUndertake},// 修改承接信息
-      {name: "setting.data", path: "setting_data", component: pages.AccountData}, //账户资料
-      {name:"setting.safe",path:'safe',component:pages.SafeCenter,
-        redirect:{name:'safe.addwx'},//重定向
+      {name: "undertake", path: "undertake", component: pages.Undertake}, // 承接管理
+      {name: "alterundertake", path: "alterundertake", component: pages.AlterUndertake},// 修改承接信息
+      {name: "accountdata", path: "accountdata", component: pages.AccountData}, //账户资料
+      {name:"safecenter",path:'safecenter',component:pages.SafeCenter,
+        redirect:{name:'bindingwx'},//重定向
         children:[
-          {name: "safe.addwx", path: "wx", component: pages.BindingWx},
-          {name: "safe.password", path: "password", component: pages.ModifyPassword},
+          {name: "bindingwx", path: "bindingwx", component: pages.BindingWx},
+          {name: "modifypassword", path: "modifypassword", component: pages.ModifyPassword},
         ]},
       // 意见反馈
       {name: "options", path: "options", component: pages.Options}
@@ -116,28 +116,28 @@ router.addRoutes([
   // 通知详情1 单独
   {
     name: "notice.detail",
-    path: "/joined/notice_detail",
+    path: "/joined/noticedetail",
     component: pages.NoticeDetail
   },
   {
     name: "index.detail",
-    path: "/joined/index_detail",
+    path: "/joined/orderdetail1",
     component: pages.OrderDetail1
   },
   //订单详情2  单独
   {
     name: "order.detail",
-    path: "/joined/order_detail",
+    path: "/joined/orderdetail2",
     component: pages.OrderDetail2
   },
   // 充值中心  单独
   {
     name: "account.recharge",
-    path: "/joined/acount_recharge",
+    path: "/joined/recharge",
     component: pages.Recharge
   },
   // 扫描二维码绑定
-  {name: "safe.code", path: "/joined/safe_code", component: pages.ScanCode},
+  {name: "safe.code", path: "/joined/scancode", component: pages.ScanCode},
 
   //  404页面
   {

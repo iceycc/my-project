@@ -15,12 +15,15 @@
 <script>
   export default {
     name: "bc-tab",
-    props:['tabs'],
+    props:['tabs','activeNum'],
     data(){
       return{
         num:0,
         // tabs:[{text:'绑定微信',url:''},{text:'修改密码',url:''}]
       }
+    },
+    created(){
+      this.num = this.activeNum || 0
     },
     methods:{
       tab(index){

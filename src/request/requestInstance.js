@@ -3,14 +3,18 @@ import qs from 'qs'
 import Config from './requestOption'
 import { Loading } from 'element-ui';
 import {EventBus,Constants} from "../config/index"
+import {getCookie,setCookie} from "@/config/util";
+
 const _axios = axios.create(Config)
 
 //
-var loadingInstance
+// var loadingInstance
 _axios.interceptors.request.use((config) =>{
   // loadingInstance = Loading.service({
   //   fullscreen:false
   // });
+  // let token_key = getCookie('token_key');
+  // config.headers['token_key'] = token_key;
   return config;
 },(error)=>{
   return Promise.reject({

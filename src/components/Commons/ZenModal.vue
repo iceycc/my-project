@@ -3,8 +3,8 @@
     <div class="modal-background"></div>
     <div class="C">
         <slot>默认模态框内容</slot>
+      <i class="modal-close" @click="$emit('fireclose')">x</i>
     </div>
-    <button class="modal-close" @click="$emit('fireclose')">xxx</button>
   </div>
 </template>
 
@@ -32,11 +32,28 @@
   }
   .C{
     position:absolute;
+    padding: 30px;
+    background: #fff;
     left: 50%;
     top: 50%;
+    margin-left: -250px;
+    margin-top: -150px;
     width: 500px;
     height: 300px;
     z-index: 1003;
+    .modal-close{
+      position:absolute;
+      cursor: pointer;
+      display: inline-block;
+      text-align: center;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      right: 10px;
+      top: 0px;
+      color: #ccc;
+      font-size: 30px;
+    }
 
     img{
       width:100%;
@@ -45,3 +62,4 @@
   }
 
 </style>
+

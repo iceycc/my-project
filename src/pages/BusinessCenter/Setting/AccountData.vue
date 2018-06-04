@@ -138,7 +138,7 @@
           })
       },
       goAlterInfo(){
-        this.$router.push({name:'apply.baseinfo'})
+        this.$router.push({name:'joined.baseinfo'})
       }
     }
   }

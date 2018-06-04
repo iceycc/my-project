@@ -1,7 +1,7 @@
 <template>
     <div class="bf">
         <el-row>
-          <el-col :span="6" style="height: 100%;padding-right: 40px">
+          <el-col :span="4" style="height: 100%">
             <el-menu
               @select="selectHandle($event)"
               :default-active="active_index"
@@ -17,7 +17,7 @@
               </el-menu-item>
             </el-menu>
           </el-col>
-          <el-col :span="18">
+          <el-col :span="20">
             <router-view class="w-1000"></router-view>
           </el-col>
         </el-row>
@@ -27,18 +27,16 @@
 export default {
   data() {
     return {
-      active_index:'1'
+      active_index: '1',
     };
   },
   watch:{
-
+    '$route'(to, from) {
+      // console.log(to)
+    }
   },
   created(){
     switch (this.$route.name){
-      //
-      case 'apply.join':
-        this.active_index = '1';
-        break;
       case 'apply.options':
         this.active_index = '2';
         break;
@@ -60,6 +58,9 @@ export default {
             name:'apply.options'
           });
           break;
+        default:
+          break
+
       }
     },
   }
@@ -71,7 +72,8 @@ export default {
   min-height: 100%;
 }
 .w-1000 {
-  width: 100%;
+  margin: 0 auto;
   /*min-width: 800px;*/
+  padding:0 50px;
 }
 </style>

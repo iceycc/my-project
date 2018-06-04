@@ -6,9 +6,9 @@ import '@/assets/scss/main.scss'
 // 自己组件的引入
 import {commons} from '../components/index.js'
 // element ui外部组件 按需引入
-import 'element-ui/lib/theme-chalk/index.css'
+// import 'element-ui/lib/theme-chalk/index.css'
 // fade/zoom 等
-import 'element-ui/lib/theme-chalk/base.css';
+// import 'element-ui/lib/theme-chalk/base.css';
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
 import {
   TimePicker,
