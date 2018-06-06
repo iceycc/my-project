@@ -8,7 +8,7 @@
   let pages = {
   // 申请页面哎
   Login:resolve => require(['@/pages/Main/Login'], resolve),
-  // 未申请前的页面
+  // 未申请前的页面111
   BeforeJoin:resolve => require(['@/pages/Main/BeforeJoin'], resolve),
   // 申请后的页面
   AfterJoin:resolve => require(['@/pages/Main/AfterJoin'], resolve),

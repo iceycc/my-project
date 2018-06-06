@@ -10,7 +10,7 @@
       <!--<input type="checkbox" :value="xModel.house" v-model="xModel.isSelected">-->
       <!--<label :for="house">{{house}}</label>-->
       <div class="flex1">
-        <el-select v-model="house.area" placeholder="面积不限" size="mini" @change="change" :disabled="house.select">
+        <el-select v-model="house.area" placeholder="不限" size="mini" @change="change" :disabled="house.select">
           <el-option
             v-for="item,index in options1"
             :key="index"
@@ -20,7 +20,7 @@
         </el-select>
       </div>
       <div class="flex1">
-        <el-select v-model="house.money" placeholder="金额不限" size="mini" @change="change" :disabled="house.select">
+        <el-select v-model="house.money" placeholder="不限" size="mini" @change="change" :disabled="house.select">
           <el-option
             v-for="item,index in options2"
             :key="index"
@@ -39,8 +39,24 @@
   export default {
     name: "my-checkbox", // setting alter 选项卡组件
 
-    props: ["xModel", "distrust", "index", "lid"],
-
+    // props: ["xModel", "distrust", "index", "lid",""],
+    props: {
+      "xModel":null, "distrust":null, "index":null, "lid":null,
+      'thisData':{
+        type:Object,
+        default(){
+          return {}
+        }
+      }
+    },
+    created(){
+      if(JSON.stringify(this.thisData) !== '{}'){
+        this.houseListObj = Object.assign(this.houseListObj,this.thisData)
+        for(var key in this.thisData){
+          this.detailCardList.push(key)
+        }
+      }
+    },
     updated() {
 
     },
@@ -124,7 +140,9 @@
         //     10=>'10万以上',
         //     11=>'15万以上',
         //     12=>'20万以上',
+        // money
         options2: ['不限', '1万以上', '2万以上', '3万以上', '4万以上', '5万以上', '6万以上', '7万以上', '8以上', '9万以上', '10万以上', '15万以上', '20万以上'],
+        // area
         options1: ['不限', '30m²以上', '40m²以上', '50m²以上', '60m²以上', '80m²以上', '90m²以上', '100m²以上', '120m²以上', '130m²以上', '150m²以上',],
 
         formData: {
@@ -138,10 +156,9 @@
     methods: {
       change() {
         let _this = this
-        let data = this.detailCardList.map((item) => {
-          return Object.assign({'house': item, 'area': '', 'house': ''}, this.selectHouseListObj)
+        this.selectHouseListObj = this.detailCardList.map((item) => {
+          return Object.assign({house: item, area: '', money:''}, this.selectHouseListObj)
         })
-        this.selectHouseListObj = data
         setTimeout(() => {
           _this.$emit('getInfos', {
             distrust: this.distrust,
@@ -170,11 +187,14 @@
 
       houseListObj: {
         handler: function (newVal, oldVal) {
+          // console.log('=============================');
+          // console.log(newVal);
           // console.log(this.detailCardList);
-          let data = this.detailCardList.map((item) => {
+          // console.log('=============================');
+          this.selectHouseListObj  = this.detailCardList.map((item) => {
             return Object.assign({house: item}, newVal[item])
           })
-          this.selectHouseListObj = data
+
           // console.log(data)
         },
         deep: true

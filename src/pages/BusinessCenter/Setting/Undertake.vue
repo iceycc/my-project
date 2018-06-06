@@ -39,29 +39,33 @@
             border
             style="width: 100%">
             <el-table-column
+              width="100px"
               prop="areaid_1"
               label="省份">
             </el-table-column>
             <el-table-column
+              width="100px"
               prop="areaid_2"
               label="城市">
             </el-table-column>
             <el-table-column
+              width="150px"
               label="区/县城">
               <template slot-scope="scope">
-                <div style="display: flex;flex-direction:column">
-                  <p v-for="item,index in scope.row.area" :key="index" style="border-bottom: 1px solid #fff;">
+
+                <div style="display: flex;flex-direction:column;">
+                  <p v-for="item,index in scope.row.area" :key="index" style="border-bottom: 1px solid #fff;flex: 1;height: 100px;line-height: 100px;border-bottom: 1px solid #ccc">
                     {{item.areaid}}
                   </p>
                 </div>
               </template>
             </el-table-column>
             <el-table-column
-              width="180px"
+              width="300px"
               label="房屋类型">
               <template slot-scope="scope">
-                <div v-for="item,index in scope.row.area" :key="index" style="padding-bottom: 10px">
-                  <p v-for="li,index in item.basis" :key="index">
+                <div v-for="item,index in scope.row.area" :key="index" style="padding-bottom: 10px;height: 100px;display: flex;flex-direction: column;border-bottom: 1px solid #ccc">
+                  <p v-for="li,index in item.basis" :key="index" style="flex: 1">
                     {{ li.house | houseFilter}}
                   </p>
                 </div>
@@ -70,10 +74,9 @@
             <el-table-column
               label="承接面积">
               <template slot-scope="scope">
-                <div v-for="item,index in scope.row.area" :key="index" style="padding-bottom: 10px">
-                  <p v-for="li,index in item.basis" :key="index">
+                <div v-for="item,index in scope.row.area" :key="index" style="padding-bottom: 10px;height: 100px;display: flex;flex-direction: column;border-bottom: 1px solid #ccc">
+                  <p v-for="li,index in item.basis" :key="index" style="flex: 1">
                     {{ li.area | areaFilter}}
-
                   </p>
                 </div>
               </template>
@@ -81,8 +84,8 @@
             <el-table-column
               label="承接金额">
               <template slot-scope="scope">
-                <div v-for="item,index in scope.row.area" :key="index" style="padding-bottom: 10px">
-                  <p v-for="li,index in item.basis" :key="index">
+                <div v-for="item,index in scope.row.area" :key="index" style="padding-bottom: 10px;height: 100px;display: flex;flex-direction: column;border-bottom: 1px solid #ccc">
+                  <p v-for="li,index in item.basis" :key="index" style="flex: 1">
                     {{ li.money | moneyFilter }}
                   </p>
                 </div>
@@ -109,6 +112,7 @@
         picked1: '',
         qymjInfos: ['', '', ''],
         isShow: true,
+        resultData:[],
         undertakeInfo: {
           undertake_way: [],
           tableData: [],
@@ -275,6 +279,7 @@
           if(result == null){
             return
           }
+          this.resultData = result
           // todo:height
           this.undertakeInfo = {
             undertake_way: result.undertake_way,
@@ -288,8 +293,7 @@
         })
       },
       goAlterInfo() {
-        let data = this.undertakeInfo
-        this.$router.push({name: 'alterundertake', params: data})
+        this.$router.push({name: 'alterundertake', params: this.resultData})
       }
     }
   }
@@ -330,7 +334,6 @@
         width: 100px;
       }
     }
-
   }
 
   /*2 承接管理的 选择区域样式*/
@@ -373,7 +376,7 @@
 
   /*4 区域 房屋类型 面积 与 金额*/
   .qy-table {
-    height: 500px;
+
     .table-row {
       li {
         &:nth-child(1) {
