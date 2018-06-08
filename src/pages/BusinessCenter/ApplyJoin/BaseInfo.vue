@@ -131,7 +131,7 @@
 
     <div class="ai-btn">
       <el-button @click="goApplyInfo">上一步</el-button>
-      <el-button @click="submitForm(' ')" size="medium" type="primary">下一步</el-button>
+      <el-button @click="submitForm('formData')" size="medium" type="primary">下一步</el-button>
     </div>
   </div>
 </template>
@@ -241,6 +241,7 @@
       getProvenceHandle() {
         getProvence()
           .then((result) => {
+            console.log(result);
             this.provences1 = result
             this.provences2 = result
           })
@@ -333,16 +334,14 @@
       text-align: center;
       font-size: 18px;
     }
-    .map-box {
-      margin-top: 15px;
-      width: 100%;
-      height: 400px;
-      border: 1px solid #999;
-      border-radius: 6px;
-    }
-
   }
-
+  #map-container {
+    box-sizing: border-box;
+    padding-left:100px;
+    width: 100%;
+    height: 400px;
+    border-radius: 6px;
+  }
   .ai-btn {
     margin-top: 20px;
     padding-left: 25% !important;

@@ -8,6 +8,9 @@
   let pages = {
   // 申请页面哎
   Login:resolve => require(['@/pages/Main/Login'], resolve),
+  Register:resolve => require(['@/pages/Main/Register'], resolve),
+  FindPassWord:resolve => require(['@/pages/Main/FindPassWord'], resolve),
+  CheckEmail:resolve => require(['@/pages/Main/CheckEmail'], resolve),
   // 未申请前的页面111
   BeforeJoin:resolve => require(['@/pages/Main/BeforeJoin'], resolve),
   // 申请后的页面
@@ -18,6 +21,7 @@
   BaseInfo:resolve => require(['@/pages/BusinessCenter/ApplyJoin/BaseInfo'], resolve),
   ApplySuccess:resolve => require(['@/pages/BusinessCenter/ApplyJoin/ApplySuccess'], resolve),
   DetailInfo:resolve => require(['@/pages/BusinessCenter/ApplyJoin/DetailInfo'], resolve),
+
   // 登陆后的首页
   JoinedIndex:resolve => require(['@/pages/BusinessCenter/Index/JoinedIndex'], resolve),
   OrderDetail1:resolve => require(['@/pages/BusinessCenter/Index/OrderDetail'], resolve),

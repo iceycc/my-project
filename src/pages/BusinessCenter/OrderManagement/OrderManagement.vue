@@ -5,7 +5,11 @@
     <!--管理选择的标签-->
     <div class="om-select">
       <span class="left-tap">时间</span>
-      <el-button :type="isClick1 ? 'primary':''" @click="choseAllTime">全部</el-button>
+      <el-radio-group v-model="isClick1">
+        <!--todo 监视值改变 然后-->
+        <el-radio-button label="0">全部</el-radio-button>
+      </el-radio-group>
+      <!--<el-button :type="isClick1 ? 'primary':''" @click="choseAllTime">全部</el-button>-->
       <div class="right-box">
         <el-date-picker
           v-model="screenTime"
@@ -73,7 +77,7 @@
         <el-table-column
           label="状态">
           <template slot-scope="scope">
-            <span @click="appealhandle(scope.row.status,scope.row.id)" :class="{'can-appeal': (scope.row.status == '可申诉' ? true : false)}">{{scope.row.status}}</span>
+            <span @click="doAppealHandle(scope.row.id)" :class="{'can-appeal': (scope.row.status == '可申诉' ? true : false)}">{{scope.row.status}}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -82,7 +86,7 @@
           width="90">
           <template slot-scope="scope">
             <el-button
-              @click="handleEdit(scope.$index, scope.row)">详情
+              @click="handleEdit(scope.row.id)">详情
             </el-button>
           </template>
         </el-table-column>
@@ -97,27 +101,6 @@
         </el-pagination>
       </div>
     </div>
-
-    <el-dialog title="申诉" :visible.sync="dialogFormVisible">
-      <el-form>
-        <el-form-item label="申诉原因" :label-width="formLabelWidth">
-          <el-input v-model="appealReason" auto-complete="off"  type="textarea"></el-input>
-        </el-form-item>
-        <el-form-item label="申诉条件" :label-width="formLabelWidth">
-          <select class="selected-appeal" v-model="appealCondition" name="">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="doAppealHandle">确 定</el-button>
-      </div>
-    </el-dialog>
   </div>
 </template>
 <script>
@@ -127,7 +110,7 @@
     data() {
       return {
         loading:true,
-        isClick1:true,
+        isClick1:0,
         search_value: '',
         selectedType:1,
         screenTime:[null,null],
@@ -172,22 +155,22 @@
       }
     },
     watch:{
+
       status:function (newVal,oldVal) {
         this.listType = 2
         this.getData()
       },
       isClick1:function (newVal,oldVal) {
-        console.log('newVal:' + newVal);
-        console.log('oldVal:' + oldVal);
-        if(newVal === true){
+        if(newVal == 0){
           this.screenTime = [null,null]
         }
       },
       screenTime:function (newVal,oldVal) {
-        console.log('newVal:' + newVal);
-        console.log('oldVal:' + oldVal);
-        if(newVal !== [null,null]){
-          this.isClick1 = false
+        if(newVal[0] != null){
+          this.isClick1 = null
+          return
+        }else {
+          this.isClick1 = 0
         }
       },
     },
@@ -275,33 +258,9 @@
           })
       },
       // 点击申诉
-      doAppealHandle(){
-        if(!this.appealReason.replace(/^\s+|\s+$/g, "")){
-          EventBus.$emit('notice',{
-            type:'message',
-            message:'申诉原因不能为空'
-          })
-          return
-        }
-        let params ={
-          cause:this.appealReason,
-          condition:this.appealCondition,
-          orderid:this.appealId
-        }
-        doOrderAppeal(params)
-          .then((result)=>{
-            console.log(result);
-            EventBus.$emit('notice',{
-              type:'message',
-              message:result.message
-            })
-            if(result.code == 0) {
-              this.dialogFormVisible = false
-            }
-          })
-          .catch((err)=>{
-            console.log(err);
-          })
+      doAppealHandle(val){
+        console.log(val);
+        EventBus.$emit('apeal', val)
       },
       // 判断是否是 可申诉
       appealhandle(staus,id){
@@ -313,6 +272,9 @@
         return
       },
       //
+      destory(){
+        EventBus.$off('apeal')
+      },
       choseAllTime(){
         this.isClick1 = !this.isClick1
       },
@@ -328,12 +290,11 @@
         }
         this.getData()
       },
-      handleEdit(index, row) {
-        console.log(index, row);
-        this.$router.push({name: 'order.detail'})
+      handleEdit(id) {
+        console.log(id);
+        this.$router.push({name: 'index.detail',params:{id:id,canAppeal:false}})
       },
       currentChange($event) {
-        console.log($event)
         this.getData($event)
       },
     }

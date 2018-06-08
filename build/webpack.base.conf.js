@@ -43,10 +43,10 @@ module.exports = {
       ? config.build.assetsPublicPath//生产环境publicpath
       : config.dev.assetsPublicPath//开发模式 publicpath
   },
-  // 引入百度地图api
-  externals: {
-    'BMap': 'BMap',
-  },
+  // 引入百度地图api todo
+  // externals: {
+  //   'BaiduMap': 'BaiduMap',
+  // },
   resolve: {
     extensions: ['.js', '.vue', '.json'],//解析确定的拓展名
     alias: {//创建别名

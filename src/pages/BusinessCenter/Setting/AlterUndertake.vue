@@ -169,7 +169,7 @@
   import EventBus from '@/config/EventBus'
 
   const waysOptions = [1, 2];// 半包全包
-  import {getProvence, getCity, getDistrust, postSetupPerfect} from '@/api/api'
+  import {getProvence, getCity, getDistrust, postSetupPerfect,getCompanysSetup} from '@/api/api'
 
   export default {
     name: "under-take",
@@ -332,6 +332,7 @@
               })
               // 判断区县是否存在已经选中的进行遍历
               var arr = []
+              console.log(this.quxianArr);
               if (JSON.stringify(this.quxianArr) !== "{}") {
                 for (var i in this.quxianArr) {
                   let a = this.distrusts.findIndex((item, index, arr) => {
@@ -360,37 +361,45 @@
             })
         }
       }
+
     },
     created() {
       EventBus.$on('checkboxSelect', (res) => {
         // console.log(res);
       })
+      console.log(this.$route.params);
+      if (Number(this.$route.params.isUpdate) === 1) {
+        console.log(1)        //
+        getCompanysSetup({isUpdate:1})
+          .then((result)=>{
+            let preData = result
+            // console.log(preData);
+            this.formData.area = preData.allarea.area
+            this.undertake_way = preData.undertake_way
+            this.formData.period_home = preData.period_home
+            this.formData.period_condition = preData.period_home == 1 ? preData.period_condition : ''
+            this.formData.local_remould = preData.local_remould
+            this.formData.outdoor_project = preData.outdoor_project
+            let pre_provence = preData.allarea.areaid_1 //
+            let pre_city = preData.allarea.areaid_2
+            //  取出选中区县的lid组成一个数组
+            console.log(this.formData.area);
 
-      let preData = this.$route.params
-      console.log(preData);
-      if (JSON.stringify(preData) !== "{}") {
-        this.formData.area = preData.allarea.area
-        this.undertake_way = preData.undertake_way
-        this.formData.period_home = preData.period_home
-        this.formData.period_condition = preData.period_home == 1 ? preData.period_condition : ''
-        this.formData.local_remould = preData.local_remould
-        this.formData.outdoor_project = preData.outdoor_project
-        let pre_provence = preData.allarea.areaid_1_lid //
-        let pre_city = preData.allarea.areaid_2_lid
-        // 取出选中区县的lid组成一个数组
-        for (var item of preData.allarea.area) {
-          this.quxianArr[item.area_id] = item.basis
-        }
-        let _this = this
-        getProvence()
-          .then((result) => {
-            this.provences = result
-            _this.provence = pre_provence
-          }).then((res) => {
-          setTimeout(() => {
-            _this.city = pre_city
-          }, 200)
-        })
+            for (var item of this.formData.area) {
+              this.quxianArr[item.areaid] = item.basis
+            }
+            // console.log(this.quxianArr);
+            let _this = this
+            getProvence()
+              .then((result) => {
+                this.provences = result
+                _this.provence = pre_provence
+              }).then((res) => {
+              setTimeout(() => {
+                _this.city = pre_city
+              }, 200)
+            })
+          })
       } else {
         getProvence()
           .then((result) => {

@@ -17,7 +17,7 @@
       </div>
         <el-collapse-item :name="item.billtime" >
           <template slot="title">
-            <div style="padding-left: 20px">查看详情<span style="float: right;padding-right: 20px">账单号：{{item.monthbillnumber}}</span>
+            <div style="padding-left: 20px;border-top: 1px solid #ccc">查看详情<span style="float: right;padding-right: 20px">账单号：{{item.monthbillnumber}}</span>
             </div>
           </template>
           <el-table
@@ -30,6 +30,10 @@
             <el-table-column
               prop="order_no"
               label="订单号">
+
+              <template slot-scope="scope">
+                <router-link :to="{name:'index.detail',params:{id:scope.row.orderid }}">{{scope.row.order_no}}</router-link>
+              </template>
             </el-table-column>
             <el-table-column
               label="户型">
@@ -44,6 +48,11 @@
             <el-table-column
               prop="money"
               label="金额">
+              <template slot-scope="scope">
+                <span :class="{money_active:scope.row.sign =='+'}">
+                  {{scope.row.money | moneyFilter(scope.row.sign)}}
+                </span>
+              </template>
             </el-table-column>
           </el-table>
 
@@ -71,6 +80,9 @@
       },
       hometyleFilter(val){
         return val
+      },
+      moneyFilter(val,sign){
+        return sign + val
       }
     },
     watch:{
@@ -116,7 +128,9 @@
   }
 </script>
 <style lang="scss" scoped>
-
+.money_active{
+  color: red;
+}
   .card {
     margin-bottom: 20px;
     background: #fff;

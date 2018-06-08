@@ -5,16 +5,21 @@
         <div class="bc-logo">
           <a href="javascript:;">优装美家</a>
         </div>
-        <div class="bc-user-info">
-          <el-button @click="open('notify')">未登录</el-button>
+        <div class="bc-user-info" v-if="!isLogin">
+          <el-button @click="goLogin">登陆</el-button>
+          <el-button @click="goRegister">注册</el-button>
+        </div>
+        <div class="bc-user-info" v-if="isLogin">
+          <el-button @click="goHome">{{useremail}}</el-button>
+          <el-button @click="goOut">退出</el-button>
         </div>
     </el-header>
 
-    <el-main>
+    <el-main style="padding: 0">
       <keep-alive>
-        <router-view v-if="$route.meta.keepAlive"></router-view>
+        <router-view v-if="$route.meta.keepAlive && isRouterAlive"></router-view>
       </keep-alive>
-      <router-view v-if="!$route.meta.keepAlive"></router-view>
+      <router-view v-if="!$route.meta.keepAlive && isRouterAlive"></router-view>
     </el-main>
     <el-footer>
       <p class="bc-div">
@@ -27,25 +32,115 @@
       </p>
     </el-footer>
 
+    <!--<el-dialog title="发起申诉" :visible.sync="dialogFormVisible">-->
+      <!--<div>请选中申诉的原因</div>-->
+      <!--<el-radio-group v-model="radio2">-->
+        <!--<el-radio :label="1">申诉期限内打不通电话无法联系到业主</el-radio>-->
+        <!--<br>-->
+        <!--<el-radio :label="2">业主无明确的装修需求</el-radio>-->
+        <!--<br>-->
+        <!--<el-radio :label="3">业主已确定装修公司</el-radio>-->
+        <!--<br>-->
+        <!--<el-radio :label="4">重复的业主信息</el-radio>-->
+      <!--</el-radio-group>-->
+      <!--<div slot="footer" class="dialog-footer">-->
+        <!--<el-button @click="dialogFormVisible = false">取 消</el-button>-->
+        <!--<el-button type="primary" @click="doAppealhandle">确 定</el-button>-->
+      <!--</div>-->
+    <!--</el-dialog>-->
 
+    <el-dialog title="申诉" :visible.sync="dialogFormVisible">
+      <el-form>
+        <el-form-item label="申诉原因" :label-width="formLabelWidth">
+          <el-input v-model="formData.appealReason" auto-complete="off"  type="textarea"></el-input>
+        </el-form-item>
+        <el-form-item label="申诉条件" :label-width="formLabelWidth">
+          <el-select class="selected-appeal" v-model="formData.appealCondition" name="">
+            <el-option
+              v-for="item in appealConditions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="doAppealhandle">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
   import {Constants} from '@/config'
-  import EventBus from '@/config/EventBus';
-  import {getCookie,setCookie} from "./config/util";
-
+  import EventBus from '@/config/EventBus'
+  import {getCookie,setCookie} from "./config/util"
+  import {doOrderAppeal} from '@/api/api'
   export default {
     name: "App",
     data() {
       return {
+        isLogin:false,
+        useremail:'路人甲',
+        appealConditions:[
+          {
+            value: '1',
+            label: '申诉期限内打不通电话无法联系到业主'
+          },
+          {
+            value: '2',
+            label: '业主无明确的装修需求'
+          },
+          {
+            value: '3',
+            label: '业主已确定装修公司'
+          },
+          {
+            value: '4',
+            label: '重复的业主信息'
+          },
+        ],
+        dialogFormVisible: false,
+        formLabelWidth: '120px',
         uid: "未登录",
         preUrl:'',
-        isLogin:false
+        isLogin:false,
+        fnD:null,
+        isRouterAlive :true, // 控制页面刷新
+        formData:{
+          appealReason:'',
+          appealCondition:'',
+          orderid:''
+        }
+      }
+    },
+    // provide(){
+    //   return {
+    //     reload:this.reload()
+    //   }
+    // },
+    // inject:['reload'],
+    watch:{
+      '$route':function () {
+        let eamail = window.localStorage.getItem('X-email')
+        if(eamail){
+          this.isLogin = true
+          this.useremail = eamail
+        }else {
+          this.isLogin = false
+          this.useremail = '路人甲'
+        }
       }
     },
     created(){
+      EventBus.$on('apeal',(val,fn)=>{
+        console.log(val)
+        this.formData.orderid = val
+        this.fnD = fn
+        this.dialogFormVisible = true
+      })
       // 信息提示
       // todo 将信息提升抽离到mixin
       EventBus.$on('notice',(options)=> {
@@ -65,6 +160,49 @@
       console.log(getCookie('text'));
     },
     methods:{
+      goOut(){},
+      goHome(){
+        let status = window.localStorage.getItem('X-status')
+        if (status == 1 || status == 2 || status == 4) {
+          this.$router.replace({name:'apply.join'})
+        }
+        if (status == 3 || status == 5) {
+          this.$router.replace({name:'joined.index'})
+        }
+      },
+      doAppealhandle() {
+        if(!this.formData.appealReason.replace(/^\s+|\s+$/g, "")){
+          EventBus.$emit('notice',{
+            type:'message',
+            message:'申诉原因不能为空'
+          })
+          return
+        }
+        let params = {
+          cause:this.formData.appealReason,
+          condition:this.formData.appealCondition,
+          orderid:this.formData.orderid
+        }
+        doOrderAppeal(params).then((result) => {
+          console.log(result);
+            EventBus.$emit('notice',{
+              type:'message',
+              message:result.message
+            })
+          if(result.code==0){
+            this.fnD && this.fnD()
+          }
+          this.reload()
+          this.fnD && this.fnD()
+            this.dialogFormVisible = false
+          this.formData={
+            appealReason:'',
+            appealCondition:'',
+            orderid:''
+          }
+        })
+      },
+
       open(options){
         EventBus.$emit('notice',options)
       },
@@ -100,9 +238,24 @@
           message: h('i', { style: 'color: teal'}, '示文案这是提示文案')
         });
       },
-
+      reload(){
+        this.isRouterAlive = false
+        this.$nextTick(function () {
+          this.isRouterAlive = true
+        })
+      },
       outLogin(){
         createApp()
+      },
+      goRegister(){
+        this.$router.push({
+          name:'register'
+        })
+      },
+      goLogin(){
+        this.$router.push({
+          name:'login'
+        })
       }
     }
 

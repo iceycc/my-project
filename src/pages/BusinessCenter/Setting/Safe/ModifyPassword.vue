@@ -7,10 +7,10 @@
       <el-form-item label="确认密码" prop="checkPass">
         <el-input class="mp-input" type="password" v-model="ruleForm2.checkPass" auto-complete="off"></el-input>
       </el-form-item>
-      <el-form-item  label="图形码" prop="img_code">
+      <el-form-item label="图形码" prop="img_code">
         <el-input class="mp-input" v-model="ruleForm2.img_code"></el-input>
-        <el-button @click='createCode'>{{checkCode}}</el-button>
-        <!--<img class="code-img" :src="img_code_url" alt="" @clicl="reGetPicCode">-->
+        <!--<el-button @click='createCode'>{{checkCode}}</el-button>-->
+        <img class="code-img" :src="img_code_url" alt="" @click="reGetPicCode">
       </el-form-item>
       <el-form-item label="短信验证码" prop="msg_code">
         <el-input class="mp-input" v-model.number="ruleForm2.msg_code"></el-input>
@@ -21,7 +21,7 @@
       </el-form-item>
     </el-form>
     <!--<timer-btn ref="timerbtn" class="btn btn-default" v-on:run="sendCode"-->
-               <!--:disabled="disabled" :second="60"></timer-btn>-->
+    <!--:disabled="disabled" :second="60"></timer-btn>-->
     <!--todo 短信验证码-->
     <!--<message-code ref="timerbtn" class="btn btn-default" v-on:run="sendCode" ></message-code>-->
 
@@ -30,27 +30,30 @@
 <script>
   var code;
   var times = 5
-  import {getPicCode,getMsgCode} from '@/api/api'
+  const imgUrl = 'http://merchant.uzhuang.com/v1/companysetup/showimg&rd=' //
+  import {getPicCode, getMsgCode, doModifyPassword, doCheckImg} from '@/api/api'
+  // import md5 from 'js-md5'
   export default {
     data() {
       var checkImgCode = (rule, value, callback) => {
         // 失焦验证图和密码
         value.toUpperCase();//取得输入的验证码并转化为大写
         console.log(value)
-        if(value == '') {
+        if (value == '') {
           return callback(new Error('请输入验证码'));
-
-        }else if(value.toUpperCase() != this.checkCode ) { //若输入的验证码与产生的验证码不一致时
-          console.log( value.toUpperCase())
-          console.log(code)
-          this.createCode();//刷新验证码
-          this.ruleForm2.img_code = '';
-          return callback(new Error('验证码不正确'))
-
-        }else { //输入正确时
-          callback();
-          // $(".login_content1 span:eq(2)").addClass("disappear");
-          // $(".login_content1 span:eq(2)").text("请输入验证码")
+        } else {
+          doCheckImg({imgcode: value})
+            .then((res) => {
+              console.log(res);
+              if (res.code == 1) {
+                callback()
+              } else {
+                return callback(new Error('验证错误'));
+              }
+            })
+        }
+        if (value == '') {
+          return callback(new Error('请输入验证码'));
         }
       };
       var validatePass = (rule, value, callback) => {
@@ -80,85 +83,107 @@
         }
       };
       return {
-        disabled:false,
-        sendMsgText:'发送短信验证码',
-        checkCode:'',
-        img_code_url:'',
+        msgTime: times,
+        disabled: false,
+        sendMsgText: '发送短信验证码',
+        checkCode: '',
+        img_code_url: imgUrl + Math.random(),
         ruleForm2: {
           pass: '',
           checkPass: '',
           img_code: '',
-          msg_code:''
+          msg_code: ''
         },
         rules2: {
           pass: [
-            { validator: validatePass, trigger: 'blur' }
+            {validator: validatePass, trigger: 'blur'}
           ],
           checkPass: [
-            { validator: validatePass2, trigger: 'blur' }
+            {validator: validatePass2, trigger: 'blur'}
           ],
           img_code: [
-            { validator: checkImgCode, trigger: 'blur' }
+            {validator: checkImgCode, trigger: 'blur'}
           ],
-          msg_code:[
-            { validator: validateMsg, trigger: 'blur' }
+          msg_code: [
+            {validator: validateMsg, trigger: 'blur'}
           ]
         }
       };
     },
-    created(){
+    created() {
       // this.getPicCodeData()
       this.createCode()
     },
     methods: {
       // 图片验证码
-      createCode(){
+      createCode() {
         code = "";
         var codeLength = 4;//验证码的长度
-        var random = new Array(0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R',
-          'S','T','U','V','W','X','Y','Z');//随机数
-        for(var i = 0; i < codeLength; i++) {//循环操作
-          var index = Math.floor(Math.random()*36);//取得随机数的索引（0~35）
+        var random = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+          'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');//随机数
+        for (var i = 0; i < codeLength; i++) {//循环操作
+          var index = Math.floor(Math.random() * 36);//取得随机数的索引（0~35）
           code += random[index];//根据索引取得随机数加到code上
         }
         this.checkCode = code;//把code值赋给验证码
       },
       //  刷新图片二维码 前端实现
-      reGetPicCode(){
-        this.getPicCodeData()
+      reGetPicCode() {
+        this.img_code_url = imgUrl + Math.random()
+        // console.log(11)
+        // this.getPicCodeData()
       },
       // 获取图片二维码 前端实现了
-      getPicCodeData(){
+      getPicCodeData() {
         getPicCode()
-          .then((result)=>{
+          .then((result) => {
             console.log(result);
           })
       },
-      postMsgCodeToTel(){
-        let params = {}
-        // getMsgCode(params)
-        //   .then((result)=>{
-        //     console.log(result)
-        //   })
+
+      postMsgCodeToTel() {
+        this.msgTime = times
+        let msgtime = this.msgTime
+        if (this.ruleForm2.img_code == '') {
+          return
+        }
+        let params = {
+          imgcode: Number(this.ruleForm2.img_code)
+        }
+        getMsgCode(params)
+          .then((result) => {
+            console.log(result)
+          })
         this.disabled = true
-        this.sendMsgText =times + 's'
-        var timer = setInterval(()=>{
-          times--
-          this.sendMsgText =times + 's'
-          if(times == -1){
+        this.sendMsgText = msgtime + 's'
+        var timer = setInterval(() => {
+          msgtime--
+          this.sendMsgText = msgtime + 's'
+          if (msgtime == -1) {
             clearTimeout(timer)
             this.disabled = false
-            this.sendMsgText ='重新发送验证码'
+            this.sendMsgText = '重新发送验证码'
+
             return
           }
-        },1000)
+        }, 1000)
       },
       submitForm(formName) {
+        let _this = this
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            let params = {
 
+            // console.log(ruleForm2);
+            let params = {
+              confirmPass: _this.ruleForm2.checkPass,
+              password: _this.ruleForm2.pass,
+              smscode: _this.ruleForm2.msg_code
             }
+            doModifyPassword(params)
+              .then((result) => {
+                console.log(result);
+                // todo
+              })
           } else {
             console.log('error submit!!');
             return false;
@@ -169,16 +194,17 @@
   }
 </script>
 
-<style lang="scss" scoped >
-  .mp-input{
+<style lang="scss" scoped>
+  .mp-input {
     width: 200px;
   }
-  .code-img{
+
+  .code-img {
+    cursor: pointer;
     display: inline-block;
     margin-left: 30px;
     width: 80px;
     height: 30px;
     vertical-align: middle;
-    background: #0099ff;
   }
 </style>

@@ -12,7 +12,8 @@
       </div>
     </div>
     <!-- 进度 信息展示-->
-    <info-card :info_titile="info_titile" v-if="settled_progress == 1 || settled_progress == 2 || settled_progress == 4">
+    <info-card :info_titile="info_titile"
+               v-if="settled_progress == 1 || settled_progress == 2 || settled_progress == 4">
       <!--<i slot="icon" class="iconfont icon-shanchu"></i>-->
       <p class="wenzi" slot="info_text">
         您已提交申请修改账户资料，平台将在提交日期后的1-3个工作日内完成审核，请注意登陆后台查看审核结果，审核期间无法接收新订单。如想加快审核速度，请联系平台工作人员</p>
@@ -21,13 +22,20 @@
     <!--可以设置的选项卡-->
     <div>
       <info-card info_titile="完善承接信息" v-if="isSet">
-        <p class="wenzi" slot="info_text">未完善承接信息将无法接单，点击设置<router-link :to="{name:'alterundertake'}">承接信息</router-link></p>
+        <p class="wenzi" slot="info_text">未完善承接信息将无法接单，点击设置
+          <router-link :to="{name:'alterundertake'}">承接信息</router-link>
+        </p>
       </info-card>
       <info-card info_titile="充值提示" v-if="ifWalletEnough">
-        <p class="wenzi" slot="info_text">账户余额不足，暂时无法接单，点击充值<a>账户余额</a></p>
+
+        <p class="wenzi" slot="info_text">账户余额不足，暂时无法接单，点击充值
+          <router-link :to="{name:'account.recharge'}">账户余额</router-link>
+        </p>
       </info-card>
       <info-card info_titile="绑定微信" v-if="isBindWechat">
-        <p class="wenzi" slot="info_text">当前账户未绑定微信，优装美家无法在微信中向你推送新订单通知，点击 <a>绑定微信</a></p>
+        <p class="wenzi" slot="info_text">当前账户未绑定微信，优装美家无法在微信中向你推送新订单通知，点击
+          <router-link :to="{name:'bindingwx'}">绑定微信</router-link>
+        </p>
       </info-card>
     </div>
     <!--近期订单-->
@@ -77,15 +85,17 @@
         <el-table-column>
           <template slot-scope="scope">
             <el-button
-              @click="handleShensu(scope.$index, scope.row)">点击申诉
+              @click="handleShensu(scope.row.id)"
+              v-if="scope.row.status =='可申诉'">{{scope.row.status}}
             </el-button>
-            <p>72h后失效</p>
+            <p v-if="scope.row.status == '可申诉'">72h后失效</p>
+            <el-button>{{scope.row.status}}</el-button>
           </template>
         </el-table-column>
         <el-table-column>
           <template slot-scope="scope">
             <el-button
-              @click="goDetailHandle(scope.$index, scope.row)">查看详情
+              @click="goDetailHandle(scope.row.id)">查看详情
             </el-button>
           </template>
         </el-table-column>
@@ -94,7 +104,7 @@
       <div class="block">
         <el-pagination
           layout="prev, pager, next"
-          :total="50">
+          :total="total">
         </el-pagination>
       </div>
     </div>
@@ -105,7 +115,7 @@
 <script>
   import * as components from '@/components/index.js'
   import {getIndexInfos, getOrderList} from '../../../api/api'
-  import moment from 'moment'
+  import EventBus from '@/config/EventBus';
 
   export default {
     components: {
@@ -114,6 +124,7 @@
     name: '',
     data() {
       return {
+        total: 0,
         currentPage: 5,
         small: '',
         input: '',
@@ -135,7 +146,14 @@
       // console.log(moment().weekday(-7)); // last Monday
       // console.log(11); // last Monday
     },
+    destory() {
+      EventBus.$off('apeal')
+    },
     methods: {
+      handleShensu(val) {
+        console.log(val);
+        EventBus.$emit('apeal', val)
+      },
       // 数据
       init() {
         let data = {
@@ -156,19 +174,19 @@
           switch (Number(this.settled_progress)) {
             case 1:
               this.info_titile = '请补全信息'
-                  break;
+              break;
             case 2:
               this.info_titile = '等待审核通过'
-                  break;
+              break;
             case 3:
               this.info_titile = '审核通过'
-                  break;
+              break;
             case 4:
               this.info_titile = '审核未通过'
-                  break;
+              break;
             case 5:
               this.info_titile = '审核通过'
-                  break;
+              break;
             default:
               break
           }
@@ -178,6 +196,7 @@
         getOrderList(params).then((res) => {
           console.log(res);
           this.orderList = res.data.data
+          this.total = res.data.total
         })
       },
       // 样式
@@ -188,8 +207,8 @@
         }
       },
       // 交互
-      goDetailHandle() {
-        this.$router.push({name: 'index.detail'})
+      goDetailHandle(id) {
+        this.$router.push({name: 'index.detail', params: {id, canAppeal: true}})
       },
       handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
@@ -197,10 +216,9 @@
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
       },
-      handleShensu() {
 
-      }
     }
+
   }
 </script>
 <style lang="scss" scoped>

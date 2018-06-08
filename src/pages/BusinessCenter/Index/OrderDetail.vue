@@ -1,21 +1,47 @@
 <template>
-  <div class="center-box">
+  <div style="padding: 0 100px;">
     <!--top-->
-    <div class="top-nav"><a href="javascript:;" class="go_home">首页</a><i class="iconfont icon-xiangyou"></i><a href="javascript:;">订单详情</a></div>
+    <div class="top-nav"><a href="javascript:;" @click="go_back" class="go_home">返回</a><i class="iconfont icon-xiangyou"></i><a
+      href="javascript:;">订单详情</a></div>
     <!-- 详情表单-->
     <div class="detail-box">
       <!-- 头部-->
       <div class="top">订单详情</div>
+      <!--申请阶段展示 todo 申请阶段展示 申请完成隐藏-->
+      <div class="info-box" v-if="!service_status">
+        <p class="status">{{detailData.status}}</p>
+      </div>
+      <!-- 申诉进度 todo  申请阶段展示 申请完成隐藏-->
+      <div class="info-box" v-if="!service_status">
+        <!-- 左侧盒子 -->
+        <p class="box-left"><i class="iconfont icon-kehuxinxi icon1"></i>申请进度</p>
+        <!-- 右侧盒子 申请进度-->
+        <ul class="box-right order-rate">
+
+          <li class="active">
+            <i class="icon-rate"></i>
+            <span class="time" style="padding-right: 30px">{{detailData.service_time | momentTime}}</span>
+            <span class="message">{{detailData.status}}</span>
+            <p><span>原因：</span>{{detailData.service_condition}}</p>
+          </li>
+          <li class="">
+            <i class="icon-rate"></i>
+            <span class="time" style="padding-right: 30px">{{detailData.addap_time | momentTime}}</span>
+            <span class="message">发起申诉</span>
+            <p><span>申诉原因：</span>{{detailData.cause}}</p>
+          </li>
+        </ul>
+      </div>
       <!-- 客户信息-->
       <div class="info-box">
         <!-- 左侧盒子 -->
         <p class="box-left"><i class="iconfont icon-kehuxinxi icon1"></i>客户信息</p>
         <!-- 右侧盒子 -->
         <div class="box-right">
-          <p class="username">姓名：<span>张三</span></p>
-          <p class="tel">联系电话：<span>156211855232</span></p>
-          <div class="shensu">
-            <a href="javascript:;">点击申诉</a>
+          <p class="username">姓名：<span>{{detailData.title}}</span></p>
+          <p class="tel">联系电话：<span>{{detailData.telephone}}</span></p>
+          <div class="shensu" v-if="service_status">
+            <el-button @click="doAppeal">点击申诉</el-button>
             <p>72小时失效</p>
           </div>
         </div>
@@ -26,9 +52,10 @@
         <p class="box-left"><i class="iconfont icon-fangwuxinxi icon2"></i>房屋信息</p>
         <!-- 右侧盒子 -->
         <div class="box-right">
-          <p class="house-info"><span>面积：张三</span> <span class="ml-xx">户型：两居</span></p>
-          <p class="house-info">房屋类型：<span>现房新房</span></p>
-          <p class="house-info">地址：<span>北京市北京市朝阳区长椿街宣武门地铁站南庄胜广场南翼19层</span></p>
+          <p class="house-info"><span>面积：{{detailData.area}}m²</span> <span
+            class="ml-xx">户型：{{detailData.homestyle}}</span></p>
+          <p class="house-info">房屋类型：<span>{{detailData.housecategory}}</span></p>
+          <p class="house-info">地址：<span>{{detailData.address}}</span></p>
         </div>
       </div>
       <!-- 装修需求 -->
@@ -37,9 +64,11 @@
         <p class="box-left"><i class="iconfont icon-zhuangxiuxuqiu icon3"></i>装修需求</p>
         <!-- 右侧盒子 -->
         <div class="box-right">
-          <p class="house-info"><span>预算：10万元</span> <span class="ml-xx">方式：全包</span></p>
-          <p class="house-info"><span>风格：现代</span> <span class="ml-xx">装修类型：毛坯装修</span></p>
-          <p class="house-infos"><span>装修需求：</span>1月1日收房的毛坯房，装修后前三年打算出租，也可能自己住，简单装修经济一些即可，全包半包没有想好都可以出报价进行参考，要求环保性强，实用性强，表示要尽快量房沟通，立即装修。
+          <p class="house-info"><span>预算：{{detailData.budget}}万元</span> <span class="ml-xx">方式：{{detailData.way}}</span>
+          </p>
+          <p class="house-info"><span>风格：{{detailData.style}}</span> <span class="ml-xx">装修类型：{{detailData.renovation | renovationFilter}}</span>
+          </p>
+          <p class="house-infos"><span>装修需求：</span>{{detailData.content}}
           </p>
         </div>
       </div>
@@ -49,39 +78,138 @@
         <p class="box-left"><i class="iconfont icon-dingdanxinxi icon4"></i>订单信息</p>
         <!-- 右侧盒子 -->
         <div class="box-right">
-          <p class="order-info"><span>订单时间</span>2017-11-11-10:30</p>
-          <p class="order-info"><span>订单号</span>2345678765432</p>
-          <p class="order-info"><span>金额</span>238元</p>
+          <p class="order-info"><span>订单时间</span>{{detailData.dd_time}}</p>
+          <p class="order-info"><span>订单号</span>{{detailData.orderno}}</p>
+          <p class="order-info"><span>金额</span>{{detailData.totalpay}}元</p>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+  import {getOrderInfo, doOrderAppeal} from '@/api/api'
+  import EventBus from '@/config/EventBus'
+
+
   export default {
     name: "",
     data() {
-      return {};
+      return {
+        dialogTableVisible: false,
+        dialogFormVisible: false,
+        formLabelWidth: '120px',
+        radio2: '',
+        order_id: '',
+        service_status: false, // 是否在在申诉的状态
+        detailData: {
+          telephone: '', // 业主电话
+          title: '', // 业主名称
+          area: '', // 装修面积
+          housecategory: '',// 房屋类型
+          homestyle: '',// 户型
+          address: '',// 详细地址
+          content: '', // 装修需求
+          budget: '', //装修预算
+          style: '', // 装修风格
+          way: '', // 装修方式
+          renovation: '', // 装修类型
+          dd_time: '',// 订单生成时间
+          orderno: '',// 订单号
+          totalpay: '',// 订单总额
+          status:'',// 状态
+          service_time:'',// 客服处理时间
+          service_status:'',// 客服处理状态
+          addap_time:'',// 添加申诉时间
+          service_condition:'',// 客服回访结果
+          cause:'',// 申诉原因
+
+        }
+      };
+    },
+    filters: {
+      renovationFilter(val) {
+        switch (Number(val)) {
+          case 1:
+            val = "家装"
+            break;
+          case 2:
+            val = "工装"
+            break
+        }
+        return val
+      }
+    },
+    created() {
+      this.order_id = this.$route.params.id
+      console.log('this.order_id')
+      console.log(this.order_id)
+      this.getData()
+      // 判断当前的订单状态
+    },
+    methods: {
+      getData() {
+        let params = {
+          id: this.order_id
+        }
+        getOrderInfo(params)
+          .then((result) => {
+            console.log(result);
+            let data = result.data[0]
+            this.service_status = data.status  == '可申诉' ? true : false
+            this.detailData = {
+              telephone: data.telephone,
+              title: data.title,
+              area: data.area,
+              housecategory: data.housecategory,
+              homestyle: data.homestyle,
+              address: data.address,
+              content: data.content,
+              budget: data.budget,
+              style: data.style,
+              way: data.way,
+              renovation: data.renovation,
+              dd_time: data.dd_time,
+              orderno: data.orderno,
+              totalpay: data.totalpay,
+              service_status: data.service_status,
+              status:data.status || '数据不存在',
+              addap_time:data.addap_time,
+              service_condition:data.service_condition || '',
+              cause:data.cause
+            }
+          })
+
+      },
+      go_back(){
+        this.$router.go(-1)
+      },
+      doAppeal() {
+        console.log(this.order_id)
+        EventBus.$emit('apeal', this.order_id,  ()=> {
+         })
+      }
+
     }
   };
 </script>
-<style lang="scss" scoped >
+<style lang="scss" scoped>
   /*导航*/
-  .top-nav{
+  .top-nav {
     margin-top: 60px;
     margin-bottom: 30px;
     font-size: 18px;
-    i{
-      color:#aaa;
+    i {
+      color: #aaa;
       padding: 0 10px;
     }
-    .go_home{
-      color:#aaa;
-      &:hover{
+    .go_home {
+      color: #aaa;
+      &:hover {
         color: #25c3ff;
       }
     }
   }
+
   /* 详情表单主体 */
   .detail-box {
     /*头部*/
@@ -104,7 +232,7 @@
         vertical-align: top;
         width: 30%;
         font-size: 18px;
-        color:#000;
+        color: #000;
         font-weight: 500;
         i {
           margin-right: 10px;
@@ -116,11 +244,11 @@
           &.icon2 {
             color: #04d4e4;
           }
-          &.icon3{
-            color:#db2c16;
+          &.icon3 {
+            color: #db2c16;
           }
-          &.icon4{
-            color:#2065f8;
+          &.icon4 {
+            color: #2065f8;
           }
         }
 
@@ -131,7 +259,45 @@
         vertical-align: top;
         width: 70%;
       }
+      /*todo 申请阶段展示 */
+      .status {
+        text-align: center;
+        font-weight: bold;
+        font-size: 20px;
+      }
+      /*申请进度添加*/
+      .order-rate {
+        font-size: 18px;
+        li {
+          position: relative;
+          line-height: 30px;
+          font-size: 0;
+          span {
+            font-size: 18px;
+          }
+          .icon-rate {
+            position: relative;
+            display: inline-block;
+            width: 30px;
+            &:before {
+              display: inline-block;
+              content: '';
+              width: 16px;
+              height: 16px;
+              background: #5a5a5a;
+              border-radius: 8px;
+            }
+          }
 
+          &.active .icon-rate::before {
+            background: #0099ff;
+          }
+          p {
+            padding-left: 30px;
+            font-size: 18px;
+          }
+        }
+      }
       /*客户信息*/
       .username,
       .tel {
@@ -150,11 +316,11 @@
           display: inline-block;
           width: 80px;
           height: 30px;
-          color: #0099ff;
+          color: rgb(0, 255, 255);
           font-size: 16px;
           text-align: center;
           line-height: 30px;
-          border: 1px solid #0099ff;
+          border: 1px solid rgb(0, 255, 255);
           border-radius: 3px;
         }
         p {

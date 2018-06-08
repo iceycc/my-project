@@ -274,14 +274,17 @@
     },
     methods: {
       getData() {
-        getCompanysSetup().then((result) => {
+        let params = {
+          isUpdate:0,
+        }
+        getCompanysSetup(params).then((result) => {
           console.log(result);
           if(result == null){
             return
           }
           this.resultData = result
-          // todo:height
           this.undertakeInfo = {
+
             undertake_way: result.undertake_way,
             tableData: [result.allarea],
             local_remould: result.local_remould,// 局部装修
@@ -293,7 +296,8 @@
         })
       },
       goAlterInfo() {
-        this.$router.push({name: 'alterundertake', params: this.resultData})
+
+        this.$router.push({name: 'alterundertake', params: {isUpdate:1}})
       }
     }
   }
