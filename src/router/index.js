@@ -20,8 +20,8 @@ router.addRoutes([
   // 重定向
   {
     path: "/",
-    redirect: {name:"apply"},
-    mate: {keepAlive:true}
+    redirect: {name:"login"},
+    mate: {keepAlive:false}
   },
   // 登陆
   {
@@ -51,6 +51,13 @@ router.addRoutes([
     component: pages.CheckEmail,
     meta: {check:false,keepAlive:false}
   },
+  // 关于我们相关页面
+  {
+    path: "/aboutus",
+    name:"aboutus",
+    component: pages.AboutUs,
+    meta: {check:false,keepAlive:false}
+  },
   // 申请入住
   {
     name: "apply",
@@ -59,7 +66,7 @@ router.addRoutes([
     redirect:{
       name:"apply.join"
     },
-    meta:{check:true,keepAlive:true,needLogin:true},
+    meta:{check:true,keepAlive:false,needLogin:true},
     children: [
       // 入住申请 1 -
       {name: "apply.join", path: "applyjoin", component: pages.ApplyJoin, meta:{check:true,keepAlive:false,needLogin:true}},// keepAlive设置true后侧边导航点击事件出现异常
@@ -105,7 +112,7 @@ router.addRoutes([
         name: "ordermanagement",
         path: "ordermanagement",
         component: pages.OrderManagement
-        ,mate:{needLogin:true}
+        ,mate:{needLogin:true,keepAlive:true}
       },
       // 填写基础信息
       {name: "joined.baseinfo", path: "baseinfo", component: pages.BaseInfo,mate:{needLogin:true}},

@@ -1,6 +1,6 @@
-// utils提供工具函数，包括生成处理各种样式语言的loader，获取资源文件存放路径的工具函数。 
-// 1. 计算资源文件存放路径 
-// 2. 生成cssLoaders用于加载.vue文件中的样式 
+// utils提供工具函数，包括生成处理各种样式语言的loader，获取资源文件存放路径的工具函数。
+// 1. 计算资源文件存放路径
+// 2. 生成cssLoaders用于加载.vue文件中的样式
 // 3. 生成styleLoaders用于加载不在.vue文件中的单独存在的样式文件
 
 
@@ -60,10 +60,11 @@ exports.cssLoaders = function (options) {
     // Extract CSS when that option is specified
     // (which is the case during production build)
     if (options.extract) {
-      // 配置extract-text-plugin提取样式 
+      // 配置extract-text-plugin提取样式
       return ExtractTextPlugin.extract({
         use: loaders,
-        fallback: 'vue-style-loader'
+        fallback: 'vue-style-loader',
+        publicPath:'../../' // 为了使style里的背景图片路径在生产环境正常
       })
     } else {
       // 无需提取样式则简单使用vue-style-loader配合各种样式loader去处理<style>里面的样式

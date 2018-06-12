@@ -50,12 +50,12 @@
       }
     },
     created(){
-      if(JSON.stringify(this.thisData) !== '{}'){
-        this.houseListObj = Object.assign(this.houseListObj,this.thisData)
-        for(var key in this.thisData){
-          this.detailCardList.push(key)
-        }
-      }
+      // if(JSON.stringify(this.thisData) !== '{}'){
+      //   this.houseListObj = Object.assign(this.houseListObj,this.thisData)
+      //   for(var key in this.thisData){
+      //     this.detailCardList.push(key)
+      //   }
+      // }
     },
     updated() {
 

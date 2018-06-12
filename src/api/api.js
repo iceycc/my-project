@@ -52,17 +52,37 @@ const Method = {
   doLogin:'login/login',
   // 注册
   doRegister:'login/register',
-  // 忘记密码
 
-  // 发送邮件
-  sendEmail:'',
+  // 充值密码时 发送邮件
+  sendEmail:'login/reset-code',
+  // 重置密码
+  rePassword:'login/reset-pwd',
+
   // 激活
-  activationEmail:''
+  activationEmail:'',
+  // 退出
+  logout:'login/logout',
+  // 邮箱激活校验
+  checkEmail:'http://merchant.uzhuang.com/v1/login/activeregister'
 }
 
 // 登陆功能
 export const doLogin = (params) => {
   return axios.post(Method.doLogin,params)
+    .then((result)=>{
+      return result
+    })
+}
+// 邮箱激活校验
+export const checkEmail = (params) => {
+  return axios.get(Method.checkEmail,{params})
+    .then((result)=>{
+      return result
+    })
+}
+// 退出
+export const logout = (params) => {
+  return axios.get(Method.logout,{params})
     .then((result)=>{
       return result
     })
@@ -76,12 +96,19 @@ export const doRegister = (params) => {
 }
 // 发送邮件
 export const sendEmail = (params) => {
-  return axios.post(Method.sendemail,params)
+  return axios.get(Method.sendEmail,{params})
     .then((result)=>{
       return result
     })
 }
-// 发送邮件
+// 重置密码
+export const rePassword = (params) => {
+  return axios.post(Method.rePassword,params)
+    .then((result)=>{
+      return result
+    })
+}
+//
 export const activationEmail = (params) => {
   return axios.post(Method.activationEmail,params)
     .then((result)=>{

@@ -24,10 +24,10 @@
     <el-footer>
       <p class="bc-div">
         <!-- <a target="_blank" class="footer-menu-a" href="http://www.uzhuang.com/zhaoshang" rel="nofollow">招商入驻</a>&nbsp;| -->
-        <a target="_blank" class="footer-menu-a" href="javascript:;">关于我们</a>&nbsp;|
-        <a target="_blank" class="footer-menu-a" href="javascript:;">联系我们</a>&nbsp;|
+        <a target="_blank" class="footer-menu-a" href="http://www.uzhuang.com/about" >关于我们</a>&nbsp;|
+        <a target="_blank" class="footer-menu-a" href="http://www.uzhuang.com/about/contact-us">联系我们</a>&nbsp;|
         <!-- <a target="_blank" class="footer-menu-a" href="http://www.uzhuang.com/about/join-us">诚聘英才</a>&nbsp;| -->
-        <a target="_blank" class="footer-menu-a" href="javascript:;">法律声明</a>&nbsp;|
+        <a target="_blank" class="footer-menu-a" href="http://www.uzhuang.com/law">法律声明</a>&nbsp;|
         <a target="_blank" class="footer-menu-a" href="javascript:;" style="cursor:default">优装美家 版权所有</a>
       </p>
     </el-footer>
@@ -77,7 +77,7 @@
   import {Constants} from '@/config'
   import EventBus from '@/config/EventBus'
   import {getCookie,setCookie} from "./config/util"
-  import {doOrderAppeal} from '@/api/api'
+  import {doOrderAppeal,logout} from '@/api/api'
   export default {
     name: "App",
     data() {
@@ -156,11 +156,15 @@
             break;
         }
       })
-      setCookie('text','1',1)
-      console.log(getCookie('text'));
     },
     methods:{
-      goOut(){},
+      goOut(){
+        logout().then(()=>{
+          this.$router.push({name:'login'})
+          localStorage.removeItem('X-email')
+          localStorage.removeItem('X-status')
+        })
+      },
       goHome(){
         let status = window.localStorage.getItem('X-status')
         if (status == 1 || status == 2 || status == 4) {

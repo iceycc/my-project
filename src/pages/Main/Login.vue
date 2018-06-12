@@ -16,7 +16,9 @@
             <div style="display: flex">
               <el-input v-model.number="loginFormData.img_code" style="display: inline-block;flex: 1"></el-input>
               <!--<el-button>AAAA</el-button>-->
-              <img class="code-img" :src="img_code_url" alt="" @click="reGetPicCode" style="display: inline-block;width: 70px;height: 40px;background: #1afa29">
+              <el-button @click='createCode'>{{checkCode}}</el-button>
+
+              <!--<img class="code-img" :src="img_code_url" alt="" @click="reGetPicCode" style="display: inline-block;width: 70px;height: 40px;background: #1afa29">-->
             </div>
           </el-form-item>
           <el-form-item>
@@ -40,11 +42,12 @@
   import {getIndexInfos,doLogin} from '@/api/api'
   import EventBus from '@/config/EventBus'
   const imgUrl = 'http://merchant.uzhuang.com/v1/companysetup/showimg&rd=' //
+  var code
   export default {
 
     data() {
       // 设置校验规则
-      var checkImgCode = (rule, value, callback) => {
+      var checkPass = (rule, value, callback) => {
         // 失焦验证图和密码
         if(value == '') {
           return callback(new Error('请输入'));
@@ -52,22 +55,54 @@
           callback()
         }
 
-      };
+      }
+      // 设置校验规则
+      var checkImgCode = (rule, value, callback) => {
+        // 失焦验证图和密码
+        value = value + ''
+        value.toUpperCase();//取得输入的验证码并转化为大写
+        console.log(value)
+        if(value == '') {
+          return callback(new Error('请输入验证码'));
+
+        }else if(value.toUpperCase() != this.checkCode ) { //若输入的验证码与产生的验证码不一致时
+          console.log( value.toUpperCase())
+          console.log(code)
+          this.createCode();//刷新验证码
+          this.loginFormData.img_code = '';
+          return callback(new Error('验证码不正确'))
+
+        }else { //输入正确时
+          callback();
+        }
+
+      }
+      var checkEmail = (rule,value,callback)=>{
+        let reg = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/
+        if(value == ''){
+         return callback(new Error('请输入邮箱'))
+       } else if(!reg.test(value)){
+          callback(new Error('邮箱格式错误'));
+        }else {
+          callback()
+        }
+      }
       return {
         checked: true,
+        checkCode:'',
         img_code_url: imgUrl + Math.random(),
         settled_progress: 0,
         loginFormData: {
           password: '',
           email: '',
-          img_code: ''
+          img_code: '',
         },
         rules2: {
           email: [
-            { validator: checkImgCode, trigger: 'blur' }
+            { validator: checkEmail, trigger: 'blur' }
           ],
           password: [
-            { validator: checkImgCode, trigger: 'blur' }
+            { validator: checkPass, trigger: 'blur' }
           ],
           img_code: [
             { validator: checkImgCode, trigger: 'blur' }
@@ -76,6 +111,7 @@
       }
     },
     created() {
+      this.createCode()
       // 获取登陆状态：
       // let token_key = getCookie('bId_token_key')
       // if (!token_key) {
@@ -103,12 +139,31 @@
       // 2审核中
       // 4审核未通过
 
+      // 3审核通过
       // 5审核通过
-      // 3补全信息
 
     },
     computed: {},
     methods: {
+      // 图片验证码
+      createCode() {
+        code = "";
+        var codeLength = 4;// 验证码的长度
+        var random = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+          'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');//随机数
+        for (var i = 0; i < codeLength; i++) {//循环操作
+          var index = Math.floor(Math.random() * 36);//取得随机数的索引（0~35）
+          code += random[index];//根据索引取得随机数加到code上
+        }
+        this.checkCode = code;//把code值赋给验证码
+      },
+      //  刷新图片二维码 前端实现
+      // reGetPicCode() {
+      //   this.img_code_url = imgUrl + Math.random()
+      //   // console.log(11)
+      //   // this.getPicCodeData()
+      // },
+
       checkLogin() {
       },
       submitForm(formName) {
@@ -132,10 +187,10 @@
                   window.localStorage.setItem('X-email',result.data.email)
                   window.localStorage.setItem('X-status',result.data.settled_progress)
                   let status = result.data.settled_progress
-                  if (status == 1 || status == 2 || status == 4) {
+                  if (status == 1 || status == 2 || status == 4 || status == 3) {
                     this.$router.replace({name:'apply.join'})
                   }
-                  if (status == 3 || status == 5) {
+                  if (status == 5) {
                     this.$router.replace({name:'joined.index'})
                   }
                 }else {

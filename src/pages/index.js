@@ -11,6 +11,7 @@
   Register:resolve => require(['@/pages/Main/Register'], resolve),
   FindPassWord:resolve => require(['@/pages/Main/FindPassWord'], resolve),
   CheckEmail:resolve => require(['@/pages/Main/CheckEmail'], resolve),
+  AboutUs:resolve => require(['@/pages/DocPages/AboutUs'], resolve),
   // 未申请前的页面111
   BeforeJoin:resolve => require(['@/pages/Main/BeforeJoin'], resolve),
   // 申请后的页面

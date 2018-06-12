@@ -10,11 +10,13 @@
     <div class="ai-main">
       <!--form信息盒子-->
       <div class="ai-box">
-
           <!--公司法人-->
           <div class="small-box">
             <el-form-item label="公司法人" prop="company_corporate">
               <el-input v-model="formData.company_corporate" placeholder="请与执照一致" auto-complete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="法人手机号" prop="company_corporate">
+              <el-input v-model="formData.corporate_mobile" placeholder="法人手机号" auto-complete="off"></el-input>
             </el-form-item>
             <!--身份证号码-->
             <el-form-item label="身份证号" prop="company_corporate">
@@ -28,11 +30,15 @@
                 <id-card-box
                   :defaultUrl="formData.LegalCardIdImg"
                   img_name='正面照' info_text="证件上的文字需能够清晰辨认" @changeUrl="getUrl"
-                  info_key="formData.LegalCardIdImg"></id-card-box>
+                  info_key="formData.LegalCardIdImg"
+                  info_key_img="formData.LegalCardId"
+                ></id-card-box>
                 <id-card-box
                   :defaultUrl="formData.LegalCardIdContraryImg"
                   img_name='反面照' info_text="证件上的文字需能够清晰辨认" @changeUrl="getUrl"
-                  info_key="formData.LegalCardIdContraryImg"></id-card-box>
+                  info_key="formData.LegalCardIdContraryImg"
+                  info_key_img="formData.LegalCardIdContrary"
+                ></id-card-box>
               </div>
             </div>
 
@@ -49,20 +55,23 @@
                 <id-card-box
                   :defaultUrl="formData.yyzzImg"
                   img_name='营业执照' info_text="证件上的文字需能够清晰辨认" @changeUrl="getUrl"
-                  info_key="formData.yyzzImg"></id-card-box>
+                  info_key="formData.yyzzImg"
+                  info_key_img="formData.yyzz"
+                ></id-card-box>
               </div>
             </div>
           </div>
           <!--公司地址-->
           <div class="small-box padding-30">
-
             <div style="display: flex">
               <h3 class="title" style="width: 80px;font-size: 14px;color: #606266;text-align: right;padding-right: 20px">公司地址</h3>
             <div style="flex: 1">
               <id-card-box
                 :defaultUrl="formData.ConstructQuayPhotoImg"
                 img_name='资质照' info_text="证件上的文字需能够清晰辨认" @changeUrl="getUrl"
-                info_key="formData.ConstructQuayPhotoImg"></id-card-box>
+                info_key="formData.ConstructQuayPhotoImg"
+                info_key_img="formData.ConstructQuayPhoto"
+              ></id-card-box>
             </div>
             </div>
           </div>
@@ -103,7 +112,8 @@
           ConstructQuayPhotoImg: '',
           LegalIdentityCard: '',
           yyzzImg: '',
-          yyzzbh: ''
+          yyzzbh: '',
+          corporate_mobile:''
         },
         rules:{
           company_corporate:[ { validator: checkData, trigger: 'blur' }]
@@ -117,10 +127,14 @@
         this.formData = {
           company_corporate: oldInfos.company_corporate,
           LegalCardIdImg: oldInfos.LegalCardIdImg,
+          LegalCardId: oldInfos.LegalCardId,
           LegalCardIdContraryImg: oldInfos.LegalCardIdContraryImg,
+          LegalCardIdContrary: oldInfos.LegalCardIdContrary,
           ConstructQuayPhotoImg: oldInfos.ConstructQuayPhotoImg,
+          ConstructQuayPhoto: oldInfos.ConstructQuayPhoto,
           LegalIdentityCard: oldInfos.LegalIdentityCard,
           yyzzImg: oldInfos.yyzzImg,
+          yyzz: oldInfos.yyzz,
           yyzzbh: oldInfos.yyzzbh
         }
       }
@@ -129,8 +143,9 @@
     methods: {
       getUrl(path) {
         //这个就是你要的path,并且会双向绑定
-        this.formData[path.name] = path.fileId || 1
-        console.log(path.name + ':' + path.fileId)
+        this.formData[path.prop] = path.fileId || 1
+        this.formData[path.propImg] = path.fileId || 1
+        console.log(path.propImg + ':' + path.fileId)
       },
 
       goBaseInfo() {
@@ -158,12 +173,12 @@
           BelongCounty: data.BelongCounty,// 开户行区
           BelongProvince: data.BelongProvince,
           ConstructQuay: data.ConstructQuay,
-          ConstructQuayPhoto: data.ConstructQuayPhotoImg,
+          ConstructQuayPhoto: data.ConstructQuayPhoto,
           LK1_1: data.LK1_1,
           LK1_2: data.LK1_2,
           LK1_3: data.LK1_3,
-          LegalCardId: data.LegalCardIdImg,
-          LegalCardIdContrary: data.LegalCardIdContraryImg,
+          LegalCardId: data.LegalCardId,
+          LegalCardIdContrary: data.LegalCardIdContrary,
           LegalIdentityCard: data.LegalIdentityCard,
           branchname: data.branchname,
           chargePersonPhone: data.chargePersonPhone,
@@ -174,8 +189,11 @@
           gszj: data.gszj,
           one_text: data.one_text,
           openaccount: data.openaccount,
-          yyzzImg: data.yyzzImg,
+          yyzz: data.yyzz,
           yyzzbh: data.yyzzbh,
+          company_type:data.company_type,
+          company_status:1,
+          corporate_mobile:data.corporate_mobile
         }
         EventBus.$emit('notice', {
           type: 'confirm',

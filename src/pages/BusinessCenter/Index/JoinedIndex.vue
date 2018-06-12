@@ -46,7 +46,7 @@
           <el-row>
             <el-col :span="12">
               <h5 class="order-h5">
-                <i class="iconfont icon-jinqidingdan order-icon"></i>近期订单（<i>15</i>）
+                <i class="iconfont icon-jinqidingdan order-icon"></i>近期订单（<i>{{total}}</i>）
               </h5>
             </el-col>
             <el-col :span="12">
@@ -161,14 +161,14 @@
           page: 1
         }
         this.getData(data)
-        this.getInfo({uid: 1})
+        this.getInfo()
       },
       getInfo(params) {
         getIndexInfos(params).then((result) => {
           console.log(result)
           this.ifWalletEnough = result.balance == 1 ? true : false
           this.isBindWechat = result.isBindWechat == 2 ? true : false
-          this.isSet = result.isSet == 1 ? true : false
+          this.isSet = result.isSet == 2   ? true : false
           this.meassages = result.meassages
           this.settled_progress = result.settled_progress
           switch (Number(this.settled_progress)) {

@@ -32,7 +32,7 @@
 
   export default {
     name: "id-card-box",
-    props: ['img_name', 'info_text', 'info_key','defaultUrl'],
+    props: ['img_name', 'info_text', 'info_key','defaultUrl','info_key_img'],
     components: {
       'zen-modal': ZenModal
     },
@@ -80,8 +80,9 @@
             // console.log(result);
             // 绑定
             this.$emit('changeUrl', {
-              fileId:result.data.id,
-              name: this.info_key.split('.')[1] || 'nothing'
+              fileId:result.data.name,
+              prop: this.info_key.split('.')[1] || 'nothing',
+              propImg:this.info_key_img.split('.')[1] || 'nothing'
             })
           })
       },

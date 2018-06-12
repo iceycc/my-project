@@ -22,6 +22,7 @@
     <!--去支付1-->
     <div class="go-pay">
       <el-button type="primary" class="pay-btn">去支付</el-button>
+      <el-button type="primary" class="pay-btn" @click="goback">返回</el-button>
     </div>
   </div>
   </div>
@@ -37,6 +38,11 @@
         radio5:' '
       }
     },
+    methods:{
+      goback(){
+        this.$router.go(-1)
+      }
+    }
 
   }
 </script>

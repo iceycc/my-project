@@ -165,8 +165,8 @@
           fzrxm: '',
           company_email: '',
           gszj: '',
-          openaccount: ''
-
+          openaccount: '',
+          company_type:1
         },
         rules:{
           companyname:[ { validator: checkData, trigger: 'blur' }]
@@ -203,7 +203,8 @@
               fzrxm: result.fzrxm,
               company_email: result.company_email,
               gszj: result.gszj,
-              openaccount: result.openaccount
+              openaccount: result.openaccount,
+              company_type:2
             }
           })
       }

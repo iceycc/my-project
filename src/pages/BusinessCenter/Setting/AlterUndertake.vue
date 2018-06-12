@@ -237,10 +237,10 @@
           undertake_way: [],
           areaid_1: '',
           areaid_2: '',
-          local_remould: '',
-          outdoor_project: '',
+          local_remould: '2',
+          outdoor_project: '2',
           period_condition: '',
-          period_home: '',
+          period_home: '2',
           area: [
             // {
             //   areaid: '',
@@ -339,15 +339,15 @@
                     return item.lid === i
                   })
                   arr.push(a)
-                  var Obj = {}
-                  for(var item of this.quxianArr[i]){
-                    item.select = false
-                    item.area = this.options1[item.area]
-                    item.money = this.options2[item.money]
-                    Obj[item.house] = item
-                  }
-
-                  this.quxianObj[a] = Obj
+                  // var Obj = {}
+                  // for(var item of this.quxianArr[i]){
+                  //   item.select = false
+                  //   item.area = this.options1[item.area]
+                  //   item.money = this.options2[item.money]
+                  //   Obj[item.house] = item
+                  // }
+                  //
+                  // this.quxianObj[a] = Obj
                   this.showLi = arr[0]
                   if (a !== -1) {
                     this.distrusts[a].isSelected = true
@@ -378,8 +378,8 @@
             this.undertake_way = preData.undertake_way
             this.formData.period_home = preData.period_home
             this.formData.period_condition = preData.period_home == 1 ? preData.period_condition : ''
-            this.formData.local_remould = preData.local_remould
-            this.formData.outdoor_project = preData.outdoor_project
+            this.formData.local_remould = preData.local_remould || '2'
+            this.formData.outdoor_project = preData.outdoor_project || '2'
             let pre_provence = preData.allarea.areaid_1 //
             let pre_city = preData.allarea.areaid_2
             //  取出选中区县的lid组成一个数组
@@ -437,8 +437,6 @@
         })
         console.log(areaIndex);
         if (areaIndex > -1 ){
-          console.log('areaIndex > 1');
-
           this.formData.area[areaIndex].basis = val.data
         }
         else if (areaIndex === -1 && val.isSelect) {

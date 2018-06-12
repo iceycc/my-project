@@ -5,6 +5,9 @@
       <div style="text-align: center;font-size: 20px;margin-top: 20px" v-if="status == 1">
         <p style="padding-top: 100px;color: #1afa29">已经发送验证邮件至: <a href="">您的邮箱</a></p>
         <p>验证邮件24小时内有效</p>
+        <p>登陆邮箱激活账号，激活后去
+          <router-link :to="{name:'login'}" style="color:red">登陆</router-link>
+        </p>
       </div>
       <!--发送邮件失败-->
       <div style="text-align: center;font-size: 20px;margin-top: 20px" v-if="status == 2">
@@ -23,46 +26,65 @@
 </template>
 
 <script>
-    export default {
-      name: "",
-      data(){
-          return {
-            status:1
-          }
-      },
-      created(){
-        //
-        function GetRequest() {
-          var url = location.hash; //获取url中"?"符后的字串
-          var theRequest = new Object();
-          if (url.indexOf("?") != -1) {
-            var str = url.substr(3);
-            var strs = str.split("&");
-            for(var i = 0; i < strs.length; i ++) {
-              theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
-            }
-          }
-          return theRequest;
-        }
+  import {checkEmail} from '@/api/api'
+  import EventBus from '@/config/EventBus'
 
-          // 注册后跳转 判断
-        let isFromLogin = this.$route.params.isFromLogin || true
-        if(isFromLogin){
-          // 拿到注册后是否发送邮件成功的状态 分成功和失败
-          // if()
-        }
-        // 来着邮件的激活状态
-        else {
-          // 从url取出激活的参数
-          // 获取url参数代码
-          var Request = new Object();
-          Request = util.GetRequest();
-          let uid = Request['uid']
-          let rtime = Request['rtime']
-          let femail = Request['femail']
-        }
+  export default {
+    name: "",
+    data() {
+      return {
+        status: 0
       }
+    },
+    created() {
+      //
+      function getUrl(para){
+        var paraArr = location.hash.split('?')[1].substring(0).split('&');
+        for(var i = 0;i < paraArr.length;i++){
+          if(para == paraArr[i].split('=')[0]){
+            return paraArr[i].split('=')[1];
+          }
+        }
+        return '';
+      }
+      // 注册后跳转 判断
+      let isFromLogin = this.$route.params.isFromLogin || false
+      if (isFromLogin) {
+        // 拿到注册后是否发送邮件成功的状态 分成功和失败
+        // if()
+        this.status = 1
+      }
+      // 来自邮件的激活状态
+      else {
+        // 从url取出激活的参数
+        // 获取url参数代码
+
+        let params = {
+          email: getUrl('email'),
+          uid:getUrl('uid'),
+          time:getUrl('time')
+        }
+        console.log(name);
+        checkEmail(params)
+          .then((result)=>{
+            console.log(result);
+
+            EventBus.$emit('notice',{
+              type:'message',
+              message:result.message
+            })
+            if(result.code==0 && result.message =='激活链接过期'){
+              this.status = 3
+            }else {
+              this.status = 4
+            }
+          })
+      }
+
+
+
     }
+  }
 </script>
 
 <style lang="scss" scoped>

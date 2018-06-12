@@ -39,7 +39,7 @@
         </div>
       </info-box>
       <!-- 资料审核已经通过 -->
-      <info-box v-else-if="status===4">
+      <info-box v-else-if="status===3">
         <div class="step-l">
           <h4>
             <i class="iconfont icon-yuangou"></i>
@@ -52,7 +52,7 @@
         </div>
       </info-box>
       <!-- 资料审核未通过 -->
-      <info-box v-else-if="status===5">
+      <info-box v-else-if="status===4">
         <div class="step-l">
           <h4>
             <i class="iconfont icon-yuangou"></i>
@@ -65,25 +65,35 @@
         </div>
       </info-box>
 
-      <!--<info-box v-if="5">-->
-        <!--<div class="step-l">-->
-          <!--<h4>-->
-            <!--<i class="iconfont icon-yuangou"></i>-->
-            <!--状态异常</h4>-->
-          <!--<p>请重新访问</p>-->
-          <!--<p>创建时间：<i>2011-11-11 11：11</i></p>-->
-        <!--</div>-->
-        <!--<div class="step-r">-->
-          <!--<el-button class="aj-btn" type="primary">重新访问</el-button>-->
-        <!--</div>-->
-      <!--</info-box>-->
+      <info-box v-else-if="5">
+        <div class="step-l">
+          <h4>
+            <i class="iconfont icon-yuangou"></i>
+            资料审核已经通过</h4>
+          <p>你有完善的申请信息</p>
+          <p>创建时间：<i>{{time | momentTime}}</i></p>
+        </div>
+        <div class="step-r">
+          <el-button class="aj-btn" type="primary" @click="goPages('alterundertake')">设置承接信息</el-button>
+        </div>
+      </info-box>
+
+      <info-box v-else>
+        <div class="step-l">
+          <h4>
+            <i class="iconfont icon-yuangou"></i>
+            状态异常</h4>
+        </div>
+        <div class="step-r">
+          <el-button class="aj-btn" type="primary" @click="goPages('alterundertake')">设置承接信息</el-button>
+        </div>
+      </info-box>
     </div>
   </div>
 
 </template>
 <script>
   import {getIndexInfos} from '@/api/api'
-
   export default {
     // name: "apply-join",
     data() {
@@ -97,12 +107,9 @@
     created() {
       getIndexInfos()
         .then((result) => {
-          this.status = Number(result.settled_progress)
+          this.status = window.localStorage.getItem('X-status') || result.settled_progress
           this.time = result.time
-          console.log('this.status');
-          console.log(this.status);
         })
-
     },
     methods: {
       goApplyInfo() {

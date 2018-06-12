@@ -5,13 +5,21 @@
     <!--通知信息展示区域-->
     <div class="main-box">
       <ul class="info-lists">
-        <div style="text-align: center" v-show="notice_list.length == 0">暂无数据</div>
+        <div style="text-align: center" v-show="notice_list.length == 0">{{infoMsg}}</div>
         <li class="info-detail" v-for="item,index in notice_list" :key="index">
           <router-link :to="{name:'notice.detail'}" :class="{new:item.is_read && item.is_read == 1, 'go-detail':true}">{{item.title}} <i>NEW</i> </router-link><span class="time">{{item.addtime | momentTime}}</span>
         </li>
       </ul>
       <!--分页-->
-      <small-pagination class="info-fenye"></small-pagination>
+      <div class="block" style="margin: 0 auto;display: block;text-align: center">
+        <el-pagination
+          style="text-align: center"
+          @current-change="currentChange($event)"
+          :current-page="current_page"
+          layout="prev, pager, next"
+          :total="listTotal">
+        </el-pagination>
+      </div>
     </div>
 
   </div>
@@ -22,20 +30,31 @@
     name:'',
     data(){
       return{
-        notice_list:[]
+        notice_list:[],
+        listTotal:0,
+        current_page:1,
+        infoMsg:'正在加载中...',
+        page:1
       }
     },
     created(){
-      let params = {}
-      getNoticeList(params)
-        .then((result)=>{
-          console.log(result);
-          this.notice_list = result
-          // this.totalpage = result.totalpage
-        })
+      this.getData()
     },
     methods:{
+      getData(){
+        let params = {page:this.page}
+        getNoticeList(params)
+          .then((result)=>{
+            console.log(result);
+            this.notice_list = result.data
+            if(this.notice_list.length == 0){
+              this.infoMsg ='没有数据'
+            }
 
+            this.listTotal = + result.totalpage
+          })
+      },
+      currentChange(){}
     }
   }
 </script>
@@ -49,7 +68,6 @@
   /*主体展示*/
   .main-box{
     position:relative;
-    height: 600px;
     padding: 40px 30px 20px 30px;
     background: #fff;
     .info-detail{

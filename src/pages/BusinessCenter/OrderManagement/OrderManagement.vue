@@ -92,7 +92,6 @@
         </el-table-column>
       </el-table>
       <div class="block">
-
         <el-pagination
           @current-change="currentChange($event)"
           :current-page="current_page"
@@ -161,11 +160,15 @@
         this.getData()
       },
       isClick1:function (newVal,oldVal) {
+        this.getData()
         if(newVal == 0){
           this.screenTime = [null,null]
         }
       },
       screenTime:function (newVal,oldVal) {
+        this.listType = 2
+        this.screenTime = newVal
+        this.getData()
         if(newVal[0] != null){
           this.isClick1 = null
           return
@@ -189,7 +192,7 @@
         if(this.listType === 1) {
           this.getSearchData(page)
         }
-        // 搜索列表
+        // 搜索列表 筛选
         if(this.listType === 2){
           this.doScreen(page)
         }
