@@ -17,9 +17,9 @@
 
     <el-main style="padding: 0">
       <keep-alive>
-        <router-view v-if="$route.meta.keepAlive && isRouterAlive"></router-view>
+        <router-view v-if="$route.meta.keepAlive"></router-view>
       </keep-alive>
-      <router-view v-if="!$route.meta.keepAlive && isRouterAlive"></router-view>
+      <router-view v-if="!$route.meta.keepAlive"></router-view>
     </el-main>
     <el-footer>
       <p class="bc-div">
@@ -82,7 +82,6 @@
     name: "App",
     data() {
       return {
-        isLogin:false,
         useremail:'路人甲',
         appealConditions:[
           {
@@ -124,10 +123,10 @@
     // inject:['reload'],
     watch:{
       '$route':function () {
-        let eamail = window.localStorage.getItem('X-email')
-        if(eamail){
+        let email = window.localStorage.getItem('X-email')
+        if(email){
           this.isLogin = true
-          this.useremail = eamail
+          this.useremail = email
         }else {
           this.isLogin = false
           this.useremail = '路人甲'
@@ -224,10 +223,10 @@
           type: 'warning'
         }).then(() => {
           success && success()
-          this.$message({
-            type: 'success',
-            message: '成功!'
-          });
+          // this.$message({
+          //   type: 'success',
+          //   message: '成功!'
+          // });
         }).catch(() => {
           this.$message({
             type: 'info',
@@ -290,6 +289,7 @@
     width: 313px;
     height: $headerHeight;
     background: url("./assets/img/logo.png") no-repeat center center;
+    background-size:contain ;
   }
 
   .bc-user-info {

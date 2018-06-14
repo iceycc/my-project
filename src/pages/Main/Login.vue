@@ -112,6 +112,7 @@
     },
     created() {
       this.createCode()
+      this.$store.commit('putData',{key:'uid',value:'22'}) //
       // 获取登陆状态：
       // let token_key = getCookie('bId_token_key')
       // if (!token_key) {
@@ -178,27 +179,20 @@
             }
             doLogin(params)
               .then((result) => {
-                console.log(result);
-                if(result.code ==0){
-                  EventBus.$emit('notice',{
-                    type:'message',
-                    message:result.message
-                  })
-                  window.localStorage.setItem('X-email',result.data.email)
                   window.localStorage.setItem('X-status',result.data.settled_progress)
+                  window.localStorage.setItem('X-email',result.data.email)
                   let status = result.data.settled_progress
-                  if (status == 1 || status == 2 || status == 4 || status == 3) {
+                  if (status == 1 || status == 2 || status == 4|| status == 6 ) {
                     this.$router.replace({name:'apply.join'})
                   }
-                  if (status == 5) {
+                  else if (status == 5|| status == 3) {
                     this.$router.replace({name:'joined.index'})
+                  }else{
+                    EventBus.$emit('notice',{
+                      type:'message',
+                      message:'状态异常'
+                    })
                   }
-                }else {
-                  EventBus.$emit('notice',{
-                    type:'message',
-                    message:result.message
-                  })
-                }
               })
           } else {
             console.log('error submit!!');

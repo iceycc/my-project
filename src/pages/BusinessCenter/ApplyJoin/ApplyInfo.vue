@@ -7,14 +7,14 @@
                  <h3 class="title">身份证照片</h3>
                  <p class="info">证件照(正反面) 需清晰可辨认,不得使用复印件</p>
                  <div class="pic">
-                   <img src="" alt="">
+                   <img src="../../../assets/img/idcard.png" alt="">
                  </div>
               </div>
               <div class="small-box">
                  <h3 class="title">营业执照</h3>
                  <p class="info">证明拍摄证件，照片需清晰可辨认，不得使用复印件</p>
                  <div class="pic">
-                   <img src="" alt="">
+                   <img src="../../../assets/img/yyzzz.png" alt="">
 
                  </div>
               </div>
@@ -22,7 +22,7 @@
                  <h3 class="title small-info">施工等级资质</h3>
                  <p class="info">证件照(正反面) 需清晰可辨认,不得使用复印件</p>
                  <div class="pic">
-                   <img src="" alt="">
+                   <img src="../../../assets/img/zzzs.png" alt="">
 
                  </div>
               </div>
@@ -77,7 +77,7 @@ export default {
   .title {
     position: relative;
     text-align: center;
-    line-height: 178px;
+    line-height: 160px;
     font-size: 18px;
     font-weight: bold;
     flex: 1;
@@ -100,15 +100,22 @@ export default {
   }
   .info {
     text-align: center;
-    line-height: 178px;
+    line-height: 160px;
     color:#666;
     flex: 2;
   }
   .pic {
     // display:inline-block;
     // vertical-align: middle;
-    flex: 1;
     background: #666666;
+    border: 1px solid #ccc;
+    width: 320px;
+    height: 160px;
+    font-size: 0;
+    img{
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 // 按钮

@@ -1,6 +1,9 @@
 
-
+// 改变数据
 export default {
-  increment:state => state.count ++,
-  decrement:state => state.count --
+  // 重新赋值
+  putData(state,options){
+    state[options.key] = options.value
+  }
+  //
 }

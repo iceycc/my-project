@@ -5,7 +5,7 @@ import "../plugins/Vendors.js"; //引入第三方组件 字体图标 样式scss 
 // import EventBus from ''
 
 import pages from '../pages/index.js'//引入页面
-
+import store from '../store/index'
 //404提示
 var NotFound = {
   template: `
@@ -73,9 +73,9 @@ router.addRoutes([
       // 申请提示
       {name: "apply.info", path: "applyinfo", component: pages.ApplyInfo,mate:{needLogin:true}},
       // 填写基础信息
-      {name: "apply.baseinfo", path: "baseinfo", component: pages.BaseInfo,mate:{needLogin:true}},
+      {name: "apply.baseinfo", path: "baseinfo", component: pages.BaseInfo,mate:{needLogin:true,keepAlive:true}},
       // 填写资质信息
-      {name: "apply.detailinfo", path: "detailinfo", component: pages.DetailInfo,mate:{needLogin:true}},
+      {name: "apply.detailinfo", path: "detailinfo", component: pages.DetailInfo,mate:{needLogin:true,keepAlive:true}},
       // 申请成功
       {name: "apply.success", path: "applysuccess", component: pages.ApplySuccess,mate:{needLogin:true}},
       // 意见反馈
@@ -188,10 +188,11 @@ router.addRoutes([
 // 全局导航过滤（其实就是拦截路由请求）
 router.beforeEach((to,from,next) => {
   if(to.meta.needLogin){
-    let uid = localStorage.getItem('uid')
+    let uid = store.getters.getEmail
     if(uid){
       next()
     }else {
+      // next({name:'login'})
       next()
     }
   }else {

@@ -1,5 +1,6 @@
 import Request from '../request'
 import axios from '../request/requestInstance' // 不用在header头加token的
+import EventBus from '../config/EventBus'
 // // 设置请求的基准路径
 
 
@@ -33,9 +34,11 @@ const Method = {
   doModifyPassword:'companysetup/modify-password', // 修改密码 todo
   doRecharge:'',// todo 充值
 
-
   postPerfectInfo: 'companysetup/perfect',// 承接管理信息添加修改
   postCompanyMessage:'shoppingunit/companymessageadd',// 添加/修改账户资料
+  putCompanyMessage1:'shoppingunit/companymessageadd', // 添加/修改账户资料第一页面
+  putCompanyMessage2:'shoppingunit/companymessageaddtwo', // 添加/修改账户资料第一页面
+
   postImg:'uploadimg/uploadimg',
 
   postSetupPerfect:'companysetup/perfect', // 承接管理信息添加/修改 todo
@@ -63,19 +66,35 @@ const Method = {
   // 退出
   logout:'login/logout',
   // 邮箱激活校验
-  checkEmail:'http://merchant.uzhuang.com/v1/login/activeregister'
+  checkEmailHandel:'http://merchant.uzhuang.com/v1/login/activeregister',
+  // 再次发送激活邮件
+  activeRegister:'http://merchant.uzhuang.com/v1/login/againsendemail'
 }
 
 // 登陆功能
 export const doLogin = (params) => {
   return axios.post(Method.doLogin,params)
     .then((result)=>{
+      EventBus.$emit('notice',{
+        type:'message',
+        message:result.message
+      })
+      if(result.code == 1){
+        return result
+      }
+    })
+}
+// 邮箱激活校验 点击邮件激活账号
+export const checkEmailHandel = (params) => {
+  return axios.get(Method.checkEmailHandel,{params})
+    .then((result)=>{
+      //0：过期，1：账号已激活，2：激活成功
       return result
     })
 }
-// 邮箱激活校验
-export const checkEmail = (params) => {
-  return axios.get(Method.checkEmail,{params})
+// 再次发送激活邮件
+export const activeRegister = (params) => {
+  return axios.get(Method.activeRegister,{params})
     .then((result)=>{
       return result
     })
@@ -94,7 +113,7 @@ export const doRegister = (params) => {
       return result
     })
 }
-// 发送邮件
+// 发送邮件 重置密码邮箱验证码
 export const sendEmail = (params) => {
   return axios.get(Method.sendEmail,{params})
     .then((result)=>{
@@ -210,6 +229,7 @@ export const getRechargeRecord = (params) => {
 export const getCompanyMoney = (params) => {
   return Request.get(Method.getCompanyMoney, {params})
     .then((result) => {
+
       return result.data
     })
 }
@@ -289,6 +309,22 @@ export const postPerfectInfo = (params) => {
   return Request.post(Method.postPerfectInfo, params)
     .then((result) => {
       return result.data
+    })
+}
+
+// 添加/修改账户资料1
+export const putCompanyMessage1 = (params,config) =>{
+  return Request.post(Method.putCompanyMessage1, params,config)
+    .then((result) => {
+      return result
+    })
+}
+
+// 添加/修改账户资料2
+export const putCompanyMessage2 = (params,config) =>{
+  return Request.post(Method.putCompanyMessage2, params,config)
+    .then((result) => {
+      return result
     })
 }
 

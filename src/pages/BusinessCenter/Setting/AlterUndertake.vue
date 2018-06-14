@@ -86,8 +86,8 @@
         <div class="ut-area">
           <h5>承接区域</h5>
           <!-- <myAddress></myAddress> -->
+          <!--formData.areaid_1-->
           <div>
-            <!--formData.areaid_1-->
             <el-select v-model="provence" placeholder="请选择省" size="mini">
               <el-option
                 v-for="item in provences"
@@ -109,53 +109,50 @@
               </el-option>
             </el-select>
           </div>
-
         </div>
+        <!--<div style="padding-left: 150px;padding-top: 20px">-->
+        <!--<el-select v-model="quxianArr" multiple placeholder="选择区县" size="mini">-->
+        <!--<el-option-->
+        <!--v-for="item in distrusts"-->
+        <!--:key="item.lid"-->
+        <!--:label="item.name"-->
+        <!--:value="item.lid">-->
+        <!--</el-option>-->
+        <!--</el-select>-->
+        <!--</div>-->
         <!-- 承接详情 -->
         <div class="ut-detail">
           <h5>承接详情</h5>
-          <ul class="ut-quxian">
-            <li style="background: #f0f0f0;padding-left: 10px">这里是区/县</li>
-            <li
-              :class="{active:showLi == index}"
-              :style="{cursor:'pointer',paddingLeft:' 10px'}"
-              v-for="(item,index) in distrusts"
-              :key="index"
-              @click='selectDistrusts(index)'
-            >{{item.name}}
-              <i class="iconfont icon-yuangou" style="float: right"
-                 v-show="distrustsInfo[index]===true"
-                 @click="distrustSelectHandle(item.name,index)"
-              ></i>
-            </li>
-          </ul>
-
-          <div class="cart-detail">
-            <div v-for="item,index in distrusts"
-                 :key="index"
-                 v-show="showLi == index"
-            >
-              <p>请设置以下承接选项</p>
-              <div class="house-detail">
-                <!-- 承接详情选项卡 -->
-                <!--'pt'=>'普通住房:(一居-六居以上)',-->
-                <!--'gy'=>'公寓:(公寓)',-->
-                <!--'fs'=>'复式:(复式 跃层 叠加)',-->
-                <!--'bs'=>'别墅:(别墅 loft 独栋 联排 四合院 庭院)-->
-                <!--{{pt}}-->
-                <!--{{xModel}}-->
-                <div class="house-left">
-                  <my-checkbox :xModel="xModel" :thisData="quxianObj[index]" @getInfos="getInfos" :index="index"
-                               :distrust="item.name"
-                               :lid="item.lid"></my-checkbox>
-                  <!--<my-checkbox house="公寓" :xModel="gy" :yModel="item.isSelected"></my-checkbox>-->
-                  <!--<my-checkbox house="复式：复式、跃层、叠加" :xModel="fs" :yModel="item.isSelected"></my-checkbox>-->
-                  <!--<my-checkbox house="别墅：别墅、loft、独联排、四合院、、庭院" :xModel="bs" :yModel="item.isSelected"></my-checkbox>-->
+          <div style="flex: 5">
+            <h4>区县选择</h4>
+            <ul class="ut-quxian">
+              <li
+                :class="{listyle:true}"
+                v-for="(item,index) in distrusts"
+                :key="index"
+              >
+                <!--<div>-->
+                <!--<input type="checkbox" :id="item.lid" value="item.value" v-model="quxianArr">-->
+                <!--<label :for="item.lid">item.name</label>-->
+                <!--</div>-->
+                <span @mouseover='selectDistrusts(item.lid)'>
+                  <el-checkbox v-model="quxianArr" :label="item.lid" border :key="item.lid">{{item.name}}</el-checkbox>
+                </span>
+                <div class="house-detail" v-show="showLi === item.lid">
+                  <!--'pt'=>'普通住房:(一居-六居以上)',-->
+                  <!--'gy'=>'公寓:(公寓)',-->
+                  <!--'fs'=>'复式:(复式 跃层 叠加)',-->
+                  <!--'bs'=>'别墅:(别墅 loft 独栋 联排 四合院 庭院)-->
+                  <div class="house-left">
+                    <my-checkbox :xModel="xModel" :thisData="quxianObj[index]" @getInfos="getInfos" :index="index"
+                                 :distrust="item"
+                                 :lid="item"></my-checkbox>
+                  </div>
                 </div>
-                <!-- <div class="house-right"></div> -->
-              </div>
-            </div>
+              </li>
+            </ul>
           </div>
+
         </div>
       </div>
     </div>
@@ -169,12 +166,13 @@
   import EventBus from '@/config/EventBus'
 
   const waysOptions = [1, 2];// 半包全包
-  import {getProvence, getCity, getDistrust, postSetupPerfect,getCompanysSetup} from '@/api/api'
+  import {getProvence, getCity, getDistrust, postSetupPerfect, getCompanysSetup} from '@/api/api'
 
   export default {
     name: "under-take",
     data() {
       return {
+        showCard: '',
         xModel: {
           isSelect: false,
           data: {}
@@ -201,10 +199,25 @@
             select: true
           },
         },
+        area: {
+          '001': {
+            "sp": {"house": "sp", "area": "1", "money": "1"},
+            "bgs": {"house": "bgs", "area": "1", "money": "1"},
+            "ct": {"house": "ct", "area": "1", "money": "1"}
+          },
+          '002': {
+            "sp": {"house": "sp", "area": "1", "money": "1"},
+            "bgs": {"house": "bgs", "area": "1", "money": "1"},
+            "ct": {"house": "ct", "area": "1", "money": "1"}
+          }
+        },
+
         distrustsInfo: {},// 存储选择的城市 区县的设置 index : true/false
         distrustsBase: {},// 存储选择的城市 所传的数据 便于增删改查 这个主要的啊
-        quxianArr: {},// 存储上页选中区县的lid 便于匹配
-        quxianObj:{}, // 存储上页选中的选项卡信息
+        quxianArr: [],// 存储上页选中区县的lid 便于匹配
+        quxianObj: {}, // 存储上页选中的选项卡信息
+        quxians: [],
+
         pt: {
           area: '',
           house: 'pt',
@@ -230,7 +243,8 @@
         showLi: -1,
         provence: '',
         city: '',
-        distrusts: '',
+        distrusts: [],
+
         undertake_way: [],
         formData: {
           period_condition: '',
@@ -290,6 +304,7 @@
       };
 
     },
+    filters: {},
     computed: {
       qifangDisabled: function () {
         if (this.formData.period_home == 1) {
@@ -297,21 +312,48 @@
         } else {
           return true
         }
+      },
+      quxianss: () => {
+        // let arr = []
+        // let arr1 = this.quxianArr || []
+        // let arr2 = this.distrusts || []
+        // if(arr1.length > -1 && arr2.length>-1){
+        //   for(var item in this.distrusts){
+        //     for(var i in this.quxianArr){
+        //       if(i == item.lid){
+        //         arr.push(item.name)
+        //       }
+        //     }
+        //   }
+        // }
+        //
+        // return arr
       }
     },
     watch: {
-      // showLi(newVal,oldVal){
-      //
-      // },
+      distrusts: function (newVal, oldval) {
+        console.log(newVal);
+        if (newVal.length > -1) {
+          for (var item of newVal) {
+            for (var i of this.quxianArr) {
+              if (i == item.lid) {
+                this.quxians.push(item.name)
+              }
+            }
+          }
+        }
+        console.log(this.quxians);
+
+      },
       provence: function (newVal, oldVal) {
-        // console.log(newVal);
         if (newVal != '') {
           this.disabledCity = false
           let params = {
             id: newVal
           }
-          // this.city = ''
-          // this.distrusts = []
+          this.city = ''
+          this.distrusts = []
+          this.distrustsInfo = {}
           getCity(params)
             .then((result) => {
               this.cities = result
@@ -319,7 +361,6 @@
         }
       },
       city: function (newVal, oldVal) {
-        console.log(newVal);
         if (newVal != '') {
           let params = {
             id: newVal
@@ -332,32 +373,23 @@
               })
               // 判断区县是否存在已经选中的进行遍历
               var arr = []
-              console.log(this.quxianArr);
-              if (JSON.stringify(this.quxianArr) !== "{}") {
-                for (var i in this.quxianArr) {
-                  let a = this.distrusts.findIndex((item, index, arr) => {
-                    return item.lid === i
-                  })
-                  arr.push(a)
-                  // var Obj = {}
-                  // for(var item of this.quxianArr[i]){
-                  //   item.select = false
-                  //   item.area = this.options1[item.area]
-                  //   item.money = this.options2[item.money]
-                  //   Obj[item.house] = item
-                  // }
-                  //
-                  // this.quxianObj[a] = Obj
-                  this.showLi = arr[0]
-                  if (a !== -1) {
-                    this.distrusts[a].isSelected = true
-                    this.distrustsInfo[a] = true
-                  }
-                }
-
-              } else {
-                this.distrustsInfo = {}
-              }
+              // console.log(this.quxianArr);
+              // if (JSON.stringify(this.quxianArr) !== "{}") {
+              //   for (var i in this.quxianArr) {
+              //     let a = this.distrusts.findIndex((item, index, arr) => {
+              //       return item.lid === i
+              //     })
+              //     arr.push(a)
+              //     this.showLi = arr[0]
+              //     if (a !== -1) {
+              //       this.distrusts[a].isSelected = true
+              //       this.distrustsInfo[a] = true
+              //     }
+              //   }
+              //
+              // } else {
+              //   this.distrustsInfo = {}
+              // }
             })
         }
       }
@@ -365,30 +397,25 @@
     },
     created() {
       EventBus.$on('checkboxSelect', (res) => {
-        // console.log(res);
       })
-      console.log(this.$route.params);
       if (Number(this.$route.params.isUpdate) === 1) {
-        console.log(1)        //
-        getCompanysSetup({isUpdate:1})
-          .then((result)=>{
+        getCompanysSetup({isUpdate: 1})
+          .then((result) => {
             let preData = result
-            // console.log(preData);
-            this.formData.area = preData.allarea.area
             this.undertake_way = preData.undertake_way
-            this.formData.period_home = preData.period_home
+            this.formData.period_home = preData.period_home || '2'
             this.formData.period_condition = preData.period_home == 1 ? preData.period_condition : ''
             this.formData.local_remould = preData.local_remould || '2'
             this.formData.outdoor_project = preData.outdoor_project || '2'
             let pre_provence = preData.allarea.areaid_1 //
             let pre_city = preData.allarea.areaid_2
             //  取出选中区县的lid组成一个数组
-            console.log(this.formData.area);
+            let areas = preData.allarea.area
 
-            for (var item of this.formData.area) {
-              this.quxianArr[item.areaid] = item.basis
+            // this.quxianArr =this.formData.area || {}
+            for (var key in areas) {
+              this.quxianArr.push(key)
             }
-            // console.log(this.quxianArr);
             let _this = this
             getProvence()
               .then((result) => {
@@ -407,6 +434,7 @@
           })
       }
     },
+
     methods: {
       // 点击区县的图标选择  todo: 这个咋整
       distrustSelectHandle(val, index) {
@@ -415,10 +443,6 @@
         //   return value.areaid == val.distrust
         // })
         this.distrustsInfo[index] = false
-        console.log('=========')
-        console.log(this.formData.area);
-        console.log(val);
-        console.log('=========')
         this.formData.area = this.formData.area.filter(item => {
           if (item.areaid !== val) {
             return item
@@ -430,18 +454,15 @@
         console.log('===========');
         console.log(val);
         console.log('===========');
-
-        this.distrustsInfo[val.index] = val.isSelect
+        // this.distrustsInfo[val.index] = val.isSelect
         let areaIndex = this.formData.area.findIndex((value, index, arr) => {
           return value.areaid == val.lid
         })
-        console.log(areaIndex);
-        if (areaIndex > -1 ){
+        if (areaIndex > -1) {
           this.formData.area[areaIndex].basis = val.data
         }
         else if (areaIndex === -1 && val.isSelect) {
           // // 增加数据
-          console.log('areaIndex === -1 && val.isSelect');
           this.formData.area.push({
             areaid: val.lid,
             basis: val.data
@@ -452,7 +473,6 @@
           // let curtIndex = this.formData.area.findIndex((value, index, arr) => {
           //   return value.areaid == val.distrust
           // })
-          console.log(this.formData.area);
           this.formData.area = this.formData.area.filter(item => {
             if (item.areaid !== val.lid) {
               return item
@@ -462,25 +482,10 @@
 
       },
       selectDistrusts(index) {
-        console.log(index)
-        EventBus.$on('checkboxSelect', (val) => {
-          console.log(val);
-        })
-        // this.formData.distrust.push(distrustId)
+        // EventBus.$on('checkboxSelect', (val) => {
+        // })
         this.showLi = index
       },
-      // 选择方式方法
-      // handleCheckAllChange(val) {
-      //   this.formData.undertake_way = val ? waysOptions : [];
-      //   this.isIndeterminate = false;
-      // },
-      // handleCheckedCitiesChange(value) {
-      //   let checkedCount = value.length;
-      //   this.checkAll = checkedCount === this.ways.length;
-      //   this.isIndeterminate =
-      //     checkedCount > 0 && checkedCount < this.ways.length;
-      // },
-      //  点击提交
       goTake() {
         let _this = this
         let params = {
@@ -489,6 +494,17 @@
         }
         this.formData.undertake_way = this.undertake_way.toString()
         params = Object.assign(this.formData, params)
+        // 校验
+        if (params.areaid_1 == '' || params.areaid_2 == '' || params.local_remould == '' ||
+          params.outdoor_project == '' || params.period_home == '' || params.undertake_way == ''
+          || params.area.length == 0
+        ) {
+          EventBus.$emit('notice', {
+            type: 'message',
+            message: '还有选项未填写'
+          })
+          return
+        }
         console.log(params);
         EventBus.$emit('notice', {
           type: 'confirm',
@@ -522,6 +538,13 @@
 
   .form-box {
     @extend .box-hover-shadow;
+    /*// TODO:1-盒子公共样式*/
+    /*top: 0;*/
+    /*border-radius: 3px;*/
+    /*background: #fff;*/
+    /*padding: 30px;*/
+    /*box-shadow: 1px 1px 5px #ccc;*/
+    /*transition: all 0.2s;*/
     // --
     margin-top: 1px;
     border-top: 2px solid #eee;
@@ -585,28 +608,34 @@
       display: flex;
       margin-top: 50px;
       h5 {
-        flex: 1;
+        width: 140px;
         text-align: left;
         height: 28px;
         line-height: 28px;
         vertical-align: middle;
         color: #000;
       }
+      .listyle {
+        position: relative;
+        .house-detail {
+          position: absolute;
+          top: 0px;
+          left: 200px;
+          width: 600px;
+          border: 1px solid #3a8ee6;
+          padding: 10px;
+          box-shadow: 5px 5px 5px #3a8ee6;
+          z-index: 999;
+        }
+      }
       .ut-quxian {
-        flex: 1;
-        max-height: 400px;
+        position: relative;
+        max-height: 500px;
         overflow-y: auto;
         font-size: 14px;
         color: #666;
-        li {
-          position: relative;
-          height: 28px;
-          font-size: 16px;
-          line-height: 28px;
-          clear: both;
-        }
         .active {
-          background: #e0e0e0;
+          /*background: #e0e0e0;*/
         }
         i::before {
           font-size: 16px;
@@ -614,16 +643,6 @@
           color: #0099ff;
         }
 
-      }
-      .cart-detail {
-        flex: 5;
-        border-radius: 2px;
-        padding: 10px;
-        font-size: 14px;
-        p {
-          color: #aaa;
-          margin-bottom: 20px;
-        }
       }
       .el-checkbox__label {
         display: block;

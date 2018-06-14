@@ -25,6 +25,7 @@ _axios.interceptors.response.use( (response)=>{
   // 对响应数据做点什么
   // sign过期或者不正确时提醒重新登陆，移除当前的 sign
   //   loadingInstance.close();
+
     return response.data;
 }, (error) =>{
   // 对响应错误做点什么

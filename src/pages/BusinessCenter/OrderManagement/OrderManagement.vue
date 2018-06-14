@@ -47,7 +47,7 @@
         v-model="search_value">
         <i slot="prefix" class="el-input__icon el-icon-search" @click="searchhandle"></i>
       </el-input>
-
+      <el-button @click="searchhandle">搜索</el-button>
     </div>
     <!--详细信息盒子-->
     <div class="om-detail">

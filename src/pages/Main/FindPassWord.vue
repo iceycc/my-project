@@ -179,7 +179,6 @@
             clearTimeout(timer)
             this.disabled = false
             this.sendMsgText = '重新发送验证码'
-
             return
           }
         }, 1000)

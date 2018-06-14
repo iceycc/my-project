@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App' // 入口文件
 import router from './router' // 引入路由配置文件  里面是index 默认可以省略
 import './assets/scss/_reset.scss'; // 全局引入初始化文件
-import './store/index'
+import store from './store/index'
 // 生产环境提示，这里设置成了false
 Vue.config.productionTip = false
 
@@ -20,5 +20,6 @@ Object.keys(custom).forEach((key)=>{
 new Vue({
 	el: '#app',
 	router,
+  store,
 	render: (c) => c(App)
 })

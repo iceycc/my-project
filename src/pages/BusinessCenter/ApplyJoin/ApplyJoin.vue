@@ -1,23 +1,23 @@
 <template>
   <div>
     <div class="aj-box">
-      <info-box class="aj-top" v-if="status===0">
+      <info-box class="aj-top" v-if="status===6">
         <div class="aj-top-info">
           <i class="iconfont icon-gonggao"></i>
-          欢迎加入优装美家，填写并添加资料，即可申请入住平台
+          欢迎加入优装美家，填写并添加资料，即可申请入驻平台
         </div>
         <h3>{{step}}</h3>
         <p>1、填写基础信息</p>
         <p>2、填写资质信息</p>
-        <el-button type="primary" class="aj-top-btn" @click="goApplyInfo">申请入住</el-button>
+        <el-button type="primary" class="aj-top-btn" @click="goApplyInfo">申请入驻</el-button>
       </info-box>
       <!-- TODO: -->
       <!-- 申请入住 -->
-      <info-box v-if="status===1">
+      <info-box v-else-if="status===1">
         <div class="step-l">
           <h4>
             <i class="iconfont icon-yuangou"></i>
-            申请入住</h4>
+            申请入驻</h4>
           <p>你有完善的申请信息</p>
           <p>创建时间：<i>{{time | momentTime}}</i></p>
         </div>
@@ -65,7 +65,7 @@
         </div>
       </info-box>
 
-      <info-box v-else-if="5">
+      <info-box v-else-if="status ===5">
         <div class="step-l">
           <h4>
             <i class="iconfont icon-yuangou"></i>
@@ -94,6 +94,7 @@
 </template>
 <script>
   import {getIndexInfos} from '@/api/api'
+  import state from "../../../store/state";
   export default {
     // name: "apply-join",
     data() {
@@ -107,7 +108,8 @@
     created() {
       getIndexInfos()
         .then((result) => {
-          this.status = window.localStorage.getItem('X-status') || result.settled_progress
+          this.status = Number(this.$store.getters.getSettledProgress || result.settled_progress)
+          console.log(this.status)
           this.time = result.time
         })
     },

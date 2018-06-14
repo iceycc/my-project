@@ -1,6 +1,7 @@
 <template>
   <div>
     <el-collapse accordion v-model="select">
+      <div v-if="tableData.length == 0" style="padding-top: 60px;text-align: center">没有数据</div>
     <div class="card" v-for="item,index in countData" :key="index">
       <div class="bill-info-box">
         <h3 class="">{{item.billtime | tiemFormat}}月账单</h3>

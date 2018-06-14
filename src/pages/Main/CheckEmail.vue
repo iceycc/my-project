@@ -11,29 +11,35 @@
       </div>
       <!--发送邮件失败-->
       <div style="text-align: center;font-size: 20px;margin-top: 20px" v-if="status == 2">
-        <p style="padding-top: 100px">发送邮件失败, <a href="" style="color: red">重新发送?</a></p>
+        <p style="padding-top: 100px">发送邮件失败, <el-button style="color: red" @click="rePost">重新发送?</el-button></p>
       </div>
       <!--该链接已失效-->
       <div style="text-align: center;font-size: 20px;margin-top: 20px" v-if="status ==3 ">
-        <p style="padding-top: 100px">该链接已失效, <a href="" style="color: red">重新发送?</a></p>
+        <p style="padding-top: 100px">该链接已失效, <el-button style="color: red" @click="rePost">重新发送?</el-button></p>
       </div>
       <!--激活成功-->
       <div style="text-align: center;font-size: 20px;margin-top: 20px" v-if="status==4">
-        <p style="padding-top: 100px">邮件激活成功: <a href="">重新登陆</a></p>
+        <p style="padding-top: 100px">邮件激活成功 <router-link :to="{name:'login'}" style="color: red">去登陆</router-link></p>
+      </div>
+      <!--已经激活-->
+      <div style="text-align: center;font-size: 20px;margin-top: 20px" v-if="status==5">
+        <p style="padding-top: 100px">邮箱已经激活 <router-link :to="{name:'login'}" style="color: red">去登陆</router-link></p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import {checkEmail} from '@/api/api'
+  import {checkEmailHandel,activeRegister} from '@/api/api'
   import EventBus from '@/config/EventBus'
 
   export default {
     name: "",
     data() {
       return {
-        status: 0
+        status: 0,
+        email:'',
+        uid:''
       }
     },
     created() {
@@ -51,7 +57,6 @@
       let isFromLogin = this.$route.params.isFromLogin || false
       if (isFromLogin) {
         // 拿到注册后是否发送邮件成功的状态 分成功和失败
-        // if()
         this.status = 1
       }
       // 来自邮件的激活状态
@@ -65,24 +70,46 @@
           time:getUrl('time')
         }
         console.log(name);
-        checkEmail(params)
+        checkEmailHandel(params)
           .then((result)=>{
             console.log(result);
-
+            if(result.data){
+              this.email = result.data.email
+              this.uid = result.data.uid
+            }
             EventBus.$emit('notice',{
               type:'message',
               message:result.message
             })
             if(result.code==0 && result.message =='激活链接过期'){
               this.status = 3
-            }else {
+            }
+            if(result.code == 1){// 邮箱已经激活
+              this.status = 5
+            }
+            if(result.code == 2){// 邮箱已经激活
               this.status = 4
             }
           })
       }
 
 
-
+    },
+    methods:{
+      rePost(){
+        let params = {
+          email:this.email,
+          uid:this.uid
+        }
+        activeRegister(params)
+          .then((result)=>{
+            console.log(result);
+            EventBus.$emit('notice',{
+              type:'message',
+              message:result.message
+            })
+          })
+      }
     }
   }
 </script>

@@ -14,7 +14,7 @@
     <div class="info-text">{{info_text}}</div>
     <!--实例图片-->
     <div class="show-img">
-      实例图片
+      <img :src="slsrc" alt="">
     </div>
     <!---->
     <zen-modal @fireclose="showModal = false" v-if="showModal">
@@ -32,7 +32,7 @@
 
   export default {
     name: "id-card-box",
-    props: ['img_name', 'info_text', 'info_key','defaultUrl','info_key_img'],
+    props: ['img_name', 'info_text', 'info_key','defaultUrl','info_key_img','slsrc'],
     components: {
       'zen-modal': ZenModal
     },
@@ -100,15 +100,15 @@
 
   .id-card-box {
     width: 100%;
-    height: 100px;
+    height: 90px;
     border: 1px solid #aeaeae;
     display: flex;
     line-height: 0;
     .pre-img {
       position: relative;
       cursor: pointer;
-      width: 100px;
-      height: 100px;
+      width: 160px;
+      height: 90px;
       background: #ddd;
       margin-right: 10px;
       b {
@@ -129,8 +129,8 @@
     }
     .upload {
       position: relative;
-      width: 100px;
-      height: 100px;
+      width: 90px;
+      height: 90px;
       background: #ddd;
       overflow: hidden;
       cursor: pointer;
@@ -162,10 +162,10 @@
       line-height: 100px;
     }
     .show-img {
-      width: 100px;
-      height: 100px;
+      width: 160px;
+      height: 88px;
       background: #ddd;
-
+      border:1px solid #ccc;
       text-align: center;
       line-height: 100px;
       img {

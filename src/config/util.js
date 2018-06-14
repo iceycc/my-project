@@ -34,9 +34,59 @@ function checkCookie()
     }
   }
 }
+// 校验规则
+/**
+ * 校验Email
+ */
+var checkEmail = (rule, value, callback) => {
+  if (value == '') {
+    return callback(new Error('不能为空'));
+    // callback();
 
+  }
+  callback();
+};
+/**
+ * 表单不能为空
+ */
+var checkEmpty= (rule, value, callback) => {
+  if (value == '') {
+    return callback(new Error('不能为空'));
+    // callback();
+
+  }
+  callback();
+};
+/**
+ * 校验电话号码
+ */
+var checkTel= (rule, value, callback) => {
+
+  if(value == ''){
+    return callback(new Error('手机号码不能为空'));
+  }
+  if (value.length !== 11) {
+    return callback(new Error('手机号格式不正确'));
+    // callback();
+  }
+  callback();
+};
+/**
+ * 校验下拉表单不能不选择
+ */
+var checkSelect =(rule, value, callback) => {
+
+  if(!value ){
+    return callback(new Error('您好没选择'));
+  }
+  callback();
+};
 export {
   setCookie,
   getCookie,
-  checkCookie
+  checkCookie,
+  checkEmail,
+  checkEmpty,
+  checkTel,
+  checkSelect
 };

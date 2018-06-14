@@ -21,9 +21,9 @@
           <span class="biaoti">承接类型</span>
         </div>
         <div class="ut-content">
-          <p v-if="undertakeInfo.period_home == 1">期房 <span class="qf-content">{{undertakeInfo.period_condition | period_conditionFilter}}</span></p>
-          <p v-if="undertakeInfo.local_remould == 1">局部改造</p>
-          <p v-if="undertakeInfo.outdoor_project ==1">室外工程</p>
+          <p>期房：<span>{{undertakeInfo.period_home ==1?'承接':'不承接'}}</span> <span class="qf-content">{{undertakeInfo.period_condition | period_conditionFilter}}</span></p>
+          <p>局部改造：<span>{{undertakeInfo.local_remould ==1?'承接':'不承接'}}</span></p>
+          <p>室外工程：<span>{{undertakeInfo.outdoor_project ==1?'承接':'不承接'}}</span></p>
         </div>
       </div>
       <!--区域、房屋、面积与金额-->

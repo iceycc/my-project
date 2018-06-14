@@ -152,4 +152,7 @@
     margin: 0 auto;
     padding:0 50px;
   }
+  .bf-main{
+    padding-top: 10px;
+  }
 </style>

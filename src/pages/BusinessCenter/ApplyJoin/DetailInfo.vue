@@ -32,12 +32,14 @@
                   img_name='正面照' info_text="证件上的文字需能够清晰辨认" @changeUrl="getUrl"
                   info_key="formData.LegalCardIdImg"
                   info_key_img="formData.LegalCardId"
+                  :slsrc="slsrc1"
                 ></id-card-box>
                 <id-card-box
                   :defaultUrl="formData.LegalCardIdContraryImg"
                   img_name='反面照' info_text="证件上的文字需能够清晰辨认" @changeUrl="getUrl"
                   info_key="formData.LegalCardIdContraryImg"
                   info_key_img="formData.LegalCardIdContrary"
+                  :slsrc="slsrc2"
                 ></id-card-box>
               </div>
             </div>
@@ -57,6 +59,7 @@
                   img_name='营业执照' info_text="证件上的文字需能够清晰辨认" @changeUrl="getUrl"
                   info_key="formData.yyzzImg"
                   info_key_img="formData.yyzz"
+                  :slsrc="slsrc3"
                 ></id-card-box>
               </div>
             </div>
@@ -71,6 +74,7 @@
                 img_name='资质照' info_text="证件上的文字需能够清晰辨认" @changeUrl="getUrl"
                 info_key="formData.ConstructQuayPhotoImg"
                 info_key_img="formData.ConstructQuayPhoto"
+                :slsrc="slsrc4"
               ></id-card-box>
             </div>
             </div>
@@ -88,7 +92,7 @@
 <script>
   import {contents} from '@/components/index.js'
   import EventBus from '@/config/EventBus';
-  import {postCompanyMessage} from '@/api/api';
+  import {postCompanyMessage,putCompanyMessage2} from '@/api/api';
 
 
   export default {
@@ -105,6 +109,11 @@
       };
       return {
         input: '',
+        src:'',
+        slsrc1:require('../../../assets/img/idcard1.png'),
+        slsrc2:require('../../../assets/img/idcard2.png'),
+        slsrc3:require('../../../assets/img/yyzzz.png'),
+        slsrc4:require('../../../assets/img/zzzs.png'),
         formData: {
           company_corporate: '',
           LegalCardIdImg: '',
@@ -113,7 +122,8 @@
           LegalIdentityCard: '',
           yyzzImg: '',
           yyzzbh: '',
-          corporate_mobile:''
+          corporate_mobile:'',
+          isUpdate:1
         },
         rules:{
           company_corporate:[ { validator: checkData, trigger: 'blur' }]
@@ -121,7 +131,6 @@
       };
     },
     created() {
-
       if (this.$route.name == 'joined.detailinfo' && this.$route.params.oldInfos) {
         let oldInfos = this.$route.params.oldInfos
         this.formData = {
@@ -135,10 +144,12 @@
           LegalIdentityCard: oldInfos.LegalIdentityCard,
           yyzzImg: oldInfos.yyzzImg,
           yyzz: oldInfos.yyzz,
-          yyzzbh: oldInfos.yyzzbh
+          yyzzbh: oldInfos.yyzzbh,
+          isUpdate:2,
+          corporate_mobile:oldInfos.corporate_mobile
         }
       }
-      this.formData = Object.assign(this.$route.params.formData || {}, this.formData)
+      // this.formData = Object.assign(this.$route.params.formData || {}, this.formData)
     },
     methods: {
       getUrl(path) {
@@ -166,44 +177,54 @@
         let _this = this
         // todo 数据校验
         let data = this.formData
-        console.log(data)
+
         let params = {
-          BankNo: data.BankNo,
-          BelongCity: data.BelongCity, // 开户行市
-          BelongCounty: data.BelongCounty,// 开户行区
-          BelongProvince: data.BelongProvince,
-          ConstructQuay: data.ConstructQuay,
+          // BankNo: data.BankNo,
+          // BelongCity: data.BelongCity, // 开户行市
+          // BelongCounty: data.BelongCounty,// 开户行区
+          // BelongProvince: data.BelongProvince,
+          // ConstructQuay: data.ConstructQuay,
           ConstructQuayPhoto: data.ConstructQuayPhoto,
-          LK1_1: data.LK1_1,
-          LK1_2: data.LK1_2,
-          LK1_3: data.LK1_3,
+          // LK1_1: data.LK1_1,
+          // LK1_2: data.LK1_2,
+          // LK1_3: data.LK1_3,
           LegalCardId: data.LegalCardId,
           LegalCardIdContrary: data.LegalCardIdContrary,
           LegalIdentityCard: data.LegalIdentityCard,
-          branchname: data.branchname,
-          chargePersonPhone: data.chargePersonPhone,
+          // branchname: data.branchname,
+          // chargePersonPhone: data.chargePersonPhone,
           company_corporate: data.company_corporate,
-          company_email: data.company_email,
-          companyname: data.companyname,
-          fzrxm: data.fzrxm,
-          gszj: data.gszj,
-          one_text: data.one_text,
-          openaccount: data.openaccount,
+          // company_email: data.company_email,
+          // companyname: data.companyname,
+          // fzrxm: data.fzrxm,
+          // gszj: data.gszj,
+          // one_text: data.one_text,
+          // openaccount: data.openaccount,
           yyzz: data.yyzz,
           yyzzbh: data.yyzzbh,
-          company_type:data.company_type,
-          company_status:1,
+          isUpdate:data.isUpdate,
+          // company_type:data.company_type,
+          // company_status:1,
           corporate_mobile:data.corporate_mobile
         }
+        console.log(params)
         EventBus.$emit('notice', {
           type: 'confirm',
           title: '确定提交吗？',
-          success() {
-            postCompanyMessage(params)
+          success(fn) {
+            putCompanyMessage2(params)
               .then((result) => {
                 console.log(result);
-                // _this.$router.push({name:'apply.success'})
+
+                EventBus.$emit('notice',{
+                  type:'message',
+                  message:result.message
+                })
+                if(result.code ==1){
+                  _this.$router.push({name:'apply.success'})
+                }
               })
+
           }
         })
       }
