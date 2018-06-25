@@ -27,7 +27,7 @@
             </el-form-item>
             <el-form-item label="验证码" prop="img_code">
               <div style="display: flex">
-                <el-input v-model.number="loginFormData.img_code" style="display: inline-block;flex: 1"></el-input>
+                <el-input v-model="loginFormData.img_code" style="display: inline-block;flex: 1"></el-input>
                 <!--<el-button>AAAA</el-button>-->
                 <el-button @click='createCode'>{{checkCode}}</el-button>
 

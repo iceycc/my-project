@@ -83,8 +83,8 @@
               <el-col :span="6">身份证照片</el-col>
               <el-col :span="18">
                 <!--照片-->
-                <div class="info-img"><img :src="account_data.LegalCardId" alt=""></div>
-                <div class="info-img"><img src="" alt=""></div>
+                <div class="info-img"><img :src="account_data.LegalCardIdImg" alt=""></div>
+                <div class="info-img"><img :src="account_data.LegalCardIdContraryImg" alt=""></div>
               </el-col>
             </el-row>
           </div>
@@ -97,7 +97,7 @@
             <el-row>
               <el-col :span="6">证件照片</el-col>
               <el-col :span="18">
-                <div class="info-img"><img :src="account_data.yyzz" alt=""></div>
+                <div class="info-img"><img :src="account_data.yyzzImg" alt=""></div>
               </el-col>
             </el-row>
           </div>
@@ -106,7 +106,7 @@
             <el-row>
               <el-col :span="6">施工资质照片</el-col>
               <el-col :span="18">
-                <div class="info-img"><img :src="account_data.ConstructQuayPhoto" alt=""></div>
+                <div class="info-img"><img :src="account_data.ConstructQuayPhotoImg" alt=""></div>
               </el-col>
             </el-row>
           </div>

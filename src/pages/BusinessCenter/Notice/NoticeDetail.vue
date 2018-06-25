@@ -1,41 +1,69 @@
 <template>
-<div>
-  <div class="nd-main">
-    <h3 class="title">这里是标题</h3>
-    <p class="text">这里死内容这里死内容这里死内容这里死内容这里死内容这里死内容这里死内容这里死内容这里死内容这里死内容这里死内容这里死内容这里死内容这里死内容这里死内容</p>
-    <p class="addresser">优装美家</p>
-    <p class="date">2017-11-17</p>
-  </div>
-</div>
+    <div>
+        <div class="nd-main">
+            <h3 class="title">{{title}}</h3>
+            <p class="text" v-html="content"></p>
+            <p class="addresser">{{username}}</p>
+            <p class="date">{{time}}</p>
+            <el-button type="primary" @click="goBack">返回</el-button>
+        </div>
+    </div>
 </template>
 <script>
-  export default{
-
-  }
+    import {getNoticeDetail} from '@/api/api'
+    export default {
+        data() {
+            return {
+                title:'',
+                content:'',
+                time:'',
+                username:''
+            }
+        },
+        created(){
+            let id = this.$route.params.id || 1
+            this.getData(id)
+        },
+        methods: {
+            goBack() {
+                this.$router.go(-1)
+            },
+            getData(id){
+                let params = {
+                    messageid:id
+                }
+                getNoticeDetail(params)
+                    .then((result)=>{
+                        this.title = result.title
+                        this.content=result.content
+                        this.username = result.username
+                        console.log(result);
+                    })
+            }
+        }
+    }
 </script>
-<style lang="scss" scoped >
+<style lang="scss" scoped>
 
-.nd-main{
-  margin-top:80px;
-  padding: 100px 80px 50px ;
-  height: 450px;
-  text-align:center;
-  background: #fff;
-  .title{
-    font-size: 20px;
-  }
-  .text{
-    height: 250px;
-    margin-top: 100px;
-    font-size:16px;
-    text-align:left;
+    .nd-main {
+        margin: 80px;
+        padding: 50px 100px 30px;
+        text-align: center;
+        background: #fff;
+        .title {
+            font-size: 20px;
+        }
+        .text {
+            margin-top: 50px;
+            padding-bottom: 30px;
+            font-size: 16px;
+            text-align: left;
 
-  }
-  .date,.addresser{
-    height: 30px;
-    font-size:16px;
-
-    text-align: right;
-  }
-}
+        }
+        .date, .addresser {
+            height: 30px;
+            font-size: 16px;
+            text-align: right;
+        }
+    }
 </style>

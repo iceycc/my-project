@@ -127,7 +127,7 @@
             rePassword(params)
               .then((result) => {
                 console.log(result);
-                if(result.code == 0){
+                if(result.code == 1){
                   this.$router.push({name:'login'})
                   EventBus.$emit('notice',{
                     type:'message',

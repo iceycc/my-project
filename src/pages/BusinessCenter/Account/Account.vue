@@ -81,8 +81,8 @@
         search_type: 1,
         tableData: [],
         totalpage: 0,
-        balance: 0,
-        bond_money: 0,
+        balance: '0.00',
+        bond_money: '0.00',
         loading: true,
         // 列表渲染两个接口发挥的字段不同。。
         money: 'money', //  'money_order',
@@ -128,8 +128,8 @@
         let params = {}
         getCompanyMoney(params)
           .then((result) => {
-            this.balance = result.balance
-            this.bond_money = result.bond_money
+            this.balance = result.balance || '0.00'
+            this.bond_money = result.bond_money || '0.00'
           })
       },
       getDataList(page) {

@@ -31,8 +31,9 @@ const Method = {
   getIfBingWx: 'wechat/wechat-openid',  // 查询是否绑定微信账号 ok
   relieveBind: 'wechat/relievebind', // 解除绑定 ok
   getNoticeList: 'default/get-message', // 获取通知列表
+  getNoticeDetail: 'default/set-read', // 获取通知列表
   doModifyPassword:'companysetup/modify-password', // 修改密码 todo
-  doRecharge:'',// todo 充值
+  doRecharge:'pay/llpay',// todo 充值
 
   postPerfectInfo: 'companysetup/perfect',// 承接管理信息添加修改
   postCompanyMessage:'shoppingunit/companymessageadd',// 添加/修改账户资料
@@ -302,6 +303,12 @@ export const getNoticeList = (params) => {
     .then((result) => {
       return result.data
     })
+}// 获取通知列表
+export const getNoticeDetail = (params) => {
+  return Request.get(Method.getNoticeDetail,{params})
+    .then((result) => {
+      return result.data
+    })
 }
 
 // 承接管理信息添加 修改  todo
@@ -361,7 +368,7 @@ export const doModifyPassword = (params) => {
 }
 // 充值
 export const doRecharge = (params) => {
-  return Request.post(Method.recharge, params)
+  return Request.post(Method.doRecharge, params)
     .then((result) => {
       return result
     })

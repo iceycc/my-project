@@ -11,7 +11,10 @@
       <input type="file" name="file" class="upload-input" @change="changeUrl($event)">
     </div>
     <!--提示文字-->
-    <div class="info-text">{{info_text}}</div>
+    <div class="info-text">
+    <p>{{info_text}}</p> <br>
+    <slot></slot>
+    </div>
     <!--实例图片-->
     <div class="show-img">
       <img :src="slsrc" alt="">
@@ -32,7 +35,7 @@
 
   export default {
     name: "id-card-box",
-    props: ['img_name', 'info_text', 'info_key','defaultUrl','info_key_img','slsrc'],
+    props: ['img_name', 'info_text', 'info_key','defaultUrl','info_key_img','slsrc','msg_text'],
     components: {
       'zen-modal': ZenModal
     },
@@ -156,10 +159,16 @@
       }
     }
     .info-text {
+      position: relative;
       flex: 1;
+      width: 100%;
       height: 100%;
+      box-sizing: border-box;
       text-align: center;
-      line-height: 100px;
+      padding-top:40px ;
+    }
+    .text-msg{
+
     }
     .show-img {
       width: 160px;

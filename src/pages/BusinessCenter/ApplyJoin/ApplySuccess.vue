@@ -1,10 +1,6 @@
 <template>
   <div>
-    <el-steps :active="3" simple>
-      <el-step title="填写基本信息" icon="el-icon-edit"></el-step>
-      <el-step title="填写资质信息" icon="el-icon-upload"></el-step>
-      <el-step title="提交审核" icon="el-icon-upload"></el-step>
-    </el-steps>
+    <h3 style="font-size: 18px;padding: 10px 0">等待审核</h3>
     <div class="success-box">
       <h4><i class="iconfont icon-chenggong"> </i> 申请已经提交</h4>
       <p>审核工作将在1-3个工作日内完成，请注意登陆后台查看审核结果</p>

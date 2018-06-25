@@ -17,7 +17,7 @@
       <!--<i slot="icon" class="iconfont icon-shanchu"></i>-->
       <p class="wenzi" slot="info_text">
         您已提交申请修改账户资料，平台将在提交日期后的1-3个工作日内完成审核，请注意登陆后台查看审核结果，审核期间无法接收新订单。如想加快审核速度，请联系平台工作人员</p>
-      <p class="wenzi" slot="apply_time">提交时间：<span>2017/12/18</span></p>
+      <p class="wenzi" slot="apply_time">提交时间：<span>{{time | momentTime}}</span></p>
     </info-card>
     <!--可以设置的选项卡-->
     <div>
@@ -136,7 +136,8 @@
         isSet: false,
         settled_progress: 5,
         meassages: {},
-        info_titile: ''
+        info_titile: '',
+          time:''
       }
     },
     created() {
@@ -166,10 +167,11 @@
       getInfo(params) {
         getIndexInfos(params).then((result) => {
           console.log(result)
-          this.ifWalletEnough = result.balance == 1 ? true : false
+            this.time = result.time
+          this.ifWalletEnough = result.balance == 2 ? true : false
           this.isBindWechat = result.isBindWechat == 2 ? true : false
           this.isSet = result.isSet == 2   ? true : false
-          this.meassages = result.meassages
+          this.meassages = result.messages
           this.settled_progress = result.settled_progress
           switch (Number(this.settled_progress)) {
             case 1:

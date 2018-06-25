@@ -25,7 +25,6 @@
 
     methods: {
       outLogin() {
-        this.$ls.remove(Constants.LocalStorage.uid)
         this.isLogin = false
         this.$router.push({
           name: 'login'

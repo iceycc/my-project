@@ -28,15 +28,14 @@
       </info-box>
       <!-- 资料审核中 -->
       <info-box v-else-if="status===2">
-        <div class="step-l">
+        <div class="step-l step-special">
           <h4>
             <i class="iconfont icon-yuangou"></i>
             资料审核中</h4>
-          <p>你有完善的申请信息</p>
+          <p>您已成功提交了申请入驻优装美家商户中心，平台将在提交日期后的1-3个工作日内完成审核，请注意登陆后台查看审核结果。</p>
           <p>创建时间：<i>{{time | momentTime}}</i></p>
         </div>
-        <div class="step-r">
-        </div>
+
       </info-box>
       <!-- 资料审核已经通过 -->
       <info-box v-else-if="status===3">
@@ -44,7 +43,7 @@
           <h4>
             <i class="iconfont icon-yuangou"></i>
             资料审核已经通过</h4>
-          <p>你有完善的申请信息</p>
+          <p>入驻资料审核已经通过，设置承接信息并充值账户余额后即可接单</p>
           <p>创建时间：<i>{{time | momentTime}}</i></p>
         </div>
         <div class="step-r">
@@ -57,6 +56,7 @@
           <h4>
             <i class="iconfont icon-yuangou"></i>
             资料审核未通过</h4>
+          <!--todo 这里得动态说明原因-->
           <p>你有完善的申请信息</p>
           <p>创建时间：<i>{{time | momentTime}}</i></p>
         </div>
@@ -85,7 +85,6 @@
             状态异常</h4>
         </div>
         <div class="step-r">
-          <el-button class="aj-btn" type="primary" @click="goPages('alterundertake')">设置承接信息</el-button>
         </div>
       </info-box>
     </div>
@@ -109,8 +108,9 @@
       getIndexInfos()
         .then((result) => {
           this.status = Number(this.$store.getters.getSettledProgress || result.settled_progress)
+          // this.status = 2
           console.log(this.status)
-          this.time = result.time
+          this.time = result.messages.addtime
         })
     },
     methods: {
@@ -176,12 +176,13 @@
     }
     p {
       padding-left: 40px;
-      height: 50px;
-      line-height: 50px;
       font-size: 18px;
+      line-height: 50px;
     }
   }
-
+  .step-special{
+    width: 100%;
+  }
   .step-r {
     display: inline-block;
     width: 49%;

@@ -25,7 +25,7 @@ export const PageName = {
 };
 
 //用于管理router中页面名称
-export const LocalStorage = {
+export const sessionStorage = {
 
 };
 
