@@ -1,5 +1,5 @@
 // 设置 cookie 值的函数
-function setCookie(cname, cvalue, exdays) {
+function setCookie(cname, cvalue, exdays = 0.1) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
     var expires = "expires=" + d.toGMTString();
@@ -34,8 +34,21 @@ function checkCookie() {
         }
     }
 }
+// 获取url参数
+function GetRequest() {
+    var url = location.hash; //获取url中"?"符后的字串
+    var theRequest = new Object();
+    if (url.indexOf("?") != -1) {
+        var str = url.substr(9);
+        var strs = str.split("&");
+        for(var i = 0; i < strs.length; i ++) {
+            theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+        }
+    }
+    return theRequest;
+}
 
-// 校验规则
+// 校验规则  居于elementUI的表单校验
 /**
  * 校验Email
  */
@@ -106,5 +119,6 @@ export {
     checkEmpty,
     checkTel,
     checkSelect,
-    checkIdCardNum
+    checkIdCardNum,
+    GetRequest
 };

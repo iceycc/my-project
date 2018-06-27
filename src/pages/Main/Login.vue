@@ -27,7 +27,7 @@
                                    style="width: 100%"
                                    @click="submitForm('loginFormData')">登陆
                         </el-button>
-                        <el-checkbox v-model="autoLogin1" label="1">下次自动登陆</el-checkbox>
+                        <el-checkbox v-model="loginFormData.is_auto" label="1">下次自动登陆</el-checkbox>
                         <span style="margin: 0 10px;cursor: pointer;" @click="goRegister">注册</span><span
                             @click="goFindPass" style="cursor: pointer">忘记密码</span>
                     </el-form-item>
@@ -67,7 +67,7 @@
                 value = value.toUpperCase();//取得输入的验证码并转化为大写
                 console.log(value)
                 console.log(code)
-                if (value == 'a') {
+                if (value == '') {
                     return callback(new Error('请输入验证码'));
 
                 } else if (value != this.checkCode) { //若输入的验证码与产生的验证码不一致时
@@ -91,6 +91,7 @@
                     password: '',
                     email: '',
                     img_code: '',
+                    is_auto:0,
                 },
                 rules2: {
                     email: [
@@ -110,11 +111,16 @@
             this.$store.commit('putData', {key: 'uid', value: '22'}) //
             let atlg = getCookie('SH_ATLG') || 0
             if(atlg == 1){
-                let params = {
-                    username:getCookie('SH_email'),
-                    password:getCookie('SH_PSWD')
-                }
-                this.doLogoHandle(params)
+                let status = getCookie('X-status')
+                this.goHome(status)
+                EventBus.$emit('notice',{
+                    type:'message',
+                    message:'自动登陆中'
+                })
+            }else {
+                removeCookie('token')
+                removeCookie('SH_USNM')
+                removeCookie('X-status')
             }
 
         },
@@ -142,42 +148,40 @@
             //   // this.getPicCodeData()
             // },
 
-            checkLogin() {
+            goHome(status){
+                if (status == 1 || status == 2 || status == 4 || status == 6 || status == 3) {
+                    this.$router.replace({name: 'apply.join'})
+                }
+                else if (status == 5) {
+                    this.$router.replace({name: 'joined.index'})
+                } else {
+                    EventBus.$emit('notice', {
+                        type: 'message',
+                        message: '状态异常'
+                    })
+                }
             },
             doLogoHandle(params){
                 doLogin(params)
                     .then((result) => {
+                        console.log(result);
                         setCookie('SH_USNM',result.data.email)
-                        setCookie('SH_uid',result.data.uid)
-                        window.sessionStorage.setItem('X-status', result.data.settled_progress)
+                        setCookie('token',result.data.token)
+                        setCookie('X-status',result.data.settled_progress)
                         if(getCookie('SH_ATLG') && getCookie('SH_ATLG') ==1){
                             EventBus.$emit('notice',{
                                 type:'message',
                                 message:'自动登陆'
                             })
                         }
-                        else if(this.autoLogin == true){
+                        else if(this.loginFormData.is_auto == true){
                             setCookie('SH_ATLG','1')
-                            setCookie('SH_email',this.loginFormData.email,3)
-                            setCookie('SH_PSWD',this.loginFormData.password,3)
-                        }else if(this.autoLogin == false){
+                            setCookie('token',result.data.token,7)
+                        }else if(this.loginFormData.is_auto == false){
                             removeCookie('SH_ATLG')
-                            removeCookie('SH_email')
-                            removeCookie('SH_PSWD')
                         }
                         let status = result.data.settled_progress
-                        console.log(status)
-                        if (status == 1 || status == 2 || status == 4 || status == 6 || status == 3) {
-                            this.$router.replace({name: 'apply.join'})
-                        }
-                        else if (status == 5) {
-                            this.$router.replace({name: 'joined.index'})
-                        } else {
-                            EventBus.$emit('notice', {
-                                type: 'message',
-                                message: '状态异常'
-                            })
-                        }
+                        this.goHome(status)
                     })
             },
             submitForm(formName) {
@@ -187,7 +191,9 @@
                         // console.log(ruleForm2);
                         let params = {
                             password: _this.loginFormData.password,
-                            username: _this.loginFormData.email
+                            username: _this.loginFormData.email,
+                            is_auto:_this.loginFormData.is_auto == true ? 0 : 1
+
                         }
                         this.doLogoHandle(params)
 

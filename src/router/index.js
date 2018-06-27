@@ -6,6 +6,8 @@ import "../plugins/Vendors.js"; //引入第三方组件 字体图标 样式scss 
 import {getCookie} from "../config/util";
 import pages from '../pages/index.js'//引入页面
 import store from '../store/index'
+import {EventBus} from "../config/Constants";
+import {removeCookie} from "../config/util";
 //404提示
 var NotFound = {
     template: `
@@ -56,6 +58,13 @@ router.addRoutes([
         path: "/aboutus",
         name: "aboutus",
         component: pages.AboutUs,
+        meta: {check: false, keepAlive: false}
+    },
+    // 支付成功与否
+    {
+        path: "/paymsg",
+        name: "paymsg",
+        component: pages.PayMsg,
         meta: {check: false, keepAlive: false}
     },
     // 申请入住
@@ -127,7 +136,7 @@ router.addRoutes([
                 name: "ordermanagement",
                 path: "ordermanagement",
                 component: pages.OrderManagement
-                , meta: {needLogin: true, keepAlive: true}
+                , meta: {needLogin: true, keepAlive: false}
             },
             // 填写基础信息
             {name: "joined.baseinfo", path: "baseinfo", component: pages.BaseInfo, meta: {needLogin: true}},
@@ -207,15 +216,22 @@ router.addRoutes([
 
 // 全局导航过滤（其实就是拦截路由请求）
 router.beforeEach((to, from, next) => {
-    console.log(to)
+    console.log(to.meta.needLogin)
     if (to.meta.needLogin) {
-        let uid = getCookie('SH_uid')
-
+        let uid = getCookie('token')
         if (uid) {
             next()
         } else {
             next({name: 'login'})
+            removeCookie('token')
+            removeCookie('SH_USNM')
+            removeCookie('SH_ATLG')
+            removeCookie('SH_USNM')
             // next()
+            EventBus.$emit('notice',{
+                type:'message',
+                message:'请重新登陆'
+            })
         }
     } else {
         next()

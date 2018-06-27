@@ -7,13 +7,21 @@
 const path = require('path')
 
 module.exports = {
-   // 开发过程中使用的配置
-  dev: {
+    // 开发过程中使用的配置
+    dev: {
 
     // Paths
     assetsSubDirectory: 'static',// 静态资源文件夹
     assetsPublicPath: '/',// 发布路径
-    proxyTable: {},    // 代理配置表，在这里可以配置特定的请求代理到对应的API接口  例如将'localhost:8080/api/xxx'代理到'www.example.com/api/xxx'
+    proxyTable: {
+        '/api': {
+            target: 'http://merchant.uzhuang.com/',//设置你调用的接口域名和端口号 别忘了加http
+            changeOrigin: true,
+            pathRewrite: {
+                '^/api': '/'//这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用'http://40.00.100.100:3002/user/add'，直接写‘/api/user/add’即可
+            }
+        }
+    },    // 代理配置表，在这里可以配置特定的请求代理到对应的API接口  例如将'localhost:8080/api/xxx'代理到'www.example.com/api/xxx'
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST

@@ -14,7 +14,7 @@
                 <img class="code-img" :src="img_code_url" alt="" @click="reGetPicCode" style="">
             </el-form-item>
             <el-form-item label="短信验证码" prop="msg_code">
-                <el-input class="mp-input" v-model.number="ruleForm2.msg_code"></el-input>
+                <el-input class="mp-input" v-model="ruleForm2.msg_code"></el-input>
                 <el-button @click="postMsgCodeToTel" :disabled="disabled">{{sendMsgText}}</el-button>
             </el-form-item>
             <el-form-item>
@@ -38,6 +38,7 @@
     // import md5 from 'js-md5'
     var codeCheck = false
     var successCode = ''
+
     export default {
         data() {
             var checkImgCode = (rule, value, callback) => {
@@ -160,6 +161,10 @@
                     })
                     return
                 }
+                if(codeCheck==false){
+                    return
+                }
+
                 let params = {
                     imgcode: Number(this.ruleForm2.img_code)
                 }
@@ -196,6 +201,11 @@
                             .then((result) => {
                                 console.log(result);
                                 // todo
+                                if(result.code == 1){
+                                    this.$router.push({
+                                        name:'joined.index'
+                                    })
+                                }
                             })
                     } else {
                         console.log('error submit!!');

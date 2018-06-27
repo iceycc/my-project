@@ -135,6 +135,7 @@
             }
         },
         created() {
+
             EventBus.$on('apeal', (val, fn) => {
                 console.log(val)
                 this.formData.orderid = val
@@ -160,30 +161,35 @@
         methods: {
             goOut() {
                 logout().then((result) => {
-                    if (result.code == 1) {
                         this.$router.push({name: 'login'})
-                        sessionStorage.removeItem('X-status')
                         removeCookie('SH_ATLG')
                         removeCookie('SH_USNM')
-                        removeCookie('SH_PSWD')
-                        removeCookie('SH_email')
-                    }
+                        removeCookie('token')
+                        removeCookie('X-status')
                 })
             },
             goHome() {
-                let status = window.sessionStorage.getItem('X-status')
-                if (status == 1 || status == 2 || status == 4) {
-                    this.$router.replace({name: 'apply.join'})
+                let status = getCookie('X-status')
+                if (status == 1 || status == 2 || status == 4 ||status == 3 ) {
+                    this.$router.push({name: 'apply.join'})
                 }
-                if (status == 3 || status == 5) {
-                    this.$router.replace({name: 'joined.index'})
+                if (status == 5) {
+                    this.$router.push({name: 'joined.index'})
                 }
             },
             doAppealhandle() {
+                console.log('申诉')
                 if (!this.formData.appealReason.replace(/^\s+|\s+$/g, "")) {
                     EventBus.$emit('notice', {
                         type: 'message',
                         message: '申诉原因不能为空'
+                    })
+                    return
+                }
+                if (!this.formData.appealCondition) {
+                    EventBus.$emit('notice', {
+                        type: 'message',
+                        message: '申诉条件不能为空'
                     })
                     return
                 }
@@ -194,21 +200,26 @@
                 }
                 doOrderAppeal(params).then((result) => {
                     console.log(result);
-                    EventBus.$emit('notice', {
-                        type: 'message',
-                        message: result.message
-                    })
-                    if (result.code == 0) {
+                    // EventBus.$emit('notice', {
+                    //     type: 'message',
+                    //     message: result.message
+                    // })
+                    if (result.code == 1) {
                         this.fnD && this.fnD()
+                        EventBus.$emit('notice', {
+                            type: 'message',
+                            message: result.message
+                        })
                     }
-                    this.reload()
-                    this.fnD && this.fnD()
-                    this.dialogFormVisible = false
                     this.formData = {
                         appealReason: '',
                         appealCondition: '',
                         orderid: ''
                     }
+                    this.dialogFormVisible = false
+                    this.reload()
+                    this.fnD && this.fnD()
+
                 })
             },
 

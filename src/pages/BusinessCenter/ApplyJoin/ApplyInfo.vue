@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h3 class="ai-title">准备好材料,入住更方便</h3>
+      <h3 class="ai-title">准备好材料,入驻更方便</h3>
       <div class="ai-main">
           <div ai-box>
               <div class="small-box">
@@ -20,7 +20,7 @@
               </div>
               <div class="small-box">
                  <h3 class="title small-info">施工等级资质</h3>
-                 <p class="info">证件照(正反面) 需清晰可辨认,不得使用复印件</p>
+                 <p class="info">证明拍摄证件，照片需清晰可辨认，不得使用复印件</p>
                  <div class="pic">
                    <img src="../../../assets/img/zzzs.png" alt="">
 
@@ -31,7 +31,7 @@
       </div>
       <div class="ai-btn">
         <el-button @click="goApplyJoin">返回首页</el-button>
-        <el-button @click="goBaseInfo" type="primary">我已经准备好资料，开始申请入住</el-button>
+        <el-button @click="goBaseInfo" type="primary">我已经准备好资料，开始申请入驻</el-button>
       </div>
   </div>
 </template>

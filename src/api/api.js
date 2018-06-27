@@ -1,7 +1,134 @@
-import Request from '../request'
-import axios from '../request/requestInstance' // 不用在header头加token的
+import axios from 'axios'
 import EventBus from '../config/EventBus'
-// // 设置请求的基准路径
+import {getCookie,removeCookie} from "../config/util";
+import Qs from 'qs';
+
+function Interceptors(_axios){
+    _axios.interceptors.request.use((config) =>{
+        // loadingInstance = Loading.service({
+        //   fullscreen:false
+        // });
+        let token = getCookie('token');
+
+        if (token) {  // 每次发送请求之前判断是否存在token，如果存在，则统一在http请求的header都加上token，不用每次请求都手动添加了
+            config.headers.token = token;
+        }
+        return config;
+    },(error)=>{
+        return Promise.reject({
+            msg:'request err:' + error
+        })
+    })
+// 添加响应拦截器
+    _axios.interceptors.response.use((response) => {
+        // 对响应数据做点什么
+        // sign过期或者不正确时提醒重新登陆，移除当前的 sign
+        //   loadingInstance.close();
+        console.log(response.data.code);
+        if (response.data instanceof Array) {
+            // 用于拦截地区请求接口的问题
+            return response.data;
+        }
+        else if (response.data.code == 502) {
+            EventBus.$emit('notice', {
+                type: 'message',
+                message: '账号登陆状态已经过期，请重新登陆'
+            })
+            removeCookie('token')
+        }
+        else if (response.data.code == 1) {
+            return response.data;
+        }
+
+        else {
+            EventBus.$emit('notice', {
+                type: 'message',
+                message: response.data.message
+            })
+            return response.data;
+        }
+    }, (error) => {
+        // 对响应错误做点什么
+        // loadingInstance.close();
+
+        EventBus.$emit('notice', {
+            type: 'message',
+            message: '未知错误'
+        })
+        return Promise.reject(error);
+        //   console.log(error)
+        // return error;
+    });
+
+}
+
+
+const API_host = process.env.API_HOST
+let config = {
+    method: 'post',
+    baseURL: API_host + 'v1/',
+    // headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    // `transformRequest`允许在请求数据发送到服务器之前对其进行更改
+    // 这只适用于请求方法'PUT'，'POST'和'PATCH'
+    // 数组中的最后一个函数必须返回一个字符串，一个 ArrayBuffer 或一个 Stream
+    transformRequest: [function (data) {
+        if (data) {
+            data = Qs.stringify(data);
+            return data;
+        } else {
+            return;
+        }
+    }],
+    // `transformResponse`允许在 then / catch之前对响应数据进行更改
+    transformResponse: [function (data) {
+        return data;
+    }],
+    // `paramsSerializer`是一个可选的函数，负责序列化`params`
+    paramsSerializer: function (params) {
+        return Qs.stringify(params, {arrayFormat: 'brackets'});
+    },
+    // `timeout`指定请求超时之前的毫秒数。
+    timeout: 10000,
+    // `withCredentials`指示是否跨站点访问控制请求
+    withCredentials: false,
+    // “responseType”表示服务器将响应的数据类型
+    // 包括 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
+    responseType: 'json',
+    //打开会多一次 options请求
+    /*    // `onUploadProgress`允许处理上传的进度事件
+        onUploadProgress: function (progressEvent) {
+        },
+        // `onDownloadProgress`允许处理下载的进度事件
+        onDownloadProgress: function (progressEvent) {
+            // Do whatever you want with the native progress event
+        },*/
+    maxContentLength: 2000,
+    // `validateStatus`定义是否解析或拒绝给定的promise
+    validateStatus: function (status) {
+        return status >= 200 && status < 300;
+    },
+    // `maxRedirects`定义在node.js中要遵循的重定向的最大数量。
+    maxRedirects: 5,
+    // 自定义参数部分
+    custom: {
+        handleError: true //是否在interceptors处理错误状态.
+    },
+    // proxy: {
+    //   host: '127.0.0.1',
+    //   port: 9000,
+    //   auth : {
+    //     username: 'mikeymike',
+    //     password: 'rapunz3l'
+    //   }
+    // },
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+
+}
+
+var Request = axios.create(config)
+var RequestT = axios.create(config)
+Interceptors(Request)
+Interceptors(RequestT)
 
 
 const Method = {
@@ -65,7 +192,7 @@ const Method = {
   // 激活
   activationEmail:'',
   // 退出
-  logout:'login/logout',
+  logout:'companysetup/logout',
   // 邮箱激活校验
   checkEmailHandel:'http://merchant.uzhuang.com/v1/login/activeregister',
   // 再次发送激活邮件
@@ -74,7 +201,7 @@ const Method = {
 
 // 登陆功能
 export const doLogin = (params) => {
-  return axios.post(Method.doLogin,params)
+  return RequestT.post(Method.doLogin,params)
     .then((result)=>{
       EventBus.$emit('notice',{
         type:'message',
@@ -87,7 +214,7 @@ export const doLogin = (params) => {
 }
 // 邮箱激活校验 点击邮件激活账号
 export const checkEmailHandel = (params) => {
-  return axios.get(Method.checkEmailHandel,{params})
+  return RequestT.get(Method.checkEmailHandel,{params})
     .then((result)=>{
       //0：过期，1：账号已激活，2：激活成功
       return result
@@ -95,63 +222,63 @@ export const checkEmailHandel = (params) => {
 }
 // 再次发送激活邮件
 export const activeRegister = (params) => {
-  return axios.get(Method.activeRegister,{params})
+  return RequestT.get(Method.activeRegister,{params})
     .then((result)=>{
       return result
     })
 }
 // 退出
 export const logout = (params) => {
-  return axios.get(Method.logout,{params})
+  return Request.get(Method.logout,{params})
     .then((result)=>{
       return result
     })
 }
 // 注册
 export const doRegister = (params) => {
-  return axios.post(Method.doRegister,params)
+  return RequestT.post(Method.doRegister,params)
     .then((result)=>{
       return result
     })
 }
 // 发送邮件 重置密码邮箱验证码
 export const sendEmail = (params) => {
-  return axios.get(Method.sendEmail,{params})
+  return RequestT.get(Method.sendEmail,{params})
     .then((result)=>{
       return result
     })
 }
 // 重置密码
 export const rePassword = (params) => {
-  return axios.post(Method.rePassword,params)
+  return Request.post(Method.rePassword,params)
     .then((result)=>{
       return result
     })
 }
 //
 export const activationEmail = (params) => {
-  return axios.post(Method.activationEmail,params)
+  return RequestT.post(Method.activationEmail,params)
     .then((result)=>{
       return result
     })
 }
 // 省
 export const getProvence = () =>{
-  return axios.get(Method.getProvence,{})
+  return RequestT.get(Method.getProvence,{})
     .then((result)=>{
       return result
     })
 }
 // 市 &id=2
 export const getCity = (params) =>{
-  return axios.get(Method.getCity,{params})
+  return RequestT.get(Method.getCity,{params})
     .then((result)=>{
       return result
     })
 }
 // 区 &id=3360
 export const getDistrust = (params) =>{
-  return axios.get(Method.getDistrust,{params})
+  return RequestT.get(Method.getDistrust,{params})
     .then((result)=>{
       return result
     })
@@ -381,6 +508,7 @@ export const doCheckImg = (params) =>{
       return result
     })
 }
+
 
 // 获取订单详情
 export const getOrderInfo = (params) =>{

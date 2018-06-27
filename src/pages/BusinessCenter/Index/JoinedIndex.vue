@@ -89,7 +89,7 @@
               v-if="scope.row.status =='可申诉'">{{scope.row.status}}
             </el-button>
             <p v-if="scope.row.status == '可申诉'">72h后失效</p>
-            <el-button>{{scope.row.status}}</el-button>
+            <el-button v-else>{{scope.row.status}}</el-button>
           </template>
         </el-table-column>
         <el-table-column>

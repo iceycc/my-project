@@ -12,7 +12,7 @@
         <el-button type="primary" class="aj-top-btn" @click="goApplyInfo">申请入驻</el-button>
       </info-box>
       <!-- TODO: -->
-      <!-- 申请入住 -->
+      <!-- 申请入驻 -->
       <info-box v-else-if="status===1">
         <div class="step-l">
           <h4>
@@ -74,7 +74,7 @@
           <p>创建时间：<i>{{time | momentTime}}</i></p>
         </div>
         <div class="step-r">
-          <el-button class="aj-btn" type="primary" @click="goPages('alterundertake')">设置承接信息</el-button>
+          <el-button class="aj-btn" type="primary" @click="goPages('joined.index')">前往首页</el-button>
         </div>
       </info-box>
 
@@ -99,7 +99,7 @@
     data() {
       return {
         step: "两步完成商户入驻",
-        //状态显示 申请入住（1）资料审核中（2）资料审核已通过（3）资料审核未通过（4） 其他
+        //状态显示 申请入驻（1）资料审核中（2）资料审核已通过（3）资料审核未通过（4） 其他
         status: 0,
         time:null
       };
@@ -107,8 +107,8 @@
     created() {
       getIndexInfos()
         .then((result) => {
-          this.status = Number(this.$store.getters.getSettledProgress || result.settled_progress)
-          // this.status = 2
+          this.status = getCookie('X-status')
+            // this.status = 2
           console.log(this.status)
           this.time = result.messages.addtime
         })
