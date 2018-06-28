@@ -35,19 +35,21 @@
         </div>
         <!--筛选搜索栏-->
         <div class="om-search">
-            <select name="" id="" class="selected-search" v-model="selectedType">
-                <option value="1">订单号搜索</option>
-                <option value="2">手机号搜索</option>
-                <option value="3">业主姓名搜索</option>
-            </select>
+            <el-select v-model="selectedType" placeholder="请选择">
+                <el-option
+                        v-for="item in search_options"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                </el-option>
+            </el-select>
             <el-input
-                    class="search-box"
                     style="width: 150px;"
                     :placeholder="placeholder_text"
                     v-model="search_value">
                 <i slot="prefix" class="el-input__icon el-icon-search" @click="searchhandle"></i>
             </el-input>
-            <el-button @click="searchhandle">搜索</el-button>
+            <el-button style="vertical-align: bottom" @click="searchhandle">搜索</el-button>
         </div>
         <!--详细信息盒子-->
         <div class="om-detail">
@@ -134,7 +136,17 @@
                 formLabelWidth: '120px',
                 appealCondition: 1,
                 appealReason: '',
-                appealId: null //申诉的id
+                appealId: null, //申诉的id
+                search_options:[
+                    {
+                        value:1,
+                        label:'订单号搜索'
+                    },
+                    {
+                        value:2,
+                        label:'手机号搜索'
+                    },
+                ]
             };
 
         },
@@ -371,21 +383,9 @@
     }
 
     .om-search {
-        margin-top: 30px;
-        font-size: 0;
+        vertical-align: top;
         margin-bottom: 20px;
-        .selected-search {
-            vertical-align: top;
-            border: 1px solid #dcdfe6;
-            margin-right: 10px;
-            padding: 0 10px;
-            border-radius: 5px;
-            height: 40px;
-            color: #ccc;
-        }
-        .search-box {
-            vertical-align: top;
-        }
+        margin-top: 10px;
 
     }
 
