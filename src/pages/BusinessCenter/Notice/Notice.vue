@@ -14,6 +14,7 @@
       <div class="block" style="margin: 0 auto;display: block;text-align: center">
         <el-pagination
           style="text-align: center"
+          :page-size=1
           @current-change="currentChange($event)"
           :current-page="current_page"
           layout="prev, pager, next"
@@ -34,15 +35,14 @@
         listTotal:0,
         current_page:1,
         infoMsg:'正在加载中...',
-        page:1
       }
     },
     created(){
-      this.getData()
+      this.getData(1)
     },
     methods:{
-      getData(){
-        let params = {page:this.page}
+      getData(page){
+        let params = {page}
         getNoticeList(params)
           .then((result)=>{
             console.log(result);
@@ -50,11 +50,12 @@
             if(this.notice_list.length == 0){
               this.infoMsg ='没有数据'
             }
-
             this.listTotal = + result.totalpage
           })
       },
-      currentChange(){}
+        currentChange($event) {
+            this.getData($event)
+        },
     }
   }
 </script>
