@@ -33,7 +33,7 @@
             <i class="iconfont icon-yuangou"></i>
             资料审核中</h4>
           <p>您已成功提交了申请入驻优装美家商户中心，平台将在提交日期后的1-3个工作日内完成审核，请注意登陆后台查看审核结果。</p>
-          <p>创建时间：<i>{{time | momentTime}}</i></p>
+          <p>提交申请时间：<i>{{time | momentTime}}</i></p>
         </div>
 
       </info-box>
@@ -44,7 +44,7 @@
             <i class="iconfont icon-yuangou"></i>
             资料审核已经通过</h4>
           <p>入驻资料审核已经通过，设置承接信息并充值账户余额后即可接单</p>
-          <p>创建时间：<i>{{time | momentTime}}</i></p>
+          <p>审核处理时间：<i>{{time | momentTime}}</i></p>
         </div>
         <div class="step-r">
           <el-button class="aj-btn" type="primary" @click="goPages('alterundertake')">设置承接信息</el-button>
@@ -57,8 +57,8 @@
             <i class="iconfont icon-yuangou"></i>
             资料审核未通过</h4>
           <!--todo 这里得动态说明原因-->
-          <p>你有完善的申请信息</p>
-          <p>创建时间：<i>{{time | momentTime}}</i></p>
+          <p>{{resion}}</p>
+          <p>审核处理时间：<i>{{time | momentTime}}</i></p>
         </div>
         <div class="step-r">
           <el-button class="aj-btn" type="primary" @click="goPages('apply.info')">重新申请</el-button>
@@ -70,8 +70,9 @@
           <h4>
             <i class="iconfont icon-yuangou"></i>
             资料审核已经通过</h4>
-          <p>你有完善的申请信息</p>
-          <p>创建时间：<i>{{time | momentTime}}</i></p>
+          <p>入驻资料审核已经通过，设置承接信息并充值账户余额后即可接单</p>
+          <p>{{resion}}</p>
+          <p>审核处理时间：<i>{{time | momentTime}}</i></p>
         </div>
         <div class="step-r">
           <el-button class="aj-btn" type="primary" @click="goPages('joined.index')">前往首页</el-button>
@@ -93,6 +94,7 @@
 </template>
 <script>
   import {getIndexInfos} from '@/api/api'
+  import {getCookie} from "../../../config/util";
   import state from "../../../store/state";
   export default {
     // name: "apply-join",
@@ -101,16 +103,23 @@
         step: "两步完成商户入驻",
         //状态显示 申请入驻（1）资料审核中（2）资料审核已通过（3）资料审核未通过（4） 其他
         status: 0,
-        time:null
+        time:null,
+          resion:''
       };
     },
     created() {
       getIndexInfos()
         .then((result) => {
-          this.status = getCookie('X-status')
+          this.status = result.settled_progress - 0
             // this.status = 2
+
           console.log(this.status)
-          this.time = result.messages.addtime
+          this.resion = result.resion || '未填写'
+          this.time = result.time
+            if(result.is_new == 1){
+                this.$router.push({name: 'joined.index'})
+                return
+            }
         })
     },
     methods: {

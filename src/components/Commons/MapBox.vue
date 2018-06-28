@@ -19,11 +19,11 @@
         name: "",
         props:{
             location: {
-                type: String,
+                type: null,
                 default: '北京市'
             },
             keyword: {
-                type: String,
+                type: null,
                 default: '天安门'
             },
         },

@@ -31,7 +31,6 @@
                 <a target="_blank" class="footer-menu-a" href="javascript:;" style="cursor:default">优装美家 版权所有</a>
             </p>
         </el-footer>
-
         <!--<el-dialog title="发起申诉" :visible.sync="dialogFormVisible">-->
         <!--<div>请选中申诉的原因</div>-->
         <!--<el-radio-group v-model="radio2">-->
@@ -51,12 +50,13 @@
 
         <el-dialog title="申诉" :visible.sync="dialogFormVisible">
             <el-form>
-                <el-form-item label="申诉原因" :label-width="formLabelWidth">
-                    <el-input v-model="formData.appealReason" auto-complete="off" type="textarea"></el-input>
-                </el-form-item>
+                <!--<el-form-item label="申诉原因" :label-width="formLabelWidth">-->
+                    <!--<el-input v-model="formData.appealReason" auto-complete="off" type="textarea"></el-input>-->
+                <!--</el-form-item>-->
                 <el-form-item label="申诉条件" :label-width="formLabelWidth">
-                    <el-select class="selected-appeal" v-model="formData.appealCondition" name="">
+                    <el-select class="selected-appeal" v-model="formData.appealCondition" name="" style="width: 80%;">
                         <el-option
+                                style="padding-left: 10px"
                                 v-for="item in appealConditions"
                                 :key="item.value"
                                 :label="item.label"
@@ -76,7 +76,7 @@
 <script>
     import {Constants} from '@/config'
     import EventBus from '@/config/EventBus'
-    import {doOrderAppeal, logout} from '@/api/api'
+    import {doOrderAppeal, logout,getIndexInfos} from '@/api/api'
     import {getCookie, removeCookie} from "./config/util";
 
     export default {
@@ -110,7 +110,6 @@
                 fnD: null,
                 isRouterAlive: true, // 控制页面刷新
                 formData: {
-                    appealReason: '',
                     appealCondition: '',
                     orderid: ''
                 }
@@ -168,8 +167,11 @@
                         removeCookie('X-status')
                 })
             },
-            goHome() {
-                let status = getCookie('X-status')
+            goHomeHandle(status,isNew){
+                if(isNew ==1){
+                    this.$router.push({name: 'joined.index'})
+                    return
+                }
                 if (status == 1 || status == 2 || status == 4 ||status == 3 ) {
                     this.$router.push({name: 'apply.join'})
                 }
@@ -177,15 +179,17 @@
                     this.$router.push({name: 'joined.index'})
                 }
             },
+            goHome() {
+                getIndexInfos()
+                    .then((result)=>{
+                        let status = result.settled_progress
+                        let isNew = result.is_new
+                        this.goHomeHandle(status,isNew)
+                    })
+
+            },
             doAppealhandle() {
                 console.log('申诉')
-                if (!this.formData.appealReason.replace(/^\s+|\s+$/g, "")) {
-                    EventBus.$emit('notice', {
-                        type: 'message',
-                        message: '申诉原因不能为空'
-                    })
-                    return
-                }
                 if (!this.formData.appealCondition) {
                     EventBus.$emit('notice', {
                         type: 'message',
@@ -194,7 +198,6 @@
                     return
                 }
                 let params = {
-                    cause: this.formData.appealReason,
                     condition: this.formData.appealCondition,
                     orderid: this.formData.orderid
                 }
@@ -206,18 +209,14 @@
                     // })
                     if (result.code == 1) {
                         this.fnD && this.fnD()
-                        EventBus.$emit('notice', {
-                            type: 'message',
-                            message: result.message
-                        })
                     }
+                    this.reload()
+
                     this.formData = {
-                        appealReason: '',
                         appealCondition: '',
                         orderid: ''
                     }
                     this.dialogFormVisible = false
-                    this.reload()
                     this.fnD && this.fnD()
 
                 })

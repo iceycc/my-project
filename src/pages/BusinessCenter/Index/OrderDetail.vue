@@ -18,17 +18,17 @@
         <!-- 右侧盒子 申请进度-->
         <ul class="box-right order-rate">
 
-          <li class="active">
+          <li class="active" v-if="detailData.status == '申诉成功' || detailData.status == '申诉失败'">
             <i class="icon-rate"></i>
-            <span class="time" style="padding-right: 30px">{{detailData.service_time | momentTime}}</span>
+            <span class="time" style="padding-right: 30px">{{detailData.manager_time | momentTime}}</span>
             <span class="message">{{detailData.status}}</span>
-            <p><span>原因：</span>{{detailData.service_condition}}</p>
+            <p><span>原因：</span>{{detailData.remark }}</p>
           </li>
           <li class="">
             <i class="icon-rate"></i>
             <span class="time" style="padding-right: 30px">{{detailData.addap_time | momentTime}}</span>
             <span class="message">发起申诉</span>
-            <p><span>申诉原因：</span>{{detailData.cause}}</p>
+            <p><span>申诉原因：</span>{{detailData.condition | service_condition_filter}}</p>
           </li>
         </ul>
       </div>
@@ -72,6 +72,7 @@
           </p>
         </div>
       </div>
+
       <!-- 订单信息 -->
       <div class="info-box">
         <!-- 左侧盒子 -->
@@ -80,7 +81,7 @@
         <div class="box-right">
           <p class="order-info"><span>订单时间</span>{{detailData.dd_time}}</p>
           <p class="order-info"><span>订单号</span>{{detailData.orderno}}</p>
-          <p class="order-info"><span>金额</span>{{detailData.totalpay}}元</p>
+          <p class="order-info"><span>金额</span>{{detailData.money}}元</p>
         </div>
       </div>
     </div>
@@ -115,14 +116,14 @@
           renovation: '', // 装修类型
           dd_time: '',// 订单生成时间
           orderno: '',// 订单号
-          totalpay: '',// 订单总额
+            money: '',// 订单总额
           status:'',// 状态
-          service_time:'',// 客服处理时间
+            manager_time:'',// 客服处理时间
           service_status:'',// 客服处理状态
           addap_time:'',// 添加申诉时间
           service_condition:'',// 客服回访结果
-          cause:'',// 申诉原因
-
+            condition:'',// 申诉原因
+            remark:''
         }
       };
     },
@@ -137,7 +138,24 @@
             break
         }
         return val
-      }
+      },
+        service_condition_filter(val){
+            switch (Number(val)) {
+                case 1:
+                    val = "申诉期限内打不通电话无法联系到业主"
+                    break;
+                case 2:
+                    val = "业主无明确的装修需求"
+                    break;
+                case 3:
+                    val = "业主已确定装修公司"
+                    break;
+                case 4:
+                    val = "重复的业主信息"
+                    break;
+            }
+            return val
+        }
     },
     created() {
       this.order_id = this.$route.params.id
@@ -170,12 +188,14 @@
               renovation: data.renovation,
               dd_time: data.dd_time,
               orderno: data.orderno,
-              totalpay: data.totalpay,
+                money: data.money,
               service_status: data.service_status,
               status:data.status || '数据不存在',
               addap_time:data.addap_time,
               service_condition:data.service_condition || '',
-              cause:data.cause
+                condition:data.condition,
+                manager_time:data.manager_time,
+                remark:data.remark
             }
           })
 

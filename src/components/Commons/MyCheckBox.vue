@@ -1,13 +1,12 @@
 <template>
     <div id='example-3'>
-    <!--<pre>-->
-        <!--{{thisData}}-->
-    <!--</pre>-->
-        <div v-for="(house,key,index) in houseListObj" :key="index" class="flexbox one-box">
+        <!--{{houseListObj}}-->
+
+        <div v-for="(house,value,index) in houseListObj" :key="index" class="flexbox one-box">
             <div class="flex1">
                 <div class="flex1">
-                    <input type="checkbox" :id="index" :value="key" v-model="detailCardList" @change="change">
-                    <label :for="key">{{key | houseFilter}}</label>
+                    <input type="checkbox" :id="index" :value="value" v-model="detailCardList" @change="change">
+                    <label :for="value">{{value | houseFilter}}</label>
                 </div>
             </div>
             <!--<input type="checkbox" :value="xModel.house" v-model="xModel.isSelected">-->
@@ -38,18 +37,37 @@
 </template>
 <script>
     import EventBus from '@/config/EventBus'
+    let defaultObj = {
+        pt: {
+            area: 0,
+            money: 0,
+            select: true
+        },
+        gy: {
+            area: 0,
+            money: 0,
+            select: true
+        },
+        fs: {
+            area: 0,
+            money: 0,
+            select: true
+        },
+        bs: {
+            area: 0,
+            money: 0,
+            select: true
+        },
+    }
 
     export default {
         name: "my-checkbox", // setting alter 选项卡组件
-
-        // props: ["xModel", "distrust", "index", "lid",""],
         props: {
             "xModel": null, "distrust": null, "index": null, "lid": null, "thisData": null
         },
         created() {
 
             if (JSON.stringify(this.thisData) !== '{}') {
-                // this.houseListObj = Object.assign(this.houseListObj,this.thisData)
                 for (var key in this.thisData) {
                     this.detailCardList.push(key)
                 }
@@ -152,19 +170,16 @@
                 selectData: ''
             };
         },
+        computed:{
+            // houseListObj(){
+            //     let obj = defaultObj
+            //     return obj
+            //     // return Object.assign(obj,this.thisData)
+            // },
+        },
         methods: {
             change() {
                 let _this = this
-                // this.selectHouseListArr
-                // this.selectHouseListArr = this.detailCardList.map((item) => {
-                //     // return {house: item, area: '', money: ''}
-                //     return Object.assign({house: item, area: this.selectHouseListObj[item].area, money: this.selectHouseListObj[item].money})
-                // })
-                // let obj = {}
-                // this.selectHouseListArr.forEach(function (item, value) {
-                //     obj[item.house] = item
-                //
-                // })
                 let Obj = {}
                 for(let key in this.selectHouseListObj){
                     Obj[key] =Object.assign({house:key},this.selectHouseListObj[key])
@@ -206,14 +221,6 @@
 
             houseListObj: {
                 handler: function (newVal, oldVal) {
-                    // console.log('=============================');
-                    // console.log(newVal);
-                    // console.log(
-                    // this.detailCardList);
-                    // console.log('=============================');
-                    // this.selectHouseListArr = this.detailCardList.map((item) => {
-                    //     return Object.assign({house: item}, newVal[item])
-                    // })
                     let obj = {}
                     this.detailCardList.forEach((item) => {
                         obj[item] = Object.assign({house:item},newVal[item])

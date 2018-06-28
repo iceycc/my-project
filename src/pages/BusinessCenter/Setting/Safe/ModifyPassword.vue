@@ -30,8 +30,8 @@
 </template>
 <script>
     var code;
-    var times = 5
-    const imgUrl = 'http://merchant.uzhuang.com/v1/companysetup/showimg?rd=' //
+    var times = 60
+    const imgUrl = 'http://merchant.uzhuang.com/v1/login/showimg?rd=' //
     import {getPicCode, getMsgCode, doModifyPassword, doCheckImg} from '@/api/api'
     import EventBus from '@/config/EventBus';
 

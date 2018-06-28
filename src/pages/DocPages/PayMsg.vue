@@ -16,7 +16,7 @@
 <script>
     import {GetRequest} from '@/config/util'
 
-    let _time = 5
+    let _time = 3
     export default {
         name: "PayMsg",
         data() {
@@ -40,9 +40,8 @@
                 _time--
                 this.time = _time
                 if(this.time == 0){
-
                     clearInterval(timer)
-                    window.location.href = 'http://www.baidu.com'
+                   this.$router.replace({name:'account.account'})
                 }
             }, 1000)
         }

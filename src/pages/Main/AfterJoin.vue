@@ -50,6 +50,45 @@
     watch: {
       '$route'(to, from) {
         // console.log(to)
+          switch (to.name) {
+              case 'ordermanagement':
+                  this.active_index = '2';
+                  break;
+              case 'account.account':
+                  this.active_index = '3';
+                  break;
+              case 'account.bill':
+                  this.active_index = '3';
+                  break;
+              case 'joined.baseinfo':
+                  this.active_index = '4-1';
+                  break;
+              case 'joined.detailinfo':
+                  this.active_index = '4-1';
+                  break;
+              case 'alterundertake':
+                  this.active_index = '4-1';
+                  break;
+              case 'undertake':
+                  this.active_index = '4-1';
+                  break;
+              case 'accountdata':
+                  this.active_index = '4-2';
+                  break;
+              case 'bindingwx':
+                  this.active_index = '4-3';
+                  break;
+              case 'modifypassword':
+                  this.active_index = '4-3';
+                  break;
+              case 'options':
+                  this.active_index = '5';
+                  break;
+              default:
+                  this.active_index = '1';
+
+          }
+
       }
     },
     created() {

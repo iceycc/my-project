@@ -10,6 +10,8 @@
 </template>
 
 <script>
+  import {getIndexInfos} from "../../../api/api";
+
   export default {
     name: "apply-success",
     data() {

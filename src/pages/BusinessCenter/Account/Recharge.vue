@@ -98,6 +98,7 @@
                 //     }],
                 // })
                     .then((result) => {
+
                         let str = Base64.decode(result.data)
                         console.log(str);
                         var payform = document.getElementById('payform')
@@ -144,11 +145,9 @@
         border: 1px solid #3a8ee6;
         border-radius: 5px;
         text-align: center;
-        font-size: 25px !important;
         padding: 10px;
         width: 80px;
         height: 20px;
-        line-height: 40px;
         cursor: pointer;
     }
 

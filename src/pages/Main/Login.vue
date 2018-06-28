@@ -180,6 +180,10 @@
                         }else if(this.loginFormData.is_auto == false){
                             removeCookie('SH_ATLG')
                         }
+                        if(result.data.is_new == 1){
+                            this.$router.replace({name: 'joined.index'})
+                            return
+                        }
                         let status = result.data.settled_progress
                         this.goHome(status)
                     })

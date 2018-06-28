@@ -308,7 +308,7 @@
             location_map:function () {
                 let lid = this.formData.LK1_1
                 let lid2 = this.formData.LK1_2
-                let name = ''
+                let name = '北京市'
                 if(this.cities2.length >0){
                     for(let i of this.cities2){
                         if(i.lid ==lid2){
@@ -327,7 +327,8 @@
                 }
             },
             keyword_map:function () {
-                let keyword = this.formData.LK1_3 + this.formData.one_text
+                let word = this.formData.LK1_3 + this.formData.one_text
+                let keyword = word == '' ? '天安门' : word
                 return keyword
             }
             // mapkeyword:function () {
@@ -338,6 +339,8 @@
             // 修改
             this.getProvenceHandle()
             this.getDqData()
+            console.log(this.keyword_map);
+            console.log(this.location_map);
 
         },
         mounted(){
@@ -350,8 +353,6 @@
         ,
         methods: {
             getDqData(){
-
-
 
                 let ifUpdata = this.$route.name == 'joined.baseinfo'
                 // todo 获取
@@ -482,10 +483,13 @@
                 let params = this.formData
                 putCompanyMessage1(params).then((result) => {
                     console.log(result)
-                    EventBus.$emit('notice', {
-                        type: 'message',
-                        message: result.message
-                    })
+                    if(result.code != 1) {
+                        EventBus.$emit('notice', {
+                            type: 'message',
+                            message: result.message
+                        })
+                        return
+                    }
                     if (this.$route.name == 'apply.baseinfo') {
                         this.$router.push({
                             name: 'apply.detailinfo', params: {
