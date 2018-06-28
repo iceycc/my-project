@@ -37,6 +37,7 @@ let pages = {
     Bill: resolve => require(['@/pages/BusinessCenter/Account/Bill'], resolve),
     Recharge: resolve => require(['@/pages/BusinessCenter/Account/Recharge'], resolve),
     Account: resolve => require(['@/pages/BusinessCenter/Account/Account'], resolve),
+    GoPay: resolve => require(['@/pages/BusinessCenter/Account/GoPay'], resolve),
     // setting板块
     Undertake: resolve => require(['@/pages/BusinessCenter/Setting/Undertake'], resolve),
     AlterUndertake: resolve => require(['@/pages/BusinessCenter/Setting/AlterUndertake'], resolve),

@@ -31,6 +31,7 @@
                     <div class="small-box">
 
                         <!--开户银行-->
+                        <!--todo 银行校验没做-->
                         <el-form-item label="公司开户银行" prop="openaccount">
                             <el-input v-model="formData.openaccount" placeholder="请填写公司开户银行" auto-complete="off"></el-input>
                         </el-form-item>
@@ -181,9 +182,21 @@
     import EventBus from '@/config/EventBus'
     import {getProvence, getCity, getDistrust, getAccountData, putCompanyMessage1} from '@/api/api'
     import {checkEmpty, checkTel, checkSelect} from '@/config/util.js' // 引入校验规则等
+    import {BankName} from "../../../config/data";
+
     export default {
         // name: 'base-info'1,
+
         data() {
+            var bankNoCheck = (rule,value,callback)=>{
+                if (value === '') {
+                    callback(new Error('请输入银行卡号'));
+                } else if(value.length != 16){
+                    callback(new Error('银行卡号应该是16位'));
+                }else {
+                    callback();
+                }
+            }
             return {
                 formData: {
                     companyname: '',
@@ -210,7 +223,7 @@
                     companyname: [{validator: checkEmpty, trigger: 'blur'}],
                     fzrxm: [{validator: checkEmpty, trigger: 'blur'}],
                     chargePersonPhone: [{validator: checkTel, trigger: 'blur'}],
-                    BankNo: [{validator: checkEmpty, trigger: 'blur'}],
+                    BankNo: [{validator: bankNoCheck, trigger: 'blur'}],
                     branchname: [{validator: checkEmpty, trigger: 'blur'}],
                     one_text: [{validator: checkEmpty, trigger: 'blur'}],
                     ConstructQuay: [{validator: checkEmpty, trigger: 'blur'}],

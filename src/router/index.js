@@ -202,6 +202,13 @@ router.addRoutes([
         path: "/joined/recharge",
         component: pages.Recharge,
         meta: {needLogin: true}
+    },,
+    // 充值中心  单独
+    {
+        name: "gopay",
+        path: "/gopay",
+        component: pages.GoPay,
+        meta: {needLogin: true}
     },
     // 扫描二维码绑定
     {name: "safe.code", path: "/joined/scancode", component: pages.ScanCode, meta: {needLogin: true}},
