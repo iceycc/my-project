@@ -1,5 +1,7 @@
 <template>
-    <div id="payform" style="height: auto"></div>
+    <div>
+        <div id="payform" style="height: auto"></div>
+    </div>
 </template>
 
 <script>
@@ -25,7 +27,7 @@
                         let str = Base64.decode(result.data)
                         console.log(str);
                         var payform = document.getElementById('payform')
-                        var payDiv = document.createElement('iframe')
+                        var payDiv = document.createElement('div')
                         console.log(payform)
                         // this.formStr = str
                         payDiv.innerHTML = str

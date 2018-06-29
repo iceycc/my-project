@@ -30,6 +30,12 @@
         </div>
 
         <!--<div id="payform"></div>-->
+
+        <el-dialog title="确认支付" :visible.sync="dialogTableVisible">
+            <div class="payform" id="payform">
+                <!--<el-button>取消</el-button>-->
+            </div>
+        </el-dialog>
     </div>
 
 </template>
@@ -49,6 +55,7 @@
                 // checked1:true,
                 name_goods: 1, //
                 money_order: 10000, // 金额,
+                dialogTableVisible: false,
             }
         },
         watch:{
@@ -56,6 +63,7 @@
                 if(newVal == false){
                     var payform = document.getElementById('payform')
                     var payDiv = document.getElementById('payDiv')
+                    payDiv.style.display = "inline-block"
                     payform.removeChild(payDiv)
                 }
             }
@@ -66,25 +74,48 @@
             },
             goReChange() {
                 //todo
-                this.$alert('是否前往支付页面', '去支付', {
-                    confirmButtonText: '确定',
-                    callback: action => {
-                        // this.$message({
-                        //     type: 'info',
-                        //     message: `action: ${ action }`
-                        // });
+                this.dialogTableVisible = true
 
-                        let params = {
-                            money_order: this.money_order,
-                            name_goods: this.name_goods
-                        }
-                        window.localStorage.setItem('money_order',this.money_order)
-                        window.localStorage.setItem('name_goods',this.name_goods)
-                        window.open(window.location. origin + '/#/gopay')
-                        // this.$router.push({name:'gopay',params})
+                let params = {
+                    money_order: this.money_order,
+                    name_goods: this.name_goods
+                }
 
-                    }
-                });
+                doRecharge(params)
+                // .then((result)=>{
+                //     console.log(result)
+                //     const div = document.createElement('div')
+                //     div.innerHTML = result
+                //     document.body.appendChild(div)
+                // })
+
+                // API.post('http://merchant.uzhuang.com/v1/pay/llpay', params,{
+                //     transformRequest: [function (data) {
+                //         if (data) {
+                //             data = Qs.stringify(data);
+                //             return data;
+                //         } else {
+                //             return;
+                //         }
+                //     }],
+                // })
+                    .then((result) => {
+
+                        let str = Base64.decode(result.data)
+                        console.log(str);
+                        var payform = document.getElementById('payform')
+                        var payDiv = document.createElement('div')
+                        console.log(payform)
+                        // this.formStr = str
+                        payDiv.innerHTML = str
+                        payDiv.id = 'payDiv'
+                        payform.append(payDiv)
+
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
+
             }
         }
 
@@ -112,13 +143,7 @@
         }
     }
     #payform{
-        margin-left: 60px;
-        border: 1px solid #3a8ee6;
-        border-radius: 5px;
         text-align: center;
-        padding: 10px;
-        width: 80px;
-        height: 20px;
         cursor: pointer;
     }
 

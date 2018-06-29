@@ -152,6 +152,9 @@
         },
         created() {
             this.init()
+            EventBus.$on('reData',()=>{
+                this.getData()
+            })
         },
         computed: {
             'placeholder_text': function () {
@@ -174,10 +177,12 @@
 
             status: function (newVal, oldVal) {
                 this.listType = 2
+                this.page = 1
                 this.getData()
                 this.search_value =''
             },
             isClick1: function (newVal, oldVal) {
+                this.page = 1
                 this.getData()
                 if (newVal == 0) {
                     this.screenTime = [null, null]
@@ -191,6 +196,7 @@
                 this.search_value =''
                 this.listType = 2
                 this.screenTime = newVal
+                this.page = 1
                 this.getData()
 
                 if (newVal[0] != null) {
@@ -203,29 +209,30 @@
         },
         methods: {
             init() {
+                this.page = 1
                 this.getData()
             },
             // 获取数据
-            getData(page) {
+            getData() {
                 this.loading = true
                 // 第一次登陆列表
                 if (this.listType === 0) {
-                    this.getFristListDate(page)
+                    this.getFristListDate()
                 }
                 // 搜索列表
                 if (this.listType === 1) {
-                    this.getSearchData(page)
+                    this.getSearchData()
                 }
                 // 搜索列表 筛选
                 if (this.listType === 2) {
-                    this.doScreen(page)
+                    this.doScreen()
                 }
             },
             // 第一次进入列表
-            getFristListDate(page) {
+            getFristListDate() {
                 let params = {
                     isindex: 0,
-                    page: page || 1
+                    page: this.page || 1
                 }
                 getOrderList(params)
                     .then((result) => {
@@ -236,11 +243,11 @@
                     })
             },
             // 搜索获取列表
-            getSearchData(page) {
+            getSearchData() {
                 let params = {
                     data: {
                         type: this.selectedType,
-                        page: page || 1
+                        page: this.page || 1
                     },
                     value: this.search_value
                 }
@@ -261,12 +268,12 @@
                     })
             },
             // 筛选列表
-            doScreen(page) {
+            doScreen() {
                 // console.log(this.screenTime[0].valueOf())
                 let params = {
                     status: this.status,
                     data: {
-                        page: page || 1,
+                        page: this.page || 1,
                         statime: this.screenTime[0] ? this.screenTime[0].valueOf() * 0.001 : null,
                         endtime: this.screenTime[1] ? (this.screenTime[1].valueOf() + one_day)* 0.001 : null,
                         // endtime: this.screenTime[1] ? this.screenTime[1].valueOf()* 0.001 : null,
@@ -294,6 +301,7 @@
                 if (status == '可申诉') {
                     EventBus.$emit('apeal', val)
                 }
+
             },
             // 判断是否是 可申诉
             appealhandle(staus, id) {
@@ -321,7 +329,7 @@
                     })
                     return
                 }
-
+                this.page = 1
                 this.getData()
             },
             handleEdit(id) {
@@ -329,7 +337,8 @@
                 this.$router.push({name: 'index.detail', params: {id: id, canAppeal: false}})
             },
             currentChange($event) {
-                this.getData($event)
+                this.page = $event
+                this.getData()
             },
         }
     };

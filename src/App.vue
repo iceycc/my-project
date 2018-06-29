@@ -14,12 +14,11 @@
                 <el-button @click="goOut">退出</el-button>
             </div>
         </el-header>
-
         <el-main style="padding: 0">
             <keep-alive>
-                <router-view v-if="$route.meta.keepAlive"></router-view>
+                <router-view v-if="$route.meta.keepAlive && isRouterAlive"></router-view>
             </keep-alive>
-            <router-view v-if="!$route.meta.keepAlive"></router-view>
+            <router-view v-if="!$route.meta.keepAlive && isRouterAlive"></router-view>
         </el-main>
         <el-footer>
             <p class="bc-div">
@@ -72,7 +71,6 @@
         </el-dialog>
     </div>
 </template>
-
 <script>
     import {Constants} from '@/config'
     import EventBus from '@/config/EventBus'
@@ -210,8 +208,8 @@
                     if (result.code == 1) {
                         this.fnD && this.fnD()
                     }
-                    this.reload()
-
+                    // this.reload()
+                    EventBus.$emit('reData')
                     this.formData = {
                         appealCondition: '',
                         orderid: ''
@@ -258,6 +256,7 @@
                 });
             },
             reload() {
+                console.log('执行reload')
                 this.isRouterAlive = false
                 this.$nextTick(function () {
                     this.isRouterAlive = true

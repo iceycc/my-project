@@ -21,9 +21,8 @@ function Interceptors(_axios) {
     _axios.interceptors.request.use((config) => {
 
         let token = getCookie('token');
-        let reg = /^((?!service.intra.uzhuang.com).)*$/
         console.log(config.baseURL);
-        if (token && reg.test(config.baseURL)) {  // 每次发送请求之前判断是否存在token，如果存在，则统一在http请求的header都加上token，不用每次请求都手动添加了
+        if (token) {  // 每次发送请求之前判断是否存在token，如果存在，则统一在http请求的header都加上token，不用每次请求都手动添加了
             config.headers.token = token;
         }
         return config;

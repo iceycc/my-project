@@ -136,7 +136,7 @@ router.addRoutes([
                 name: "ordermanagement",
                 path: "ordermanagement",
                 component: pages.OrderManagement
-                , meta: {needLogin: true, keepAlive: false}
+                , meta: {needLogin: true, keepAlive: true}
             },
             // 填写基础信息
             {name: "joined.baseinfo", path: "baseinfo", component: pages.BaseInfo, meta: {needLogin: true}},
@@ -202,7 +202,7 @@ router.addRoutes([
         path: "/joined/recharge",
         component: pages.Recharge,
         meta: {needLogin: true}
-    },,
+    }, ,
     // 充值中心  单独
     {
         name: "gopay",
@@ -235,9 +235,9 @@ router.beforeEach((to, from, next) => {
             removeCookie('SH_ATLG')
             removeCookie('SH_USNM')
             // next()
-            EventBus.$emit('notice',{
-                type:'message',
-                message:'请重新登陆'
+            EventBus.$emit('notice', {
+                type: 'message',
+                message: '请重新登陆'
             })
         }
     } else {
