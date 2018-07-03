@@ -6,7 +6,7 @@
           @select="selectHandle($event)"
           :default-active="active_index"
           class="el-menu-vertical-demo"
-          background-color="#eeeeee">
+          background-color="#f5f5f5">
           <el-menu-item index="1">
             <i class="icon-shouye iconfont"></i>
             <span slot="title">首页</span>
@@ -19,10 +19,10 @@
             <i class="icon-zhanghuguanli iconfont"></i>
             <span slot="title">账户中心</span>
           </el-menu-item>
-          <el-submenu index="4">
+          <el-submenu index="4" >
             <template slot="title">
               <i class="icon-shezhi iconfont"></i>
-              <span>设置</span>
+              <span style="font-size: 18px">设置</span>
             </template>
             <el-menu-item index="4-1">承接管理</el-menu-item>
             <el-menu-item index="4-2">账户资料</el-menu-item>

@@ -180,6 +180,12 @@
           case  10:
             return "10万以上"
             break;
+          case  11:
+            return "15万以上"
+            break;
+          case  12:
+            return "20万以上"
+            break;
         }
 
 

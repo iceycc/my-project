@@ -54,7 +54,8 @@
                             <el-input
                                     placeholder="订单号（可申诉订单）"
                                     v-model="search_input">
-                                <i slot="prefix" class="el-input__icon el-icon-search" style="cursor: pointer" @click="searchHandle"></i>
+                                <i slot="prefix" class="el-input__icon el-icon-search" style="cursor: pointer"
+                                   @click="searchHandle"></i>
                             </el-input>
                         </el-col>
 
@@ -128,6 +129,7 @@
         name: '',
         data() {
             return {
+                is_search:0,
                 resion:'',
                 current_page:1,
                 total: 0,
@@ -144,7 +146,7 @@
                 info_titile: '',
                 time: '',
                 content:'',
-                totalpage:0
+                totalpage:1
             }
         },
         created() {
@@ -178,9 +180,15 @@
                     //     type:'message',
                     //     message:'搜索框不能为空'
                     // })
-                    this.init()
+                    let data = {
+                        isindex: 1,
+                        page: 1
+                    }
+                    this.getData(data)
+                    this.is_search ==0
                     return
                 }
+                this.is_search = 1
                 let params = {
                     value:this.search_input,
                     data:{
@@ -258,6 +266,9 @@
                 console.log(`每页 ${val} 条`);
             },
             handleCurrentChange(val) {
+                if(this.is_search ==1){
+                    return
+                }
                 console.log(`当前页: ${val}`);
                 let params = {
                     isindex: 1,
@@ -283,11 +294,13 @@
         background: #fff;
         margin-bottom: 20px;
         font-size: 0;
+        display: flex;
         .left {
-            float: left;
+            flex: 4;
+            display: flex;
         }
         .right {
-            float: right;
+            flex: 1;
             padding-right: 30px;
             line-height: 50px;
         }
@@ -299,7 +312,12 @@
         }
         .news {
             display: inline-block;
+            padding-top: 12px;
             font-size: 16px;
+            width: 600px;
+            overflow: hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
             b {
                 color: #ff0000;
                 font-size: 20px;

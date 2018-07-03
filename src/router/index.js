@@ -100,6 +100,13 @@ router.addRoutes([
                 component: pages.DetailInfo,
                 meta: {needLogin: true, keepAlive: true}
             },
+            // 第一次设置承接信息填写资质信息
+            {
+                name: "apply.alterundertake",
+                path: "alterundertake",
+                component: pages.AlterUndertake,
+                meta: {needLogin: true, keepAlive: true}
+            },
             // 申请成功
             {name: "apply.success", path: "applysuccess", component: pages.ApplySuccess, meta: {needLogin: true}},
             // 意见反馈

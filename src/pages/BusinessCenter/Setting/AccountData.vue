@@ -73,7 +73,8 @@
           <div class="info">
             <el-row>
               <el-col :span="6">公司法人</el-col>
-              <el-col :span="18">{{account_data.company_corporate}}</el-col>
+              <el-col :span="9">{{account_data.company_corporate}}</el-col>
+              <el-col :span="9">{{account_data.corporate_mobile}}</el-col>
             </el-row>
             <el-row>
               <el-col :span="6">身份证号码</el-col>
@@ -138,7 +139,7 @@
           })
       },
       goAlterInfo(){
-        this.$router.push({name:'joined.baseinfo'})
+        this.$router.push({name:'joined.baseinfo',query:{isUpdata:true}})
       }
     }
   }
@@ -194,5 +195,8 @@
         height: 100%;
       }
     }
+  }
+  .el-col{
+    overflow: hidden;
   }
 </style>

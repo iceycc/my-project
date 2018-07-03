@@ -154,6 +154,7 @@
                         <el-form-item label="施工等级资质">
                             <!--<el-input v-model="formData.ConstructQuay" placeholder="请于执照一致" auto-complete="off"></el-input>-->
                             <el-radio-group v-model="formData.ConstructQuay">
+                                <el-radio-button label="null">取消</el-radio-button>
                                 <el-radio-button label="1">一级</el-radio-button>
                                 <el-radio-button label="2">二级</el-radio-button>
                                 <el-radio-button label="3">三级</el-radio-button>
@@ -349,11 +350,13 @@
             // }
         },
         created() {
+            // 修改的
+            let ifUpdata = this.$route.query.isUpdata || false
+            console.log('baseinfo ifUpdata')
+            console.log(ifUpdata)
             // 修改
             this.getProvenceHandle()
-            this.getDqData()
-            console.log(this.keyword_map);
-            console.log(this.location_map);
+            this.getDqData(ifUpdata)
 
         },
         mounted(){
@@ -365,9 +368,8 @@
         }
         ,
         methods: {
-            getDqData(){
+            getDqData(ifUpdata){
 
-                let ifUpdata = this.$route.name == 'joined.baseinfo'
                 // todo 获取
                 getAccountData()
                     .then((result) => {
@@ -406,13 +408,8 @@
                             company_type: ifUpdata ? 2 : 1,
                             company_status: 1,
                             isUpdate: ifUpdata ? 2 : 1,
-
                         }
-
                         console.log(this.formData.LK1_1);
-
-
-
                     })
 
             },

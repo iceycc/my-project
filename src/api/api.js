@@ -21,7 +21,6 @@ function Interceptors(_axios) {
     _axios.interceptors.request.use((config) => {
 
         let token = getCookie('token');
-        console.log(config.baseURL);
         if (token) {  // 每次发送请求之前判断是否存在token，如果存在，则统一在http请求的header都加上token，不用每次请求都手动添加了
             config.headers.token = token;
         }
@@ -35,7 +34,6 @@ function Interceptors(_axios) {
     _axios.interceptors.response.use((response) => {
         // 对响应数据做点什么
         // sign过期或者不正确时提醒重新登陆，移除当前的 sign
-        console.log(response.data.code);
         if (response.data instanceof Array) {
             // 用于拦截地区请求接口的问题
             return response.data;

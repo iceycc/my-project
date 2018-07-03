@@ -4,7 +4,12 @@
         <div class="recharge">
             <ul class="clearfix">
                 <li class="l">
-                    <p>余额<i class="wenhao">?</i></p>
+                    <p>余额
+
+                        <el-tooltip class="item" effect="dark" content="用于订单消费，余额低于198元后停止分单" placement="top-start">
+                            <i class="wenhao">?</i>
+                        </el-tooltip>
+                    </p>
                     <span>{{balance}}元</span>
                 </li>
                 <li class="l">
@@ -107,7 +112,7 @@
                 }
                 if (newVal == 2) { // 充值记录
                     this.money = 'money_order'
-                    this.orderno = 'no_order'
+                    this.orderno = 'oid_paybill'
                     this.type = 'name_goods'
                     this.orderno_title = '银通订单号'
                 }
@@ -222,6 +227,7 @@
                 }
                 .wenhao {
                     display: inline-block;
+                    cursor: pointer;
                     margin-left: 10px;
                     width: 18px;
                     height: 18px;

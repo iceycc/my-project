@@ -151,8 +151,8 @@
             };
         },
         created() {
-            if (this.$route.name == 'joined.detailinfo' && this.$route.params.oldInfos) {
-                let oldInfos = this.$route.params.oldInfos
+            let oldInfos = this.$route.params.oldInfos || false
+            if (oldInfos) {
                 this.formData = {
                     company_corporate: oldInfos.company_corporate,
                     LegalCardIdImg: oldInfos.LegalCardIdImg,
@@ -224,7 +224,7 @@
                     isUpdate: data.isUpdate,
                     // company_type:data.company_type,
                     // company_status:1,
-                    corporate_mobile: data.corporate_mobile
+                    corporate_mobile: data.corporate_mobile,
                 }
                 if(!params.LegalCardId){
                     EventBus.$emit('notice',{

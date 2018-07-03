@@ -25,7 +25,7 @@
             <!--去支付1-->
             <div class="go-pay">
                 <el-button type="primary" class="pay-btn" @click="goReChange">去支付</el-button>
-                <el-button type="primary" class="pay-btn" @click="goback">返回</el-button>
+                <el-button type="info" class="pay-btn" @click="goback">返回</el-button>
             </div>
         </div>
 

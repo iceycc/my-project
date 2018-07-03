@@ -150,7 +150,9 @@
             };
 
         },
-        created() {
+
+        // todo???为啥增加缓存后无法出发created
+        activated() {
             this.init()
             EventBus.$on('reData',()=>{
                 this.getData()
@@ -211,6 +213,7 @@
             init() {
                 this.page = 1
                 this.getData()
+                console.log('init')
             },
             // 获取数据
             getData() {
@@ -366,7 +369,7 @@
     }
 
     .can-appeal {
-        color: red;
+        color: #5a9df8;
         cursor: pointer;
     }
 

@@ -46,7 +46,7 @@ import {
   Dialog,
   Collapse,
   CollapseItem,
-
+    Tooltip,
   Loading,
   MessageBox,
   Message,
@@ -91,6 +91,8 @@ Vue.component(CollapseTransition.name,CollapseTransition)
 // Vue.use(Cascader);
 // Vue.use(Steps);
 Vue.use(Loading.directive);
+Vue.use(Tooltip)
+
 Vue.prototype.$loading = Loading.service;
 Vue.prototype.$msgbox = MessageBox;
 Vue.prototype.$alert = MessageBox.alert;
