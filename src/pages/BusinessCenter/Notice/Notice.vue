@@ -7,7 +7,7 @@
       <ul class="info-lists">
         <div style="text-align: center" v-show="notice_list.length == 0">{{infoMsg}}</div>
         <li class="info-detail" v-for="item,index in notice_list" :key="index">
-          <router-link :to="{name:'notice.detail',params:{id:item.id}}" :class="{new:item.is_read && item.is_read == 0, 'go-detail':true}">{{item.title}} <i>NEW</i> </router-link><span class="time">{{item.addtime | momentTime}}</span>
+          <router-link :to="{name:'notice.detail',params:{id:item.id}}" :class="{new:item.is_read && item.is_read == 0, 'go-detail':true}">{{item.title | LimitText(30)}} <i>NEW</i> </router-link><span class="time">{{item.addtime | momentTime}}</span>
         </li>
       </ul>
       <!--分页-->
@@ -45,7 +45,7 @@
         let params = {page}
         getNoticeList(params)
           .then((result)=>{
-            console.log(result);
+            // console.log(result);
             this.notice_list = result.data
             if(this.notice_list.length == 0){
               this.infoMsg ='没有数据'

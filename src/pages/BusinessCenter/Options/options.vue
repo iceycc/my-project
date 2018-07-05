@@ -72,7 +72,7 @@
         }
         postFeedBack(params)
           .then((result) => {
-            console.log(result);
+            // console.log(result);
             if (result.code == 0) {
               EventBus.$emit('notice', {
                 type: 'message',

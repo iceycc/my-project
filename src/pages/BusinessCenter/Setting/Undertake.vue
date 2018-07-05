@@ -284,7 +284,7 @@
           isUpdate:0,
         }
         getCompanysSetup(params).then((result) => {
-          console.log(result);
+          // console.log(result);
           if(result == null){
             return
           }

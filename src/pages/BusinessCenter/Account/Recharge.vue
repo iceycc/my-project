@@ -32,6 +32,8 @@
         <!--<div id="payform"></div>-->
 
         <el-dialog title="确认支付" :visible.sync="dialogTableVisible">
+            <p style="text-align: center;padding-bottom: 10px">点击"确认"去往支付页面</p>
+            <p style="text-align: center;font-size: 20px;color: #3a8ee6;height: 30px"> 推荐使用"快捷支付"</p>
             <div class="payform" id="payform">
                 <!--<el-button>取消</el-button>-->
             </div>
@@ -83,7 +85,7 @@
 
                 doRecharge(params)
                 // .then((result)=>{
-                //     console.log(result)
+                //     // console.log(result)
                 //     const div = document.createElement('div')
                 //     div.innerHTML = result
                 //     document.body.appendChild(div)
@@ -102,10 +104,10 @@
                     .then((result) => {
 
                         let str = Base64.decode(result.data)
-                        console.log(str);
+                        // console.log(str);
                         var payform = document.getElementById('payform')
                         var payDiv = document.createElement('div')
-                        console.log(payform)
+                        // console.log(payform)
                         // this.formStr = str
                         payDiv.innerHTML = str
                         payDiv.id = 'payDiv'
@@ -113,7 +115,7 @@
 
                     })
                     .catch((err) => {
-                        console.log(err);
+                        // console.log(err);
                     })
 
             }

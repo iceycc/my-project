@@ -230,7 +230,7 @@ router.addRoutes([
 
 // 全局导航过滤（其实就是拦截路由请求）
 router.beforeEach((to, from, next) => {
-    console.log(to.meta.needLogin)
+    // console.log(to.meta.needLogin)
     if (to.meta.needLogin) {
         let uid = getCookie('token')
         if (uid) {

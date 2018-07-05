@@ -184,8 +184,8 @@
                 for(let key in this.selectHouseListObj){
                     Obj[key] =Object.assign({house:key},this.selectHouseListObj[key])
                 }
-                console.log(this.selectHouseListObj);
-                console.log(Obj);
+                // console.log(this.selectHouseListObj);
+                // console.log(Obj);
                 setTimeout(() => {
                     _this.$emit('getInfos', {
                         distrust: this.distrust,

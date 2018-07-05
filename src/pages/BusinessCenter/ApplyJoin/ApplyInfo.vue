@@ -51,8 +51,8 @@
             },
             goBaseInfo() {
                 let isUpdata =this.$route.query.isUpdata || false
-                console.log('applyinfi isupdata')
-                console.log(isUpdata)
+                // console.log('applyinfi isupdata')
+                // console.log(isUpdata)
                 this.$router.push({name: 'apply.baseinfo',query:{isUpdata:isUpdata}})
             }
         }

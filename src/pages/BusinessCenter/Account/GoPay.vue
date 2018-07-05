@@ -25,10 +25,10 @@
                     .then((result) => {
 
                         let str = Base64.decode(result.data)
-                        console.log(str);
+                        // console.log(str);
                         var payform = document.getElementById('payform')
                         var payDiv = document.createElement('div')
-                        console.log(payform)
+                        // console.log(payform)
                         // this.formStr = str
                         payDiv.innerHTML = str
                         payDiv.id = 'payDiv'
@@ -37,7 +37,7 @@
 
                     })
                     .catch((err) => {
-                        console.log(err);
+                        // console.log(err);
                     })
             }
 

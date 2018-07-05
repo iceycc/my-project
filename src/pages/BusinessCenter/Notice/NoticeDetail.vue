@@ -37,7 +37,7 @@
                         this.title = result.title
                         this.content=result.content
                         this.username = result.username
-                        console.log(result);
+                        // console.log(result);
                     })
             }
         }

@@ -99,9 +99,9 @@
                     }
                     getMonthbil(params)
                         .then((result) => {
-                            console.log(result);
+                            // console.log(result);
                             this.tableData = result
-                            console.log(this.tableData)
+                            // console.log(this.tableData)
                         })
                 }
             }
@@ -112,15 +112,15 @@
         },
         methods: {
             showInfo(mouth) {
-                console.log(mouth)
+                // console.log(mouth)
                 let params = {
                     time: mouth
                 }
                 getMonthbil(params)
                     .then((result) => {
-                        console.log(result);
+                        // console.log(result);
                         this.tableData[mouth] = result
-                        console.log(this.tableData)
+                        // console.log(this.tableData)
                     })
             },
             getData() {

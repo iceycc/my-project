@@ -19,7 +19,7 @@
     },
     methods: {
       goApplyJoin() {
-        // console.log(this);
+        // // console.log(this);
         this.$router.push({name: 'apply.join'})
       }
     }

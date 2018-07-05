@@ -153,15 +153,15 @@
             this.init()
             // var date = new Date()
             // todo
-            // console.log(moment().weekday(-7)); // last Monday
-            // console.log(11); // last Monday
+            // // console.log(moment().weekday(-7)); // last Monday
+            // // console.log(11); // last Monday
         },
         destory() {
             EventBus.$off('apeal')
         },
         methods: {
             handleShensu(val) {
-                console.log(val);
+                // console.log(val);
                 EventBus.$emit('apeal', val)
             },
             // 数据
@@ -198,7 +198,7 @@
                 }
                 doOrderSearch(params)
                     .then((result)=>{
-                        console.log(result);
+                        // console.log(result);
                         this.orderList = result.data.pagedata
                         this.total = result.data.total
                         this.totalpage = result.data.totalpage
@@ -206,7 +206,7 @@
             },
             getInfo(params) {
                 getIndexInfos(params).then((result) => {
-                    console.log(result)
+                    // console.log(result)
                     this.time = result.time
                     this.ifWalletEnough = result.balance == 2 ? true : false
                     this.isBindWechat = result.isBindWechat == 2 ? true : false
@@ -245,7 +245,7 @@
             getData(params) {
                 // 判断是首页刚进入还是搜索的
                 getOrderList(params).then((res) => {
-                    console.log(res);
+                    // console.log(res);
                     this.orderList = res.data.data
                     this.total = res.data.total
                     this.totalpage= res.data.totalpage
@@ -263,13 +263,13 @@
                 this.$router.push({name: 'index.detail', params: {id, canAppeal: true}})
             },
             handleSizeChange(val) {
-                console.log(`每页 ${val} 条`);
+                // console.log(`每页 ${val} 条`);
             },
             handleCurrentChange(val) {
                 if(this.is_search ==1){
                     return
                 }
-                console.log(`当前页: ${val}`);
+                // console.log(`当前页: ${val}`);
                 let params = {
                     isindex: 1,
                     page: val

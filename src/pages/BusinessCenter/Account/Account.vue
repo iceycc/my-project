@@ -103,7 +103,7 @@
         },
         watch: {
             search_type: function (newVal, oldVal) {
-                console.log('search_type改变了');
+                // console.log('search_type改变了');
                 if (newVal == 1) { // 余额消费
                     this.money = 'money' //  'money_order',
                     this.orderno = 'orderno' //  'no_order',
@@ -122,9 +122,9 @@
                 if (newVal === null) {
                     this.getDataList()
                 }
-                console.log('tiem改变了');
-                // console.log(newVal);
-                // console.log(this.search_time)
+                // console.log('tiem改变了');
+                // // console.log(newVal);
+                // // console.log(this.search_time)
                 this.getDataList()
             }
 
@@ -189,7 +189,7 @@
             },
             // 分页
             currentChange($event) {
-                console.log($event)
+                // console.log($event)
                 this.getDataList($event)
             }
         },

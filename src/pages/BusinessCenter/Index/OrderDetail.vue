@@ -159,8 +159,8 @@
     },
     created() {
       this.order_id = this.$route.params.id
-      console.log('this.order_id')
-      console.log(this.order_id)
+      // console.log('this.order_id')
+      // console.log(this.order_id)
       this.getData()
       // 判断当前的订单状态
     },
@@ -171,7 +171,7 @@
         }
         getOrderInfo(params)
           .then((result) => {
-            console.log(result);
+            // console.log(result);
             let data = result.data[0]
             this.service_status = data.status  == '可申诉' ? true : false
             this.detailData = {
@@ -204,7 +204,7 @@
         this.$router.go(-1)
       },
       doAppeal() {
-        console.log(this.order_id)
+        // console.log(this.order_id)
         EventBus.$emit('apeal', this.order_id,  ()=> {
          })
       }

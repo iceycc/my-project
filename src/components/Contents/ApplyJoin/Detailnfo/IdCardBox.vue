@@ -69,7 +69,7 @@
 
       },
       postImgHandle(file) {
-        console.log(file);
+        // console.log(file);
         let params = new FormData()
         params.append('file', file)
         let config = {
@@ -80,7 +80,7 @@
         }; //添加请求头
         postImg(params,config)
           .then((result) => {
-            // console.log(result);
+            // // console.log(result);
             // 绑定
             this.$emit('changeUrl', {
               fileId:result.data.name,
@@ -90,7 +90,7 @@
           })
       },
       show() {
-        console.log(1111)
+        // console.log(1111)
         if(this.preImgUrl!= ''){
           this.showModal = true
         }

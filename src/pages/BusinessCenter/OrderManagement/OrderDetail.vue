@@ -122,7 +122,7 @@
       }
       getOrderInfo(params)
         .then((result) => {
-          console.log(result);
+          // console.log(result);
           let data = result.data[0]
           this.detailData = {
             telephone: data.telephone,

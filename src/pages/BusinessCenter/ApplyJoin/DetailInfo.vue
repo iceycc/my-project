@@ -140,8 +140,8 @@
                     yyzzImg: '',
                     yyzzbh: '',
                     corporate_mobile: '',
-                    isUpdate: 1
                 },
+                isUpdate:1,
                 rules: {
                     company_corporate: [{validator: checkData, trigger: 'blur'}],
                     yyzzbh: [{validator: checkData, trigger: 'blur'}],
@@ -152,7 +152,9 @@
         },
         created() {
             let oldInfos = this.$route.params.oldInfos || false
+            this.isUpdate = this.$route.params.isUpdata
             if (oldInfos) {
+                console.log(11)
                 this.formData = {
                     company_corporate: oldInfos.company_corporate,
                     LegalCardIdImg: oldInfos.LegalCardIdImg,
@@ -165,7 +167,6 @@
                     yyzzImg: oldInfos.yyzzImg,
                     yyzz: oldInfos.yyzz,
                     yyzzbh: oldInfos.yyzzbh,
-                    isUpdate: 2,
                     corporate_mobile: oldInfos.corporate_mobile
                 }
             }
@@ -176,7 +177,7 @@
                 //这个就是你要的path,并且会双向绑定
                 this.formData[path.prop] = path.fileId || 1
                 this.formData[path.propImg] = path.fileId || 1
-                console.log(path.propImg + ':' + path.fileId)
+                // console.log(path.propImg + ':' + path.fileId)
             },
 
             goBaseInfo() {
@@ -187,7 +188,7 @@
                     if (valid) {
                         this.goSuccess()
                     } else {
-                        console.log('error submit!!');
+                        // console.log('error submit!!');
                         return false;
                     }
                 });
@@ -221,7 +222,7 @@
                     // openaccount: data.openaccount,
                     yyzz: data.yyzz, // img
                     yyzzbh: data.yyzzbh,
-                    isUpdate: data.isUpdate,
+                    isUpdate: this.isUpdate,
                     // company_type:data.company_type,
                     // company_status:1,
                     corporate_mobile: data.corporate_mobile,
@@ -257,14 +258,14 @@
                     return
 
                 }
-                console.log(params)
+                // console.log(params)
                 EventBus.$emit('notice', {
                     type: 'confirm',
                     title: '确定提交吗？',
                     success(fn) {
                         putCompanyMessage2(params)
                             .then((result) => {
-                                console.log(result);
+                                // console.log(result);
                                 if (result.code == 1) {
                                     _this.$router.push({name: 'apply.success'})
                                 }

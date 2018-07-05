@@ -65,8 +65,8 @@
                 // 失焦验证图和密码
                 value = '' + value
                 value = value.toUpperCase();//取得输入的验证码并转化为大写
-                console.log(value)
-                console.log(code)
+                // console.log(value)
+                // console.log(code)
                 if (value == '') {
                     return callback(new Error('请输入验证码'));
 
@@ -144,7 +144,7 @@
             //  刷新图片二维码 前端实现
             // reGetPicCode() {
             //   this.img_code_url = imgUrl + Math.random()
-            //   // console.log(11)
+            //   // // console.log(11)
             //   // this.getPicCodeData()
             // },
 
@@ -164,7 +164,7 @@
             doLogoHandle(params){
                 doLogin(params)
                     .then((result) => {
-                        console.log(result);
+                        // console.log(result);
                         setCookie('SH_USNM',result.data.email)
                         setCookie('token',result.data.token)
                         setCookie('X-status',result.data.settled_progress)
@@ -192,7 +192,7 @@
                 let _this = this
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        // console.log(ruleForm2);
+                        // // console.log(ruleForm2);
                         let params = {
                             password: _this.loginFormData.password,
                             username: _this.loginFormData.email,
@@ -202,7 +202,7 @@
                         this.doLogoHandle(params)
 
                     } else {
-                        console.log('error submit!!');
+                        // console.log('error submit!!');
                         return false;
                     }
                 });

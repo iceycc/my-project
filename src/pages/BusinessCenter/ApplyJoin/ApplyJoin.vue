@@ -114,7 +114,7 @@
                     this.status = result.settled_progress - 0
                     // this.status = 2
 
-                    console.log(this.status)
+                    // console.log(this.status)
                     this.resion = result.resion || '未填写'
                     this.time = result.time
                     if (result.is_new == 1) {
@@ -129,10 +129,10 @@
             },
             goPages(name, data) {
                 if(data){
-                    console.log(data)
-                    this.$router.push({name: name,query:{isUpdata:true}})
+                    // console.log(data)
+                    this.$router.push({name: name,query:{isUpdate:true}})
                 }
-                // this.$router.push({name: name})
+                this.$router.push({name: name})
             },
 
         }

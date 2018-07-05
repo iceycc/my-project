@@ -134,7 +134,7 @@
         created() {
 
             EventBus.$on('apeal', (val, fn) => {
-                console.log(val)
+                // // console.log(val)
                 this.formData.orderid = val
                 this.fnD = fn
                 this.dialogFormVisible = true
@@ -187,7 +187,7 @@
 
             },
             doAppealhandle() {
-                console.log('申诉')
+                // console.log('申诉')
                 if (!this.formData.appealCondition) {
                     EventBus.$emit('notice', {
                         type: 'message',
@@ -200,7 +200,7 @@
                     orderid: this.formData.orderid
                 }
                 doOrderAppeal(params).then((result) => {
-                    console.log(result);
+                    // console.log(result);
                     // EventBus.$emit('notice', {
                     //     type: 'message',
                     //     message: result.message
@@ -256,7 +256,7 @@
                 });
             },
             reload() {
-                console.log('执行reload')
+                // console.log('执行reload')
                 this.isRouterAlive = false
                 this.$nextTick(function () {
                     this.isRouterAlive = true

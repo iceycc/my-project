@@ -320,7 +320,7 @@
         },
         watch: {
             quxianArr(newVal, oldVal) {
-                console.log(newVal);
+                // console.log(newVal);
                 let newObj = {}
                 newVal.forEach((item, value) => {
                     newObj[item] = {}
@@ -417,8 +417,8 @@
         methods: {
             // 监听子组件传递的值
             getInfos(val) {
-                console.log("监听子组件传递的值");
-                console.log(val);
+                // console.log("监听子组件传递的值");
+                // console.log(val);
                 let lid = val.distrust.lid.toString()
                 this.quxianObj[lid] = val.data
                 let ifEst = this.quxianArr.some( (item) =>{
@@ -440,8 +440,8 @@
                     areaid_1: this.provence,
                     areaid_2: this.city
                 }
-                console.log('this.quxianObj');
-                console.log(this.quxianObj);
+                // console.log('this.quxianObj');
+                // console.log(this.quxianObj);
                 // let dataArr = []
                 // for (var item in this.quxianObj) {
                 //     var areaIndex = this.formData.area.findIndex((value, index, arr) => {
@@ -460,12 +460,12 @@
                 //     }
                 // }
 
-                console.log(this.formData.area);
+                // console.log(this.formData.area);
 
                 this.formData.area = this.quxianObj
                 this.formData.undertake_way = this.undertake_way.toString()
                 params = Object.assign(this.formData, params)
-                console.log(params);
+                // console.log(params);
 
                 // let ifkong = params.area.some((item, value) => {
                 //     JSON.stringify(item.basis) == '{}'
@@ -477,9 +477,9 @@
                         break
                     }
                 }
-                console.log('qxqxqx')
+                // console.log('qxqxqx')
 
-                console.log(params)
+                // console.log(params)
 
                 if (ifkong) {
                     EventBus.$emit('notice', {
@@ -516,7 +516,7 @@
                     success() {
                         postSetupPerfect(params)
                             .then((result) => {
-                                console.log(result);
+                                // console.log(result);
                                 // if()
                                 if(result.code == 1){
                                     _this.$router.push({name: 'undertake'})

@@ -54,7 +54,7 @@
                 } else { // 否则 发送校验
                     doCheckImg({imgcode: value})
                         .then((res) => {
-                            console.log(res);
+                            // console.log(res);
                             if (res.code == 1) {
                                 callback() // 反馈正常
                                 codeCheck = true
@@ -140,14 +140,14 @@
             //  刷新图片二维码 前端实现
             reGetPicCode() {
                 this.img_code_url = imgUrl + Math.random()
-                // console.log(11)
+                // // console.log(11)
                 // this.getPicCodeData()
             },
             // 获取图片二维码 前端实现了
             getPicCodeData() {
                 getPicCode()
                     .then((result) => {
-                        console.log(result);
+                        // console.log(result);
                     })
             },
 
@@ -170,7 +170,7 @@
                 }
                 getMsgCode(params)
                     .then((result) => {
-                        console.log(result)
+                        // console.log(result)
                     })
                 this.disabled = true
                 this.sendMsgText = msgtime + 's'
@@ -191,7 +191,7 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
 
-                        // console.log(ruleForm2);
+                        // // console.log(ruleForm2);
                         let params = {
                             confirmPass: _this.ruleForm2.checkPass,
                             password: _this.ruleForm2.pass,
@@ -199,7 +199,7 @@
                         }
                         doModifyPassword(params)
                             .then((result) => {
-                                console.log(result);
+                                // console.log(result);
                                 // todo
                                 if(result.code == 1){
                                     this.$router.push({
@@ -208,7 +208,7 @@
                                 }
                             })
                     } else {
-                        console.log('error submit!!');
+                        // console.log('error submit!!');
                         return false;
                     }
                 });

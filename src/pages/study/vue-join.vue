@@ -196,7 +196,7 @@
         if(this.userPhone ==
           ''){
 
-          console.log(111)
+          // console.log(111)
 
           $(".hiddenTanchuang").removeClass('hiddenTanchuang')
 
@@ -322,10 +322,10 @@
           this.checkCode ) {
 //若输入的验证码与产生的验证码不一致时
 
-          console.log(
+          // console.log(
             this.picLyanzhengma.toUpperCase())
 
-          console.log(code)
+          // console.log(code)
 
           $(".login_content1 span:eq(2)").text("验证码不正确")
 
@@ -374,7 +374,7 @@
 
             success:function(data){
 
-              console.log(data);
+              // console.log(data);
 
               if(data.resultflag ==
                 "F"){

@@ -71,7 +71,7 @@
       getIfBingWxHandle(success,fail){
         getIfBingWx()
           .then((result) => {
-            console.log(result);
+            // console.log(result);
             if (result.code == 1) {
               this.ifBindWx = true
               success && success()
@@ -88,15 +88,15 @@
         this.getWxRwCode()
       },
       removeBindHandle() {
-        console.log(111)
+        // console.log(111)
         EventBus.$emit('notice', {
           type: 'confirm',
           title: '解除绑定',
           success: function () {
-            console.log('todo 执行解除绑定函数')
+            // console.log('todo 执行解除绑定函数')
             relieveBind()
               .then((result)=>{
-                console.log(result);
+                // console.log(result);
                 if(result.code == 1) {
                   EventBus.$emit('notice', {
                     type: 'message',
@@ -111,7 +111,7 @@
       getWxRwCode() {
           getWxQrcode()
             .then((result) => {
-              console.log(result);
+              // console.log(result);
               this.codeUrl = result.data
               this.dialogFormVisible = true
             })

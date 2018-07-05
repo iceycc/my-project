@@ -213,7 +213,7 @@
             init() {
                 this.page = 1
                 this.getData()
-                console.log('init')
+                // console.log('init')
             },
             // 获取数据
             getData() {
@@ -256,7 +256,7 @@
                 }
                 doOrderSearch(params)
                     .then((result) => {
-                        console.log(result)
+                        // console.log(result)
                         if (result.data && result.data.length == 0) {
                             EventBus.$emit('notice', {
                                 type: 'message',
@@ -272,7 +272,7 @@
             },
             // 筛选列表
             doScreen() {
-                // console.log(this.screenTime[0].valueOf())
+                // // console.log(this.screenTime[0].valueOf())
                 let params = {
                     status: this.status,
                     data: {
@@ -284,7 +284,7 @@
                 }
                 doOrderScreen(params)
                     .then((result) => {
-                        console.log(result)
+                        // console.log(result)
                         if (result.data && result.data.length == 0) {
                             EventBus.$emit('notice', {
                                 type: 'message',
@@ -300,7 +300,7 @@
             },
             // 点击申诉
             doAppealHandle(val, status) {
-                console.log(val);
+                // console.log(val);
                 if (status == '可申诉') {
                     EventBus.$emit('apeal', val)
                 }
@@ -309,7 +309,7 @@
             // 判断是否是 可申诉
             appealhandle(staus, id) {
                 if (staus == '可申诉') {
-                    console.log(id)
+                    // console.log(id)
                     this.dialogFormVisible = true
                     this.appealId = id
                 }
@@ -336,7 +336,7 @@
                 this.getData()
             },
             handleEdit(id) {
-                console.log(id);
+                // console.log(id);
                 this.$router.push({name: 'index.detail', params: {id: id, canAppeal: false}})
             },
             currentChange($event) {

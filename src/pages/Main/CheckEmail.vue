@@ -69,10 +69,10 @@
           uid:getUrl('uid'),
           time:getUrl('time')
         }
-        console.log(name);
+        // console.log(name);
         checkEmailHandel(params)
           .then((result)=>{
-            console.log(result);
+            // console.log(result);
             if(result.data){
               this.email = result.data.email
               this.uid = result.data.uid
@@ -103,7 +103,7 @@
         }
         activeRegister(params)
           .then((result)=>{
-            console.log(result);
+            // console.log(result);
             EventBus.$emit('notice',{
               type:'message',
               message:result.message

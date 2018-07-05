@@ -9,10 +9,13 @@ let momentTime = value => {
   return moment(date).format('YYYY-MM-DD HH:mm')
 }
 
-let last = value => {
-  var date = new Date()
-  return moment(date).format('YYYY-MM-DD HH:mm')
+let LimitText = (value,num) => {
+  if(value.length > num){
+      return value.substr(0, num) + '...'
+  }
+  return value
 }
 export {
-  momentTime
+  momentTime,
+    LimitText
 }

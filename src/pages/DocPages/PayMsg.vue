@@ -30,7 +30,7 @@
             var Request = new Object();
             Request = GetRequest();
             let msg = Request['msg'] || 'fail'
-            console.log(msg);
+            // console.log(msg);
             if (msg == 'success') {
                 this.msg = 1
             } else {

@@ -49,7 +49,7 @@
     },
     watch: {
       '$route'(to, from) {
-        // console.log(to)
+        // // console.log(to)
           switch (to.name) {
               case 'ordermanagement':
                   this.active_index = '2';
@@ -134,7 +134,7 @@
     },
     methods: {
       selectHandle(index) {
-        console.log(index)
+        // console.log(index)
         switch (index) {
           case '1':
             this.$router.push({

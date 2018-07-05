@@ -23,7 +23,7 @@
             <el-row>
               <el-col :span="6">店铺负责人</el-col>
               <el-col :span="9">{{account_data.fzrxm}}</el-col>
-              <el-col :span="9">{{account_data.chargePersonPhone}}</el-col>
+              <el-col :span="9">手机号：{{account_data.chargePersonPhone}}</el-col>
             </el-row>
           </div>
           <div class="line"></div>
@@ -49,7 +49,7 @@
             </el-row>
             <el-row>
               <el-col :span="6">施工等级资质</el-col>
-              <el-col :span="18">{{account_data.ConstructQuay}}</el-col>
+              <el-col :span="18">{{account_data.ConstructQuay | ConstructQuay_filter}}</el-col>
             </el-row>
             <el-row>
               <el-col :span="6">公司座机</el-col>
@@ -74,7 +74,7 @@
             <el-row>
               <el-col :span="6">公司法人</el-col>
               <el-col :span="9">{{account_data.company_corporate}}</el-col>
-              <el-col :span="9">{{account_data.corporate_mobile}}</el-col>
+              <el-col :span="9">手机号：{{account_data.corporate_mobile}}</el-col>
             </el-row>
             <el-row>
               <el-col :span="6">身份证号码</el-col>
@@ -129,17 +129,36 @@
     created(){
       this.getData()
     },
+      filters:{
+          ConstructQuay_filter:(val)=>{
+              switch (Number(val)){
+                  case 0:
+                      return '无'
+                      break
+                  case 1:
+                      return '一级'
+                    break
+                  case 2:
+                      return '二级'
+                    break
+                  case 3:
+                      return '三级'
+                    break
+
+              }
+          }
+      },
     methods:{
       getData(){
         let params = {}
         getAccountData(params)
           .then((result)=>{
-            console.log(result);
+            // console.log(result);
             this.account_data = result
           })
       },
       goAlterInfo(){
-        this.$router.push({name:'joined.baseinfo',query:{isUpdata:true}})
+        this.$router.push({name:'joined.baseinfo',query:{isUpdate:true}})
       }
     }
   }

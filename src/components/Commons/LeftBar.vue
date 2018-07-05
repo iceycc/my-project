@@ -45,12 +45,12 @@ export default {
      // 点击ul触发：
     ulCLick(index){
       // 判断是否有下拉ol
-      // console.log(event.target);
+      // // console.log(event.target);
       this.ai = index;
       // 点击展示下拉
       // if(!this.children.length) return;
       var ols = this.$refs.ols;
-      console.log(ols)
+      // console.log(ols)
       // 排他
       for(var i=0;i<ols.length;i++){
         ols[i].style.display="none";

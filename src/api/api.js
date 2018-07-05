@@ -13,7 +13,7 @@ AJAX.interceptors.response.use((response) => {
     // loadingInstance.close();
 
     return Promise.reject(error);
-    //   console.log(error)
+    //   // console.log(error)
     // return error;
 })
 
@@ -65,7 +65,7 @@ function Interceptors(_axios) {
             message: '未知错误'
         })
         return Promise.reject(error);
-        //   console.log(error)
+        //   // console.log(error)
         // return error;
     });
 

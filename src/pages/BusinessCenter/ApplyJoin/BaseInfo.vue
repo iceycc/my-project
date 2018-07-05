@@ -154,7 +154,7 @@
                         <el-form-item label="施工等级资质">
                             <!--<el-input v-model="formData.ConstructQuay" placeholder="请于执照一致" auto-complete="off"></el-input>-->
                             <el-radio-group v-model="formData.ConstructQuay">
-                                <el-radio-button label="null">取消</el-radio-button>
+                                <el-radio-button label="0">无</el-radio-button>
                                 <el-radio-button label="1">一级</el-radio-button>
                                 <el-radio-button label="2">二级</el-radio-button>
                                 <el-radio-button label="3">三级</el-radio-button>
@@ -182,9 +182,8 @@
     import {commons} from '@/components/index.js'
     import EventBus from '@/config/EventBus'
     import {getProvence, getCity, getDistrust, getAccountData, putCompanyMessage1} from '@/api/api'
-    import {checkEmpty, checkTel, checkSelect} from '@/config/util.js' // 引入校验规则等
+    import {checkEmpty, checkTel, checkSelect,GetRequest2} from '@/config/util.js' // 引入校验规则等
     import {BankName} from "../../../config/data";
-
     export default {
         // name: 'base-info'1,
 
@@ -220,6 +219,7 @@
                     company_status: 1,
                     isUpdate: 1
                 },
+                isUpdata:false,
                 rules: {
                     companyname: [{validator: checkEmpty, trigger: 'blur'}],
                     fzrxm: [{validator: checkEmpty, trigger: 'blur'}],
@@ -247,7 +247,7 @@
         watch:{
             // 监控省
             BelongProvince:function (newVal,oldVal) {
-                console.log(newVal)
+                // console.log(newVal)
                 if(newVal != '' && oldVal != ''){
                     this.formData.BelongCity = ''
                     this.formData.BelongCounty = ''
@@ -255,7 +255,7 @@
                 }
             },
             LK1_1:function (newVal,oldVal) {
-                console.log(newVal)
+                // console.log(newVal)
                 if(newVal != '' && oldVal != ''){
                     this.formData.LK1_2 = ''
                     this.formData.LK1_3 = ''
@@ -265,7 +265,7 @@
 
             // 监控市
             BelongCity:function (newVal,oldVal) {
-                console.log(newVal)
+                // console.log(newVal)
                 if(newVal != '' && oldVal != ''){
                     this.formData.BelongCounty = ''
                     this.formData.branchname = ''
@@ -274,7 +274,7 @@
             },
 
             LK1_2:function (newVal,oldVal) {
-                console.log(newVal)
+                // console.log(newVal)
                 if(newVal != '' && oldVal != ''){
                     this.formData.LK1_3 = ''
                     this.formData.one_text = ''
@@ -283,13 +283,13 @@
 
             // 监控区
             BelongCounty:function (newVal,oldVal) {
-                console.log(newVal)
+                // console.log(newVal)
                 if(newVal != '' && oldVal != ''){
                     this.formData.branchname = ''
                 }
             },
             LK1_3:function (newVal,oldVal) {
-                console.log(newVal)
+                // console.log(newVal)
                 if(newVal != '' && oldVal != ''){
                     this.formData.one_text = ''
                 }
@@ -351,12 +351,15 @@
         },
         created() {
             // 修改的
-            let ifUpdata = this.$route.query.isUpdata || false
-            console.log('baseinfo ifUpdata')
-            console.log(ifUpdata)
+
             // 修改
+            let Request =new GetRequest2()
+            this.isUpdate = Request['isUpdate']  ? 2 : 1
+
+            console.log(Request['isUpdate'])
+            console.log(this.isUpdate)
             this.getProvenceHandle()
-            this.getDqData(ifUpdata)
+            this.getDqData()
 
         },
         mounted(){
@@ -368,12 +371,10 @@
         }
         ,
         methods: {
-            getDqData(ifUpdata){
-
+            getDqData(){
                 // todo 获取
                 getAccountData()
                     .then((result) => {
-                        console.log(result);
                         this.oldInfos = result
                         if(result.LK1_1 != ''){
                             this.chooseProvencehandle(result.LK1_1,2)
@@ -405,11 +406,9 @@
                             company_email: result.company_email || '',
                             gszj: result.gszj || '',
                             openaccount: result.openaccount || '',
-                            company_type: ifUpdata ? 2 : 1,
+                            company_type: this.isUpdata ? 2 : 1,
                             company_status: 1,
-                            isUpdate: ifUpdata ? 2 : 1,
                         }
-                        console.log(this.formData.LK1_1);
                     })
 
             },
@@ -430,7 +429,7 @@
                             message: '还有未填写信息'
                         })
 
-                        console.log('error submit!!');
+                        // console.log('error submit!!');
                         return false;
                     }
                 });
@@ -443,8 +442,8 @@
             ,
             // chooseCityHandle
             chooseCityHandle(val, num) {
-                console.log('获取市列表')
-                console.log(val)
+                // console.log('获取市列表')
+                // console.log(val)
                 this.getDistrustHandle({id: val}, num)
             }
             ,
@@ -452,7 +451,7 @@
             getProvenceHandle() {
                 getProvence()
                     .then((result) => {
-                        console.log(result);
+                        // console.log(result);
                         this.provences1 = result
                         this.provences2 = result
                     })
@@ -490,9 +489,10 @@
             ,
             goDetailInfo() {
                 // todo: 第一页提交问题
-                let params = this.formData
+                let params = Object.assign(this.formData,{isUpdate:this.isUpdate})
+                console.log(params)
                 putCompanyMessage1(params).then((result) => {
-                    console.log(result)
+                    // console.log(result)
                     if(result.code != 1) {
                         EventBus.$emit('notice', {
                             type: 'message',
@@ -504,7 +504,8 @@
                         this.$router.push({
                             name: 'apply.detailinfo', params: {
                                 formData: this.formData,
-                                oldInfos: this.oldInfos
+                                oldInfos: this.oldInfos,
+                                isUpdata:this.formData.isUpdate
                             }
                         })
                     }
@@ -512,7 +513,8 @@
                         this.$router.push({
                             name: 'joined.detailinfo', params: {
                                 formData: this.formData,
-                                oldInfos: this.oldInfos
+                                oldInfos: this.oldInfos,
+                                isUpdata:this.formData.isUpdate
                             }
                         })
                     }

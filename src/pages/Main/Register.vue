@@ -184,13 +184,13 @@
         // 失焦验证图和密码
         value = value + ''
         value.toUpperCase();//取得输入的验证码并转化为大写
-        console.log(value)
+        // console.log(value)
         if(value == '') {
           return callback(new Error('请输入验证码'));
 
         }else if(value.toUpperCase() != this.checkCode ) { //若输入的验证码与产生的验证码不一致时
-          console.log( value.toUpperCase())
-          console.log(code)
+          // console.log( value.toUpperCase())
+          // console.log(code)
           this.createCode();//刷新验证码
           this.loginFormData.img_code = '';
           return callback(new Error('验证码不正确'))
@@ -291,14 +291,14 @@
         let _this = this
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            // console.log(ruleForm2);
+            // // console.log(ruleForm2);
             let params = {
               email: _this.loginFormData.email,
               password: _this.loginFormData.checkPass
             }
             doRegister(params)
               .then((result) => {
-                console.log(result);
+                // console.log(result);
                 // todo
                 if (result) {
                   EventBus.$emit('notice', {
@@ -316,7 +316,7 @@
                 }
               })
           } else {
-            console.log('error submit!!');
+            // console.log('error submit!!');
             return false;
           }
         });
@@ -324,11 +324,11 @@
       //  刷新图片二维码 前端实现
       reGetPicCode() {
         this.img_code_url = imgUrl + Math.random()
-        // console.log(11)
+        // // console.log(11)
         // this.getPicCodeData()
       },
       postMsgCodeToTel() {
-        console.log(4123)
+        // console.log(4123)
         this.msgTime = times
         let msgtime = this.msgTime
         if (this.loginFormData.img_code == '') {
@@ -340,7 +340,7 @@
         }
         getMsgCode(params)
           .then((result) => {
-            console.log(result)
+            // console.log(result)
           })
         this.disabled = true
         this.sendMsgText = msgtime + 's'

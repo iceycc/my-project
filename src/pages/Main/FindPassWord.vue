@@ -118,7 +118,7 @@
         let _this = this
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            // console.log(ruleForm2);
+            // // console.log(ruleForm2);
             let params = {
               email: _this.loginFormData.email,
               code: _this.loginFormData.msg_code,
@@ -126,7 +126,7 @@
             }
             rePassword(params)
               .then((result) => {
-                console.log(result);
+                // console.log(result);
                 if(result.code == 1){
                   this.$router.push({name:'login'})
                   EventBus.$emit('notice',{
@@ -143,7 +143,7 @@
                 }
               })
           } else {
-            console.log('error submit!!');
+            // console.log('error submit!!');
             return false;
           }
         });
@@ -164,7 +164,7 @@
         }
         sendEmail(params)
           .then((result) => {
-            console.log(result)
+            // console.log(result)
             EventBus.$emit('notice',{
               type:'message',
               message:result.message
