@@ -16,6 +16,7 @@ function getCookie(cname) {
     }
     return "";
 }
+
 // 删除 cookie
 function removeCookie(name) {
     setCookie(name, "", -1);
@@ -34,6 +35,7 @@ function checkCookie() {
         }
     }
 }
+
 // 获取url参数
 function GetRequest() {
     var url = location.hash; //获取url中"?"符后的字串
@@ -41,12 +43,13 @@ function GetRequest() {
     if (url.indexOf("?") != -1) {
         var str = url.substr(9);
         var strs = str.split("&");
-        for(var i = 0; i < strs.length; i ++) {
-            theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+        for (var i = 0; i < strs.length; i++) {
+            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
         }
     }
     return theRequest;
 }
+
 // 获取url参数
 function GetRequest2() {
     var url = location.hash; //获取url中"?"符后的字串
@@ -54,8 +57,8 @@ function GetRequest2() {
     if (url.indexOf("?") != -1) {
         var str = url.split('?')[1]
         var strs = str.split("&");
-        for(var i = 0; i < strs.length; i ++) {
-            theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+        for (var i = 0; i < strs.length; i++) {
+            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
         }
     }
     return theRequest;
@@ -123,6 +126,56 @@ var checkIdCardNum = (rule, value, callback) => {
         callback()
     }
 }
+/**
+ * jsop
+ */
+var jsop = (options) => {
+    options = options || {};
+    if (!options.url || !options.callback) {
+        throw new Error("参数不合法");
+    }
+    console.log(11)
+    //创建 script 标签并加入到页面中
+    var callbackName = ('jsonp_' + Math.random()).replace(".", "");
+
+    var oHead = document.getElementsByTagName('head')[0];
+
+    options.data[options.callback] = callbackName;
+
+    var params = formatParams(options.data);
+    console.log(22)
+
+    var oS = document.createElement('script');
+    oHead.appendChild(oS);
+
+    //创建jsonp回调函数
+    window[callbackName] = function (json) {
+        oHead.removeChild(oS);
+        clearTimeout(oS.timer);
+        window[callbackName] = null;
+        options.success && options.success(json);
+    };
+    //发送请求
+    oS.src = options.url + '?' + params;
+
+    //超时处理
+    if (options.time) {
+        oS.timer = setTimeout(function () {
+            window[callbackName] = null;
+            oHead.removeChild(oS);
+            options.fail && options.fail({message: "超时"});
+        }, time);
+
+    }
+    //格式化参数
+    function formatParams(data) {
+        var arr = [];
+        for (var name in data) {
+            arr.push(encodeURIComponent(name) + '=' + encodeURIComponent(data[i]));
+        }
+        return arr.join('&');
+    }
+}
 export {
     setCookie,
     getCookie,
@@ -134,5 +187,6 @@ export {
     checkSelect,
     checkIdCardNum,
     GetRequest,
-    GetRequest2
+    GetRequest2,
+    jsop
 };

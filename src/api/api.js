@@ -186,6 +186,8 @@ const Method = {
     getProvence: 'http://service.intra.uzhuang.com/index.php?r=area/get-provence',
     getCity: 'http://service.intra.uzhuang.com/index.php?r=area/get-city',
     getDistrust: 'http://service.intra.uzhuang.com/index.php?r=area/get-distrust',
+    // 通过卡号校验银行
+    checkBankName:'https://ccdcapi.alipay.com/validateAndCacheCardInfo.json?_input_charset=utf-8',
     // 登陆
     doLogin: 'login/login',
     // 注册
@@ -286,6 +288,13 @@ export const getCity = (params) => {
 // 区 &id=3360
 export const getDistrust = (params) => {
     return AJAX.get(Method.getDistrust, {params})
+        .then((result) => {
+            return result
+        })
+}
+// &cardNo=6214830174524297&cardBinCheck=true
+export const checkBankName = (params) => {
+    return AJAX.get(Method.checkBankName, {params})
         .then((result) => {
             return result
         })

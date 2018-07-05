@@ -35,6 +35,22 @@
                         <el-form-item label="公司开户银行" prop="openaccount">
                             <el-input v-model="formData.openaccount" placeholder="请填写公司开户银行" auto-complete="off"></el-input>
                         </el-form-item>
+                        <el-form-item label="公司开户银行" prop="openaccount">
+                            <el-select
+                                    v-model="formData.openaccount"
+                                    filterable
+                                    allow-create
+                                    value-key="id"
+                                    default-first-option
+                                    placeholder="公司开户银行">
+                                <el-option
+                                        v-for="(item,key) in bankname"
+                                        :key = "key"
+                                        :label="item"
+                                        :value="item">
+                                </el-option>
+                            </el-select>
+                        </el-form-item>
                         <!--开户账号-->
                         <el-form-item label="开户账号" prop="BankNo">
                             <el-input v-model="formData.BankNo" placeholder="输入卡号" auto-complete="off"></el-input>
@@ -181,23 +197,58 @@
 <script>
     import {commons} from '@/components/index.js'
     import EventBus from '@/config/EventBus'
+
     import {getProvence, getCity, getDistrust, getAccountData, putCompanyMessage1} from '@/api/api'
+    import {jsop} from "../../../config/util";
     import {checkEmpty, checkTel, checkSelect,GetRequest2} from '@/config/util.js' // 引入校验规则等
     import {BankName} from "../../../config/data";
     export default {
         // name: 'base-info'1,
 
         data() {
+
             var bankNoCheck = (rule,value,callback)=>{
-                if (value === '') {
+                if (value == '') {
                     callback(new Error('请输入银行卡号'));
-                } else if(value.length != 16){
+                } else if(false){
                     callback(new Error('银行卡号应该是16位'));
                 }else {
+                    console.log(value)
+                    var options = {
+                        url:'https://ccdcapi.alipay.com/validateAndCacheCardInfo.json',
+                        time:1000,
+                        data:{
+                            _input_charset:'utf-8',
+                            cardNo:value,
+                            cardBinCheck:true
+                        },
+                        callback:'success_jsonpCallback',
+                        success:function (res) {
+                            console.log(res)
+
+                        },
+                        fail:function (err) {
+                            console.log(err);
+                        }
+                    }
+                    jsop(options)
                     callback();
+
+                    // let params = {
+                    //     cardNo:value,
+                    //     cardBinCheck:true
+                    // }
+                    // checkBankName(params).then(res=>{
+                    //     callback(res.bank);
+                    //
+                    // })
+                    //     callback();
+
                 }
             }
             return {
+                value10:'',
+                bankname:BankName,
                 formData: {
                     companyname: '',
                     BelongCity: '',
