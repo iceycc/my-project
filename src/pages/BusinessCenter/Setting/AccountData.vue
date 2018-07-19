@@ -29,7 +29,11 @@
           <div class="line"></div>
           <div class="info">
             <el-row>
-              <el-col :span="6">公司开户行</el-col>
+              <el-col :span="6">公司开户名称</el-col>
+              <el-col :span="18">{{account_data.accountname}}</el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="6">公司开户银行</el-col>
               <el-col :span="18">{{account_data.openaccount}}</el-col>
             </el-row>
             <el-row>

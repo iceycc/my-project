@@ -1,27 +1,29 @@
 <template>
     <div id="app">
         <el-header>
-            <!--<bc-header :isShow="isLogin" @clicl="outLogin"></bc-header>-->
-            <div class="bc-logo">
-                <a href="javascript:;">优装美家</a>
-            </div>
-            <div class="bc-user-info" v-if="!isLogin">
-                <el-button @click="goLogin">登陆</el-button>
-                <el-button @click="goRegister">注册</el-button>
-            </div>
-            <div class="bc-user-info" v-if="isLogin">
-                <el-button @click="goHome">{{useremail}}</el-button>
-                <el-button @click="goOut">退出</el-button>
+            <div class="w-1260">
+                <!--<bc-header :isShow="isLogin" @clicl="outLogin"></bc-header>-->
+                <div class="bc-logo">
+                    <a href="javascript:;">优装美家</a>
+                </div>
+                <div class="bc-user-info" v-if="!isLogin">
+                    <el-button @click="goLogin">登陆</el-button>
+                    <el-button @click="goRegister">注册</el-button>
+                </div>
+                <div class="bc-user-info" v-if="isLogin">
+                    <el-button @click="goHome">{{useremail}}</el-button>
+                    <el-button @click="goOut">退出</el-button>
+                </div>
             </div>
         </el-header>
-        <el-main style="padding: 0">
+        <el-main style="padding: 0" class="w-1260">
             <keep-alive>
                 <router-view v-if="$route.meta.keepAlive && isRouterAlive"></router-view>
             </keep-alive>
             <router-view v-if="!$route.meta.keepAlive && isRouterAlive"></router-view>
         </el-main>
         <el-footer>
-            <p class="bc-div">
+            <p class="bc-div w-1260">
                 <!-- <a target="_blank" class="footer-menu-a" href="http://www.uzhuang.com/zhaoshang" rel="nofollow">招商入驻</a>&nbsp;| -->
                 <a target="_blank" class="footer-menu-a" href="http://www.uzhuang.com/about">关于我们</a>&nbsp;|
                 <a target="_blank" class="footer-menu-a" href="http://www.uzhuang.com/about/contact-us">联系我们</a>&nbsp;|
@@ -208,8 +210,8 @@
                     if (result.code == 1) {
                         this.fnD && this.fnD()
                     }
-                    // this.reload()
-                    EventBus.$emit('reData')
+                    this.reload()
+                    // EventBus.$emit('reData')
                     this.formData = {
                         appealCondition: '',
                         orderid: ''
@@ -256,7 +258,7 @@
                 });
             },
             reload() {
-                // console.log('执行reload')
+                console.log('执行reload')
                 this.isRouterAlive = false
                 this.$nextTick(function () {
                     this.isRouterAlive = true
@@ -285,16 +287,16 @@
     @import './assets/style/common';
 
     #app {
-        height: 100%;
+        min-height: 100%;
         display: flex;
         flex-direction: column;
         /*overflow-y: scroll;*/
     }
 
     .el-header {
+
         background: #fff;
         height: $headerHeight !important;
-        padding: 0 100px;
     }
 
     .el-main {
@@ -342,13 +344,13 @@
             padding: $footerAPadding;
         }
     }
-
     .el-footer {
+        margin-top: 10px;
         background: #fff;
     }
-
-    .center-box {
-        width: 1000px;
-    }
+.w-1260{
+    width: 1260px;
+    margin: 0 auto;
+}
 
 </style>

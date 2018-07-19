@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h3 class="small-title">承接管理信息</h3>
+        <h3 class="small-title" style="padding-top: 10px">承接管理信息</h3>
         <!--主要表单区-->
         <div class="ut-form">
             <!-- 选择承接方式 -->
@@ -165,7 +165,7 @@
         <!--提交-->
         <div class="ut-submit">
 
-            <el-button type="primary" @click="goTake">确定修改</el-button>
+            <el-button type="primary" @click="goTake">{{btn_text}}</el-button>
         </div>
     </div>
 </template>
@@ -179,6 +179,7 @@
         name: "under-take",
         data() {
             return {
+                btn_text:'确定修改',
                 showCard: '',
                 xModel: {
                     isSelect: false,
@@ -377,6 +378,13 @@
         created() {
             EventBus.$on('checkboxSelect', (res) => {
             })
+            if(this.$route.name == 'apply.alterundertake'){
+                EventBus.$emit('notice',{
+                    type:'message',
+                    message:'设置承接信息后可以进行其他操作'
+                })
+                this.btn_text = '确定设置'
+            }
             if (Number(this.$route.params.isUpdate) === 1) {
                 getCompanysSetup({isUpdate: 1})
                     .then((result) => {
@@ -532,7 +540,7 @@
     @import '~@/assets/scss/main.scss';
 
     .ut-form {
-        margin-top: 50px;
+        margin-top: 30px;
         font-size: 18px;
         color: #000;
     }

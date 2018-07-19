@@ -22,7 +22,7 @@
             <i class="icon-rate"></i>
             <span class="time" style="padding-right: 30px">{{detailData.manager_time | momentTime}}</span>
             <span class="message">{{detailData.status}}</span>
-            <p><span>原因：</span>{{detailData.remark }}</p>
+            <p v-if="detailData.remark"><span>原因：</span>{{detailData.remark }}</p>
           </li>
           <li class="">
             <i class="icon-rate"></i>

@@ -1,12 +1,12 @@
 <template>
   <div class="bf">
     <el-row>
-      <el-col :span="4" style="height: 100%;">
+      <el-col :span="4">
         <el-menu
           @select="selectHandle($event)"
           :default-active="active_index"
           class="el-menu-vertical-demo"
-          background-color="#f5f5f5">
+          background-color="#eee">
           <el-menu-item index="1">
             <i class="icon-shouye iconfont"></i>
             <span slot="title">首页</span>
@@ -35,7 +35,7 @@
         </el-menu>
       </el-col>
       <el-col :span="20" class="bf-main">
-        <router-view class="w-1000"></router-view>
+        <router-view class="w-cc"></router-view>
       </el-col>
     </el-row>
   </div>
@@ -61,7 +61,7 @@
                   this.active_index = '3';
                   break;
               case 'joined.baseinfo':
-                  this.active_index = '4-1';
+                  this.active_index = '4-2';
                   break;
               case 'joined.detailinfo':
                   this.active_index = '4-1';
@@ -104,7 +104,7 @@
           this.active_index = '3';
           break;
         case 'joined.baseinfo':
-          this.active_index = '4-1';
+          this.active_index = '4-2';
           break;
         case 'joined.detailinfo':
           this.active_index = '4-1';
@@ -182,11 +182,8 @@
     min-height: 100%;
   }
 
-  .bf-left {
-    height: 100%;
-  }
 
-  .w-1000 {
+  .w-cc {
     /*width: 80%;*/
     margin: 0 auto;
     padding:0 50px;
@@ -194,4 +191,5 @@
   .bf-main{
     padding-top: 10px;
   }
+
 </style>

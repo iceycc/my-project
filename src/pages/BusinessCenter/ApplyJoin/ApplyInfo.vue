@@ -23,7 +23,6 @@
                     <p class="info">证明拍摄证件，照片需清晰可辨认，不得使用复印件</p>
                     <div class="pic">
                         <img src="../../../assets/img/zzzs.png" alt="">
-
                     </div>
                 </div>
 
@@ -101,7 +100,7 @@
                 line-height: 30px;
                 left: 0;
                 // top:0;
-                bottom: 50px;
+                bottom: 44px;
             }
         }
         .info {

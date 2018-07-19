@@ -351,6 +351,7 @@
     /* 顶部标题*/
     .om-titile {
         vertical-align: middle;
+        font-size: 18px;
     }
 
     .el-radio-group {

@@ -29,31 +29,33 @@
                     </div>
                     <!--公司开户银行-->
                     <div class="small-box">
-
+                        <el-form-item label="公司开户名称" prop="accountname">
+                            <el-input v-model="formData.accountname" placeholder="请填写公司开户行名称" auto-complete="off" :disabled="disabled"></el-input>
+                        </el-form-item>
                         <!--开户银行-->
                         <!--todo 银行校验没做-->
                         <el-form-item label="公司开户银行" prop="openaccount">
-                            <el-input v-model="formData.openaccount" placeholder="请填写公司开户银行" auto-complete="off"></el-input>
+                            <el-input v-model="formData.openaccount" placeholder="请填写公司开户银行" auto-complete="off" :disabled="disabled"></el-input>
                         </el-form-item>
-                        <el-form-item label="公司开户银行" prop="openaccount">
-                            <el-select
-                                    v-model="formData.openaccount"
-                                    filterable
-                                    allow-create
-                                    value-key="id"
-                                    default-first-option
-                                    placeholder="公司开户银行">
-                                <el-option
-                                        v-for="(item,key) in bankname"
-                                        :key = "key"
-                                        :label="item"
-                                        :value="item">
-                                </el-option>
-                            </el-select>
-                        </el-form-item>
+                        <!--<el-form-item label="公司开户银行" prop="openaccount">-->
+                            <!--<el-select-->
+                                    <!--v-model="formData.openaccount"-->
+                                    <!--filterable-->
+                                    <!--allow-create-->
+                                    <!--value-key="id"-->
+                                    <!--default-first-option-->
+                                    <!--placeholder="公司开户银行">-->
+                                <!--<el-option-->
+                                        <!--v-for="(item,key) in bankname"-->
+                                        <!--:key = "key"-->
+                                        <!--:label="item"-->
+                                        <!--:value="item">-->
+                                <!--</el-option>-->
+                            <!--</el-select>-->
+                        <!--</el-form-item>-->
                         <!--开户账号-->
                         <el-form-item label="开户账号" prop="BankNo">
-                            <el-input v-model="formData.BankNo" placeholder="输入卡号" auto-complete="off"></el-input>
+                            <el-input v-model="formData.BankNo" placeholder="输入卡号" auto-complete="off" :disabled="disabled"></el-input>
                         </el-form-item>
                         <!--开户地址-->
                         <div style="display:flex ">
@@ -61,7 +63,9 @@
                                 <el-form-item prop="BelongProvince" label="开户地址">
                                     <el-select v-model="formData.BelongProvince" placeholder="请选择省"
                                                @change="chooseProvencehandle(formData.BelongProvince,1)"
-                                               auto-complete="off">
+                                               auto-complete="off"
+                                               :disabled="disabled"
+                                    >
                                         <el-option
                                                 v-for="item in provences1"
                                                 :key="item.lid"
@@ -74,7 +78,7 @@
                                 </el-form-item>
                                 <el-form-item prop="BelongProvince">
                                     <el-select v-model="formData.BelongCity" placeholder="请选择市"
-                                               @change="chooseCityHandle(formData.BelongCity,1)" auto-complete="off">
+                                               @change="chooseCityHandle(formData.BelongCity,1)" auto-complete="off" :disabled="disabled">
                                         <el-option
                                                 v-for="item in cities1"
                                                 :key="item.lid"
@@ -86,7 +90,7 @@
                                     </el-select>
                                 </el-form-item>
                                 <el-form-item prop="BelongProvince">
-                                    <el-select v-model="formData.BelongCounty" placeholder="请选择区" auto-complete="off">
+                                    <el-select v-model="formData.BelongCounty" placeholder="请选择区" auto-complete="off" :disabled="disabled">
                                         <el-option
                                                 v-for="item in distrusts1"
                                                 :key="item.lid"
@@ -100,7 +104,7 @@
                             </div>
                         </div>
                         <el-form-item label="" prop="branchname">
-                            <el-input v-model="formData.branchname" placeholder="开户支行名称" auto-complete="off"></el-input>
+                            <el-input v-model="formData.branchname" placeholder="开户支行名称" auto-complete="off" :disabled="disabled"></el-input>
                         </el-form-item>
                     </div>
                     <!--公司地址-->
@@ -213,25 +217,24 @@
                 } else if(false){
                     callback(new Error('银行卡号应该是16位'));
                 }else {
-                    console.log(value)
-                    var options = {
-                        url:'https://ccdcapi.alipay.com/validateAndCacheCardInfo.json',
-                        time:1000,
-                        data:{
-                            _input_charset:'utf-8',
-                            cardNo:value,
-                            cardBinCheck:true
-                        },
-                        callback:'success_jsonpCallback',
-                        success:function (res) {
-                            console.log(res)
-
-                        },
-                        fail:function (err) {
-                            console.log(err);
-                        }
-                    }
-                    jsop(options)
+                    // var options = {
+                    //     url:'https://ccdcapi.alipay.com/validateAndCacheCardInfo.json',
+                    //     time:1000,
+                    //     data:{
+                    //         _input_charset:'utf-8',
+                    //         cardNo:value,
+                    //         cardBinCheck:true
+                    //     },
+                    //     callback:'success_jsonpCallback',
+                    //     success:function (res) {
+                    //         console.log(res)
+                    //
+                    //     },
+                    //     fail:function (err) {
+                    //         console.log(err);
+                    //     }
+                    // }
+                    // jsop(options)
                     callback();
 
                     // let params = {
@@ -247,10 +250,12 @@
                 }
             }
             return {
+                disabled:false, // 修改时限制银行信息修改
                 value10:'',
                 bankname:BankName,
                 formData: {
                     companyname: '',
+                    accountname:'',
                     BelongCity: '',
                     BelongCounty: '',
                     BelongProvince: '',
@@ -273,6 +278,7 @@
                 isUpdata:false,
                 rules: {
                     companyname: [{validator: checkEmpty, trigger: 'blur'}],
+                    accountname: [{validator: checkEmpty, trigger: 'blur'}],
                     fzrxm: [{validator: checkEmpty, trigger: 'blur'}],
                     chargePersonPhone: [{validator: checkTel, trigger: 'blur'}],
                     BankNo: [{validator: bankNoCheck, trigger: 'blur'}],
@@ -283,7 +289,7 @@
                     company_email: [{validator: checkEmpty, trigger: 'blur'}],
                     LK1_1: [{validator: checkSelect, trigger: 'change'}],
                     BelongProvince: [{validator: checkSelect, trigger: 'change'}],
-                    openaccount: [{validator: checkSelect, trigger: 'change'}],
+                    openaccount: [{validator: checkEmpty, trigger: 'blur'}],
                 },
                 provences1: [],
                 provences2: [],
@@ -406,9 +412,13 @@
             // 修改
             let Request =new GetRequest2()
             this.isUpdate = Request['isUpdate']  ? 2 : 1
-
-            console.log(Request['isUpdate'])
+            //
+            // console.log(Request['isUpdate'])
             console.log(this.isUpdate)
+
+            if(this.isUpdate == 2){
+                this.disabled = true
+            }
             this.getProvenceHandle()
             this.getDqData()
 
@@ -442,6 +452,7 @@
 
                         this.formData = {
                             companyname: result.companyname || '',
+                            accountname: result.accountname || '',
                             BelongCity: result.BelongCity || '',
                             BelongCounty: result.BelongCounty || '',
                             BelongProvince: result.BelongProvince || '',

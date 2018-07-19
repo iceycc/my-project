@@ -101,7 +101,9 @@
       margin-bottom: 10px;
     }
   }
-
+  .small-title{
+    margin-top: 10px;
+  }
   .op-btn {
     padding-top: 20px;
     text-align: center;

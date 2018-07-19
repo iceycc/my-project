@@ -207,10 +207,16 @@
             getInfo(params) {
                 getIndexInfos(params).then((result) => {
                     // console.log(result)
+                    if(result.isSet == 2){ // 后加的业务 此状态的商户只能显示承接信息的
+                        this.$router.replace({
+                            name:'apply.alterundertake'
+                        })
+                        return
+                    }
+                    this.isSet = result.isSet == 2 ? true : false
                     this.time = result.time
                     this.ifWalletEnough = result.balance == 2 ? true : false
                     this.isBindWechat = result.isBindWechat == 2 ? true : false
-                    this.isSet = result.isSet == 2 ? true : false
                     this.meassages = result.messages
                     this.settled_progress = result.settled_progress
                     this.resion =result.resion

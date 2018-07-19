@@ -32,7 +32,7 @@
         <el-button class="r" @click="removeBindHandle">解除绑定</el-button>
       </div>
     </div>
-    <el-dialog title="更改绑定" :visible.sync="dialogFormVisible" width="400px" :center="true">
+    <el-dialog title="请扫描二维码" :visible.sync="dialogFormVisible" width="400px" :center="true">
       <div class="transition-box">
         <img :src="codeUrl" alt="">
       </div>

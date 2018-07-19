@@ -71,7 +71,7 @@
                                         :slsrc="slsrc3"
                                 >
                                     <div class="msg-text">
-                                        <p>注：2018年新政，公司证件均已改为三证合一， </p>
+                                        <p>注：2018年新政，公司证件均已改为三证合一,</p>
                                         <p>请上传新营业执照</p>
                                     </div>
                                 </id-card-box>
@@ -303,7 +303,7 @@
             @extend .box-hover-shadow;
             border-bottom: 1px solid #ddd;
             border-top: 1px solid #ddd;
-            padding-right: 150px;
+            padding-right: 50px;
         }
         .title {
             text-align: center;

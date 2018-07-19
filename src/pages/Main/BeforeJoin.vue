@@ -1,12 +1,12 @@
 <template>
     <div class="bf">
         <el-row>
-          <el-col :span="4" style="height: 100%">
+          <el-col :span="4">
             <el-menu
               @select="selectHandle($event)"
               :default-active="active_index"
               class="el-menu-vertical-demo"
-              background-color="#eeeeee">
+              background-color="#eee">
               <el-menu-item index="1">
                 <i class="icon-shouye iconfont"></i>
                 <span slot="title">首页</span>
@@ -18,7 +18,7 @@
             </el-menu>
           </el-col>
           <el-col :span="20">
-            <router-view class="w-1000"></router-view>
+            <router-view class="w-cc"></router-view>
           </el-col>
         </el-row>
     </div>
@@ -71,7 +71,8 @@ export default {
 .el-col{
   min-height: 100%;
 }
-.w-1000 {
+
+.w-cc {
   margin: 0 auto;
   /*min-width: 800px;*/
   padding:0 50px;
